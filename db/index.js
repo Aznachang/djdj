@@ -39,11 +39,7 @@ var User = orm.define('user', {
 //   location:   
 // });
 
-
-
-
 module.exports.con = orm;
-
 module.exports.Song = Song;
 module.exports.User = User;
 // module.exports.Playlist = Playlist;
