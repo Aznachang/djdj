@@ -47,7 +47,7 @@ app.use('/static', express.static(path.join(__dirname, '../public')));
 //<div class="app" style="background-image: url(static/images/people-dancing.png)">
 
 
-//whenevr anything 
+//whenever anything 
 app.use( function(incomingRequest, res, next) {
   console.log('Now serving ' + incomingRequest.method + ' @ ' + incomingRequest.url);
   next();
@@ -63,19 +63,28 @@ app.get('/', util.checkUser, function(req, res) {
 
 //send favecon when a get req is made to this endpoint
 app.get('/favicon.ico', function(req, res) {
-  res.sendFile(path.join(__dirname, '../public/favicon.ico'));  
+  res.sendFile(path.join(__dirname, '../public/favicon.ico')); 
 });
 
+//Need to see why checkUser gives us multiple requests to GET Now serving GET @ /
+//{} 'req query in check USER'
+
+//Look at auth to see why we are getting issues when we use util.CheckUser
+
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
 
 // send login when get request to login endpoint
 app.get('/login', function(req, res) {
-  res.sendFile(path.join(__dirname, '../public/login.html'));
+  // res.sendFile(path.join(__dirname, '../public/login.html'));
+   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 
-app.get('/signup', function(req, res) {
-  res.sendFile(path.join(__dirname, '../public/signup.html'));
-});
+// app.get('/signup', function(req, res) {
+//   res.sendFile(path.join(__dirname, '../public/signup.html'));
+// });
 
 //send a post request to signup and post a new user to DB
 app.post('/signup', function(req, res) {
