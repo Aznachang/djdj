@@ -8,7 +8,7 @@ var SearchResults = (props) => (
 			<ul className='list-group'>
 				{props.searchResults.map(function(song, i) {
 					return (
-						<SearchSong index={i} song={song} handleSearchClicks={props.handleSearchClicks}/>
+						<SearchSong key = {i} index={i} song={song} handleSearchClicks={props.handleSearchClicks}/>
 					)
 				})}
 			</ul>

@@ -34,6 +34,11 @@ var User = orm.define('user', {
 	timestamps: false
 });
 
+//party location tied to a user
+// var Party = orm.define('party', {
+//   location:   
+// });
+
 
 
 

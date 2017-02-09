@@ -7,6 +7,7 @@ import SearchSong from './SearchSong.js'
 import SearchBar from './SearchBar.js'
 import AudioPlayer from './Audio.js'
 import axios from 'axios'
+import Map from './map.js'
 import {
   BrowserRouter as Router,
   Route,
@@ -57,8 +58,11 @@ const HRlng = -122.4111553;
 
 
 
+// The app here is creating a single playlist. We want to have the App instead be the mapview
 
 class App extends React.Component {
+
+  //add mapview and export below to a playlist view
   constructor(props) {
     super(props);
     this.state = {
@@ -292,7 +296,7 @@ class App extends React.Component {
       value: e.target.value
     });
   }
-
+  
   // Track user's geolocation
   getGeolocation() {
     var context = this;
@@ -308,6 +312,7 @@ class App extends React.Component {
   }
 
   render() {
+    //checking the distance to the party
     if (this.state.distanceFrom > .3 || this.state.distanceFrom === null) {
       return (
         <div> you arent at the party yet</div>
@@ -315,6 +320,7 @@ class App extends React.Component {
     }
     return (
       <div>
+        <Map />
         <img className="logo" src="static/images/DJ-DJ.png" />
         <SearchBar handleChange={this.handleChange.bind(this)} getYoutubeSong={this.getYoutubeSong.bind(this)}/>
         <AudioPlayer currentSong={this.state.currentSong} playNextSong={this.playNextSong.bind(this)} />
