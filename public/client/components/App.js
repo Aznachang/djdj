@@ -10,12 +10,6 @@ import axios from 'axios'
 import Map from './map.js'
 import NavBar from './map-nav.js'
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
-
 
 // Function calculates the distance between two lat/long points for our geolocation feature
 function distance(lat1, lon1, lat2, lon2) {
@@ -29,35 +23,6 @@ function distance(lat1, lon1, lat2, lon2) {
 }
 const HRlat = 37.7836924;
 const HRlng = -122.4111553;
-
-// var login = () => (
-//   <div>
-//     <h2>login</h2>
-//   </div>
-// )
-
-// var signup = () => (
-//   <div>
-//     <h2>signup</h2>
-//   </div>
-// )
-
-// var ExampleRouter = () => (
-//   <Router>
-//     <div>
-//       <ul>
-//         <li><Link to="/login">login</Link></li>
-//         <li><Link to="/signup">signup</Link></li>
-//       </ul>
-
-//       <hr/>
-
-//       <Route path="/login" component={login}/>
-//       <Route path="/signup" component={signup}/>
-//     </div>
-//   </Router>
-// )
-
 
 
 // The app here is creating a single playlist. We want to have the App instead be the mapview
@@ -81,10 +46,11 @@ class App extends React.Component {
       //distance from HR
       distanceFrom: null
     };
-    this.getGeolocation.call(this);
-    setInterval(this.getGeolocation.bind(this), 3000);
 
-    this.getPlaylist.call(this);
+    // this.getGeolocation = this.getGeolocation.bind(this);
+    // setInterval(this.getGeolocation, 3000);
+
+    this.getPlaylist = this.getPlaylist.bind(this);
   }
     // calculating the current geolocation and distance of user every 5 seconds
     // setInterval(this.getGeolocation.bind(this), 5000);
@@ -97,9 +63,9 @@ class App extends React.Component {
     var context = this;
     // sending a GET request to youtube
     axios({
-       url: 'https://www.googleapis.com/youtube/v3/search',
-       method: 'get',
-       params: {
+      url: 'https://www.googleapis.com/youtube/v3/search',
+      method: 'get',
+      params: {
         part: 'snippet',
         // remember to hide the key to a variable!
         key: 'AIzaSyCqOGwWGNq5ZncRXMRupT5aOn0yadXvi78',
@@ -124,7 +90,6 @@ class App extends React.Component {
 
   // function to play next song
   playNextSong() {
-
     // get index of current song
     var currentSongIndex = this.state.srcs.indexOf(this.state.currentSong);
     console.log('currentSong Index : ', currentSongIndex);
@@ -252,8 +217,6 @@ class App extends React.Component {
   // handle search clicks
   handleSearchClicks (index) {
     //refrences the app instance => keyword "this"
-
-
     var context = this;
 
     var searchResult = this.state.searchResults;
@@ -275,7 +238,6 @@ class App extends React.Component {
 
     this.postNewSong.call(this, directDownloadLink, searchResult[index]);
     
-
   }
 
   handlePlay(index) {
@@ -300,18 +262,18 @@ class App extends React.Component {
   }
   
   // Track user's geolocation
-  getGeolocation() {
-    var context = this;
-    navigator.geolocation.getCurrentPosition(function(position) {
-      console.log('User latitude : ', position.coords.latitude);
-      console.log('User longitude : ', position.coords.longitude);
-      var lat = position.coords.latitude;
-      var lng = position.coords.longitude;
-      console.log('Distance from HR (in km) : ', distance(lat, lng, HRlat, HRlng));
-      var newDistance = distance(lat, lng, HRlat, HRlng)
-      context.setState({distanceFrom: newDistance})
-    });
-  }
+  // getGeolocation() {
+  //   var context = this;
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     console.log('User latitude : ', position.coords.latitude);
+  //     console.log('User longitude : ', position.coords.longitude);
+  //     var lat = position.coords.latitude;
+  //     var lng = position.coords.longitude;
+  //     console.log('Distance from HR (in km) : ', distance(lat, lng, HRlat, HRlng));
+  //     var newDistance = distance(lat, lng, HRlat, HRlng)
+  //     context.setState({distanceFrom: newDistance})
+  //   });
+  // }
 
   render() {
     //checking the distance to the party
