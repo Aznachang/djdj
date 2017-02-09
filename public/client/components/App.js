@@ -8,6 +8,8 @@ import SearchBar from './SearchBar.js'
 import AudioPlayer from './Audio.js'
 import axios from 'axios'
 import Map from './map.js'
+import NavBar from './map-nav.js'
+
 import {
   BrowserRouter as Router,
   Route,
@@ -320,7 +322,7 @@ class App extends React.Component {
     }
     return (
       <div>
-        <Map />
+        <NavBar />
         <img className="logo" src="static/images/DJ-DJ.png" />
         <SearchBar handleChange={this.handleChange.bind(this)} getYoutubeSong={this.getYoutubeSong.bind(this)}/>
         <AudioPlayer currentSong={this.state.currentSong} playNextSong={this.playNextSong.bind(this)} />

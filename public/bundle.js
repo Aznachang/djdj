@@ -69,7 +69,8 @@
 	(0, _reactDom.render)(_react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: _reactRouter.browserHistory },
-	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default })
+	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/map', component: _map2.default })
 	), document.getElementById('app'));
 
 /***/ },
@@ -26839,6 +26840,10 @@
 
 	var _map2 = _interopRequireDefault(_map);
 
+	var _mapNav = __webpack_require__(269);
+
+	var _mapNav2 = _interopRequireDefault(_mapNav);
+
 	var _reactRouterDom = __webpack_require__(271);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -27169,7 +27174,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_map2.default, null),
+	        _react2.default.createElement(_mapNav2.default, null),
 	        _react2.default.createElement('img', { className: 'logo', src: 'static/images/DJ-DJ.png' }),
 	        _react2.default.createElement(_SearchBar2.default, { handleChange: this.handleChange.bind(this), getYoutubeSong: this.getYoutubeSong.bind(this) }),
 	        _react2.default.createElement(_Audio2.default, { currentSong: this.state.currentSong, playNextSong: this.playNextSong.bind(this) }),
@@ -29065,6 +29070,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(178);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -29087,20 +29094,20 @@
 	  _createClass(Navbar, [{
 	    key: 'render',
 	    value: function render() {
-	      var pages = ['home', 'party', 'login', 'logout'];
+	      var pages = ['map', 'party', 'login', 'logout'];
 	      var navLinks = pages.map(function (page, index) {
 	        return _react2.default.createElement(
-	          'div',
-	          { key: index },
+	          'li',
+	          null,
 	          _react2.default.createElement(
-	            'a',
-	            { href: '/' + page },
+	            _reactRouter.Link,
+	            { to: '/' + page },
 	            page
 	          )
 	        );
 	      });
 	      return _react2.default.createElement(
-	        'nav',
+	        'ul',
 	        null,
 	        navLinks
 	      );
@@ -29163,6 +29170,10 @@
 	var _map = __webpack_require__(267);
 
 	var _map2 = _interopRequireDefault(_map);
+
+	var _mapNav = __webpack_require__(269);
+
+	var _mapNav2 = _interopRequireDefault(_mapNav);
 
 	var _reactRouterDom = __webpack_require__(271);
 
@@ -29494,7 +29505,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_map2.default, null),
+	        _react2.default.createElement(_mapNav2.default, null),
 	        _react2.default.createElement('img', { className: 'logo', src: 'static/images/DJ-DJ.png' }),
 	        _react2.default.createElement(_SearchBar2.default, { handleChange: this.handleChange.bind(this), getYoutubeSong: this.getYoutubeSong.bind(this) }),
 	        _react2.default.createElement(_Audio2.default, { currentSong: this.state.currentSong, playNextSong: this.playNextSong.bind(this) }),

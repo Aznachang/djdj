@@ -1,4 +1,5 @@
 import React from 'react';
+import {Router, Route, browserHistory, Link} from 'react-router';
 //import ReactDOM from 'react-dom';
 
 class Navbar extends React.Component {
@@ -7,18 +8,16 @@ class Navbar extends React.Component {
   }
 
   render() {
-    var pages = ['home', 'party', 'login', 'logout'];
+    var pages = ['map', 'party', 'login', 'logout'];
     var navLinks = pages.map((page, index)=> {
       return (
-        <div key={index}>
-          <a href={'/'+ page}>
-            {page}
-          </a>   
-        </div>
+        <li>
+          <Link to={'/' + page}>{page}</Link>
+        </li>
       );
     });
     return (
-      <nav>{navLinks}</nav>
+      <ul>{navLinks}</ul>
     )  
   }
 }
