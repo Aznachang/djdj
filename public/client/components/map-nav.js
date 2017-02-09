@@ -8,7 +8,7 @@ class Navbar extends React.Component {
   }
 
   render() {
-    var pages = ['map', 'party', 'login', 'logout'];
+    var pages = ['map', 'party', 'login', 'logout', 'signup'];
     var navLinks = pages.map((page, index)=> {
       return (
         <li key={index}>
