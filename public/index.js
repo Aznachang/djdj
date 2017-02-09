@@ -10,6 +10,7 @@ render(
     <Router history={browserHistory}>
         <Route path="/" component={App}/>
         <Route path="/map" component={Map}/>
+        <Route path="/party" component={App}/>
     </Router>,
     document.getElementById('app')
 );
