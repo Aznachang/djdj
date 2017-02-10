@@ -62,11 +62,11 @@
 
 	var _map2 = _interopRequireDefault(_map);
 
-	var _Login = __webpack_require__(271);
+	var _Login = __webpack_require__(272);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _signup = __webpack_require__(272);
+	var _signup = __webpack_require__(273);
 
 	var _signup2 = _interopRequireDefault(_signup);
 
@@ -28898,6 +28898,10 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
+	var _mapView = __webpack_require__(271);
+
+	var _mapView2 = _interopRequireDefault(_mapView);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28915,8 +28919,12 @@
 	    var _this = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
 
 	    _this.state = {
-	      userLatitude: null,
-	      userLongitude: null
+	      markers: [{
+	        position: {
+	          lat: 25,
+	          lng: 121
+	        }
+	      }]
 	    };
 	    _this.handleClick = _this.handleClick.bind(_this);
 	    _this.geoLocation = _this.geoLocation.bind(_this);
@@ -28943,13 +28951,42 @@
 	        });
 	      });
 	    }
+
+	    // initMap() {
+	    //   var uluru = {lat: -25.363, lng: 131.044};
+	    //   var map = new google.maps.Map(document.getElementById('map'), {
+	    //     zoom: 4,
+	    //     center: uluru
+	    //   });
+	    //   var marker = new google.maps.Marker({
+	    //     position: uluru,
+	    //     map: map
+	    //   });
+	    // }
+
+	    // jsonpRequest(url, callback) {
+	    //   var jsonpDispatcher = {};
+	    //   var key = Math.random();
+	    //   jsonpDispatcher[key] = function () {
+	    //     callback.apply(this, arguments);
+	    //     delete jsonpDispatcher[key];
+	    //   };
+	    //   var script = document.createElement('script');
+	    //   script.src = url + '&callback=jsonpDispatcher[' + key + ']';
+	    //   document.body.appendChild(script);
+	    // }
+
 	  }, {
 	    key: 'render',
 	    value: function render() {
+
+	      //this.jsonpRequest("https://maps.googleapis.com/maps/api/js?key=AIzaSyDQC_iCnXCf_cIH2AF4XPBF72n_rS2fOQM", this.initMap);
+
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(_mapNav2.default, null),
+	        _react2.default.createElement(_mapView2.default, null),
 	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.handleClick, buttonName: 'Create Party' }),
 	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.handleClick, buttonName: 'Join Party' }),
 	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.geoLocation, buttonName: 'Where Am I?!' })
@@ -29411,6 +29448,215 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _axios = __webpack_require__(242);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var MapContainer = function (_React$Component) {
+	  _inherits(MapContainer, _React$Component);
+
+	  function MapContainer(props) {
+	    _classCallCheck(this, MapContainer);
+
+	    return _possibleConstructorReturn(this, (MapContainer.__proto__ || Object.getPrototypeOf(MapContainer)).call(this, props));
+	  }
+
+	  _createClass(MapContainer, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          null,
+	          _react2.default.createElement(
+	            'label',
+	            { id: 'searchLabel' },
+	            _react2.default.createElement('img', { src: 'img/magnifying-glass.png' })
+	          ),
+	          _react2.default.createElement('input', {
+	            id: 'searchForm',
+	            type: 'text',
+	            placeholder: 'Enter a Destination (E.g. Cancun, Mexico)'
+	          })
+	        ),
+	        _react2.default.createElement('div', { id: 'googleMaps', style: { width: '500px', height: '500px' } })
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.createMap();
+	    }
+	  }, {
+	    key: 'createMap',
+	    value: function createMap() {
+	      var context = this;
+
+	      /* ########## JSONP call for Google Map data ########## */
+	      (function fetchMap() {
+	        window.initMap = initMap;
+	        console.log('fetching map!');
+	        var ref = window.document.getElementsByTagName('script')[0];
+	        var script = window.document.createElement('script');
+	        script.src = 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCBb0bm-_wNIf3oDMi-5PN_zeOf1bRWstI&libraries=places&callback=initMap';
+	        ref.parentNode.insertBefore(script, ref);
+	        script.onload = function () {
+	          console.log('onload: ', this);
+	          this.remove();
+	        };
+	      })();
+
+	      /* ################### Map Init ################### */
+	      var map = void 0,
+	          places = void 0,
+	          autocomplete = void 0;
+	      var markers = [];
+	      var searchForm = document.getElementById('searchForm');
+
+	      function initMap() {
+	        var sanFrancisco = { lat: 37.775, lng: -122.42 };
+
+	        map = new google.maps.Map(document.getElementById('googleMaps'), {
+	          center: sanFrancisco,
+	          zoom: 17,
+	          zoomControl: true,
+	          mapTypeControl: false,
+	          scaleControl: false,
+	          streetViewControl: false,
+	          rotateControl: false,
+	          fullscreenControl: false
+	        });
+
+	        autocomplete = new google.maps.places.Autocomplete(document.getElementById('searchForm'), {
+	          types: ['geocode']
+	        });
+
+	        places = new google.maps.places.PlacesService(map);
+
+	        autocomplete.addListener('place_changed', onPlaceChanged);
+
+	        map.addListener('dragend', zoomFilter);
+	      }
+
+	      function zoomFilter() {
+	        if (map.getZoom() > 10) {
+	          search();
+	        }
+	      }
+
+	      // When the user selects a city, get the place details for the city and
+	      // zoom the map in on the city.
+	      function onPlaceChanged() {
+	        var place = autocomplete.getPlace();
+	        context.props.updateQuery(place);
+
+	        if (place.geometry) {
+	          map.panTo(place.geometry.location);
+	          console.log(map.getCenter().toUrlValue());
+	          map.setZoom(15);
+	          search();
+	        } else {
+	          // searchForm.placeholder = "Enter Your Destination (E.g. Cancun, Mexico)";
+	          searchForm.value = '';
+	        }
+	      }
+
+	      // Search for attractions in the selected city, within the viewport of the map.
+	      function search() {
+	        var search = {
+	          bounds: map.getBounds(),
+	          types: ['amusement_park', 'aquarium', 'art_gallery', 'bar', 'book_store', 'bowling_alley', 'cafe', 'campground', 'casino', 'library',
+	          //'lodging',
+	          'movie_theater', 'museum', 'night_club', 'park',
+	          //'restaurant',
+	          'spa', 'stadium', 'zoo']
+	        };
+
+	        places.nearbySearch(search, function (results, status) {
+	          if (status === google.maps.places.PlacesServiceStatus.OK) {
+	            clearMarkers();
+	            // Create a marker for each item found
+	            for (var i = 0; i < results.length; i++) {
+	              var iconImage = {
+	                url: results[i].icon,
+	                size: new google.maps.Size(71, 71),
+	                origin: new google.maps.Point(0, 0),
+	                anchor: new google.maps.Point(17, 34),
+	                scaledSize: new google.maps.Size(15, 15)
+	              };
+	              // Use marker animation to drop the icons incrementally on the map.
+	              markers[i] = new google.maps.Marker({
+	                position: results[i].geometry.location,
+	                animation: google.maps.Animation.DROP,
+	                icon: iconImage
+	              });
+	              // If the user clicks a marker, call setPlace to update the object in the Place component.
+	              markers[i].placeResult = results[i];
+	              google.maps.event.addListener(markers[i], 'click', setPlace);
+	              setTimeout(dropMarker(i), i * 10);
+	            }
+	          }
+	        });
+	      }
+
+	      function clearMarkers() {
+	        for (var i = 0; i < markers.length; i++) {
+	          if (markers[i]) {
+	            markers[i].setMap(null);
+	          }
+	        }
+	        markers = [];
+	      }
+
+	      function dropMarker(i) {
+	        return function () {
+	          markers[i].setMap(map);
+	        };
+	      }
+
+	      function setPlace() {
+	        var marker = this;
+	        places.getDetails({ placeId: marker.placeResult.place_id }, function (place, status) {
+	          if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	            return;
+	          }
+	          context.props.updatePlace(place);
+	        });
+	      }
+	    }
+	  }]);
+
+	  return MapContainer;
+	}(_react2.default.Component);
+
+	exports.default = MapContainer;
+
+/***/ },
+/* 272 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -29459,7 +29705,7 @@
 	module.exports = Login;
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
