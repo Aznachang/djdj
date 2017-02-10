@@ -4,6 +4,7 @@ import Button from './map-button.js';
 import NavBar from './map-nav.js';
 import App from './app.js';
 import MapView from './map-view.js';
+import axios from 'axios';
 
 class Map extends React.Component {
   constructor(props){
@@ -16,6 +17,7 @@ class Map extends React.Component {
         }
       }]
     }
+    this.createParty = this.createParty.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.geoLocation = this.geoLocation.bind(this);
   }
@@ -23,6 +25,35 @@ class Map extends React.Component {
   handleClick() {
     console.log(this);
   }
+
+  createParty() {
+    var context = this;
+    var location = navigator.geolocation.getCurrentPosition(function(position) {
+      //TODO: set user state && update user location with sockets
+      //do_something(position.coords.latitude, position.coords.longitude);
+      console.log('Map latitude : ', position.coords.latitude);
+      console.log('Map longitude : ', position.coords.longitude);
+
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+      axios.post('/api/parties', {
+        latitude: latitude,
+        longitude: longitude
+      })
+      .then(function(res){
+        console.log('Party response is: ', res);
+      })
+      .catch(function(error){
+        console.log('Not able to POST the party: ', error);
+      });
+
+      context.setState({
+        userLatitude: position.coords.latitude,
+        userLongitude: position.coords.longitude
+      })
+    });
+    console.log(location);
+  };
 
   geoLocation() {
     var context = this;
@@ -70,10 +101,10 @@ class Map extends React.Component {
         <div id="map">
           <NavBar />
           <MapView />
-          <Button buttonFunction={this.handleClick} buttonName="Create Party" />
+          <Button buttonFunction={this.createParty} buttonName="Create Party" />
           <Button buttonFunction={this.handleClick} buttonName="Join Party" />
           <Button buttonFunction={this.geoLocation} buttonName="Where Am I?!" />
-        </div>   
+        </div>
     )
   }
 

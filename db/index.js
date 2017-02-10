@@ -14,6 +14,9 @@ if (!process.env.DATABASE_URL) {
 	});
 }
 
+//Song can relate to multiple playlists. Playlists can CONTAIN may SONGS.
+
+// Song
 var Song = orm.define('song', {
 	src: Sequelize.STRING,
 	data: Sequelize.STRING(1000)
@@ -22,24 +25,40 @@ var Song = orm.define('song', {
 	timestamps: false
 });
 
-// var Playlist = orm.define('playlist', {
-// 	name: Sequelize.STRING
-// });
+// Playlist
+var Playlist = orm.define('playlist', {
+	name: Sequelize.STRING
+});
+// Playlist.belongsTo(User);
 
+// SongPlayList
+var SongPlayList = orm.define('songplaylist', {
+
+});
+// SongPlayList.belongsTo(Song);
+// SongPlaylist.belongsTo(Playlist);
+
+// USER
 var User = orm.define('user', {
 	username: {type: Sequelize.STRING, unique: true},
-	password: Sequelize.STRING
+	password: Sequelize.STRING,
+	location: Sequelize.STRING
 },
 {
 	timestamps: false
 });
 
-//party location tied to a user
-// var Party = orm.define('party', {
-//   location:   
-// });
+// party location tied to a user
+var Party = orm.define('party', {
+	latitude: Sequelize.STRING,
+	longitude: Sequelize.STRING
+});
+// Party.belongsTo(User);
+// Party.belongsTo(Playlist);
 
 module.exports.con = orm;
 module.exports.Song = Song;
 module.exports.User = User;
-// module.exports.Playlist = Playlist;
+module.exports.Playlist = Playlist;
+module.exports.SongPlayList = SongPlayList;
+module.exports.Party = Party;

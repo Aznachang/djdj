@@ -97,7 +97,7 @@ export default class MapContainer extends React.Component {
          infowindow.open(map, marker);
        });
     }
-   
+
 
     function clearMarkers() {
       for (var i = 0; i < markers.length; i++) {

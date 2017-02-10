@@ -28902,6 +28902,10 @@
 
 	var _mapView2 = _interopRequireDefault(_mapView);
 
+	var _axios = __webpack_require__(242);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28926,6 +28930,7 @@
 	        }
 	      }]
 	    };
+	    _this.createParty = _this.createParty.bind(_this);
 	    _this.handleClick = _this.handleClick.bind(_this);
 	    _this.geoLocation = _this.geoLocation.bind(_this);
 	    return _this;
@@ -28935,6 +28940,34 @@
 	    key: 'handleClick',
 	    value: function handleClick() {
 	      console.log(this);
+	    }
+	  }, {
+	    key: 'createParty',
+	    value: function createParty() {
+	      var context = this;
+	      var location = navigator.geolocation.getCurrentPosition(function (position) {
+	        //TODO: set user state && update user location with sockets
+	        //do_something(position.coords.latitude, position.coords.longitude);
+	        console.log('Map latitude : ', position.coords.latitude);
+	        console.log('Map longitude : ', position.coords.longitude);
+
+	        var latitude = position.coords.latitude;
+	        var longitude = position.coords.longitude;
+	        _axios2.default.post('/api/parties', {
+	          latitude: latitude,
+	          longitude: longitude
+	        }).then(function (res) {
+	          console.log('Party response is: ', res);
+	        }).catch(function (error) {
+	          console.log('Not able to POST the party: ', error);
+	        });
+
+	        context.setState({
+	          userLatitude: position.coords.latitude,
+	          userLongitude: position.coords.longitude
+	        });
+	      });
+	      console.log(location);
 	    }
 	  }, {
 	    key: 'geoLocation',
@@ -28987,7 +29020,7 @@
 	        { id: 'map' },
 	        _react2.default.createElement(_mapNav2.default, null),
 	        _react2.default.createElement(_mapView2.default, null),
-	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.handleClick, buttonName: 'Create Party' }),
+	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.createParty, buttonName: 'Create Party' }),
 	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.handleClick, buttonName: 'Join Party' }),
 	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.geoLocation, buttonName: 'Where Am I?!' })
 	      );
