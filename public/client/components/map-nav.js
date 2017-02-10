@@ -13,6 +13,7 @@ class Navbar extends React.Component {
       return (
         <li key={index}>
           <Link to={'/' + page}>{page}</Link>
+
         </li>
       );
     });

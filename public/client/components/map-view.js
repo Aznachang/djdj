@@ -9,17 +9,7 @@ export default class MapContainer extends React.Component {
   render() {
     return (
       <div>
-        <form>
-          <label id="searchLabel">
-            <img src="img/magnifying-glass.png"/>
-          </label>
-          <input
-            id="searchForm"
-            type="text"
-            placeholder="Enter a Destination (E.g. Cancun, Mexico)"
-          />
-        </form>
-        <div id="googleMaps" style={{width:'400px', height: '400px'}}></div>
+        <div id="googleMaps" style={{height : '500px', width : '500px'}}></div>
       </div>
     );
   }
@@ -52,49 +42,51 @@ export default class MapContainer extends React.Component {
 
 
     function initMap() {
-       var DJ = {lat: 37.783744, lng: -122.409079}; // Hack Reactor Position
-       var map = new google.maps.Map(document.getElementById('googleMaps'), {
-         zoom: 13,
-         center: DJ // center in on Hack Reactor Position
+      var HackReactor = {lat: 37.783744, lng: -122.409079}; // Hack Reactor Position
+      var map = new google.maps.Map(document.getElementById('googleMaps'), {
+        center: HackReactor,
+        zoom: 17,
+        zoomControl: false,
+        mapTypeControl: false,
+        scaleControl: false,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: false
        });
-       // create a placement 'PIN' marker
-       var marker = new google.maps.Marker({
-         position: DJ,
+
+      var marker = new google.maps.Marker({
+         position: HackReactor,
          map: map,
          icon: {
-         path: google.maps.SymbolPath.CIRCLE,
-         // path: google.com/maps/documentation/javascript/examples/markerclusterer/m,
-         scale: 8
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 17
          },
-         title: 'DJ HOST'
+         title: 'Party'
        });
+
+      var contentString =   '<div id="content">'+
+                              '<div id="siteNotice">'+'</div>'+
+                            // HEADER - PARTY GROUP TITLE
+                              '<h2 id="firstHeading" class="firstHeading">PARTY UP IN HERE</h2>'+
+                              '<div id="bodyContent">'+
+                            // DJ + 'UserName' - Location (could make it as specific as we want)
+                              '<h4>DJ MARCUS - Powell St.</h4>'+
+                            // Stock Message -- ADD 'YES' and 'NO' actionEventListeners
+                              '<p>Would You Like to Join the Party?  <button>YES</button><button>NO</button></p>'+
+                              '</div>'+
+                            '</div>';
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        // marker.addListener('click', function() {
+        //   infowindow.open(map, marker);
+        // });
 
       // Information Text for the InfoWindow Popup Upon User Clicking on Marker
-      var contentString = '<div id="content">'+
-       '<div id="siteNotice">'+'</div>'+
-         // HEADER - PARTY GROUP TITLE
-         '<h2 id="firstHeading" class="firstHeading">PARTY UP IN HERE</h2>'+
-         '<div id="bodyContent">'+
-         // DJ + 'UserName' - Location (could make it as specific as we want)
-         '<h4>DJ MARCUS - Powell St.</h4>'+
-         // Stock Message -- ADD 'YES' and 'NO' actionEventListeners
-         '<p>Would You Like to Join the Party?  <button>YES</button><button>NO</button></p>'+
-         '</div>'+
-       '</div>';
 
        // Info about DJ Party Pop-Up on Map
-       var infowindow = new google.maps.InfoWindow({
-         content: contentString
-       });
-
-       // Center the Map to Marker User Clicked On
-       // map.addListener('center_changed', function() {
-       //   // 5 seconds after the center of the map has changed, pan back to the
-       //   // marker.
-       //   window.setTimeout(function() {
-       //     map.panTo(marker.getPosition());
-       //   }, 5000);
-       // });
 
        //Clicking on marker pops up InfoWindow of 'DJ Music Party'
        marker.addListener('click', function() {
@@ -104,105 +96,8 @@ export default class MapContainer extends React.Component {
          map.setCenter(marker.getPosition());
          infowindow.open(map, marker);
        });
-    //   const sanFrancisco = {lat: 37.775, lng: -122.42};
-
-    //   map = new google.maps.Map(document.getElementById('googleMaps'), {
-    //     center: sanFrancisco,
-    //     zoom: 17,
-    //     zoomControl: true,
-    //     mapTypeControl: false,
-    //     scaleControl: false,
-    //     streetViewControl: false,
-    //     rotateControl: false,
-    //     fullscreenControl: false
-    //   });
-
-    //   autocomplete = new google.maps.places.Autocomplete((
-    //       document.getElementById('searchForm')), {
-    //         types: ['geocode']
-    //       });
-
-    //   places = new google.maps.places.PlacesService(map);
-
-    //   autocomplete.addListener('place_changed', onPlaceChanged);
-
-    //   map.addListener('dragend', zoomFilter);
-    // }
-
-    // function zoomFilter() {
-    //   if (map.getZoom() > 10) { search(); }
-    // }
-
-    // // When the user selects a city, get the place details for the city and
-    // // zoom the map in on the city.
-    // function onPlaceChanged() {
-    //   const place = autocomplete.getPlace();
-    //   context.props.updateQuery(place);
-
-    //   if (place.geometry) {
-    //     map.panTo(place.geometry.location);
-    //     console.log(map.getCenter().toUrlValue());
-    //     map.setZoom(15);
-    //     search();
-    //   } else {
-    //     // searchForm.placeholder = "Enter Your Destination (E.g. Cancun, Mexico)";
-    //     searchForm.value = '';
-    //   }
     }
-
-    // Search for attractions in the selected city, within the viewport of the map.
-    function search() {
-      const search = {
-        bounds: map.getBounds(),
-        types: [
-          'amusement_park',
-          'aquarium',
-          'art_gallery',
-          'bar',
-          'book_store',
-          'bowling_alley',
-          'cafe',
-          'campground',
-          'casino',
-          'library',
-          //'lodging',
-          'movie_theater',
-          'museum',
-          'night_club',
-          'park',
-          //'restaurant',
-          'spa',
-          'stadium',
-          'zoo'
-        ]
-      };
-
-      places.nearbySearch(search, function(results, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-          clearMarkers();
-          // Create a marker for each item found
-          for (var i = 0; i < results.length; i++) {
-            let iconImage = {
-              url: results[i].icon,
-              size: new google.maps.Size(71, 71),
-              origin: new google.maps.Point(0, 0),
-              anchor: new google.maps.Point(17, 34),
-              scaledSize: new google.maps.Size(15, 15)
-            };
-            // Use marker animation to drop the icons incrementally on the map.
-            markers[i] = new google.maps.Marker({
-              position: results[i].geometry.location,
-              animation: google.maps.Animation.DROP,
-              icon: iconImage
-            });
-            // If the user clicks a marker, call setPlace to update the object in the Place component.
-            markers[i].placeResult = results[i];
-            google.maps.event.addListener(markers[i], 'click', setPlace);
-            setTimeout(dropMarker(i), i * 10);
-          }
-        }
-      });
-    }
+   
 
     function clearMarkers() {
       for (var i = 0; i < markers.length; i++) {
@@ -222,12 +117,12 @@ export default class MapContainer extends React.Component {
     function setPlace() {
       const marker = this;
       places.getDetails({placeId: marker.placeResult.place_id},
-        function(place, status) {
-          if (status !== google.maps.places.PlacesServiceStatus.OK) {
-            return;
-          }
-          context.props.updatePlace(place);
-        });
+      function(place, status) {
+        if (status !== google.maps.places.PlacesServiceStatus.OK) {
+          return;
+        }
+        context.props.updatePlace(place);
+      });
     }
   }
 }
