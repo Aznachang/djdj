@@ -33,13 +33,26 @@ button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> added a POST for parties
 }
 
 button:hover {
   background-color: #111;
 }
 
+<<<<<<< HEAD
+=======
+
+div.app{
+  height: 80%;
+  width: 80%;
+}
+
+>>>>>>> added a POST for parties
 h1, h3, label {
   color: #FEFEFE;
   font-family: Helvetica;
@@ -76,16 +89,32 @@ ul {
   width: 100%;
   list-style-type: none;
   padding: 0;
+<<<<<<< HEAD
   overflow: hidden;
+=======
+  height:20px;
+  overflow: hidden;
+  text-align:center;
+>>>>>>> added a POST for parties
   background-color: #333;
 }
 
 li {
+<<<<<<< HEAD
   float: left;
 }
 
 li a {
   display: block;
+=======
+ /* float: left;*/
+ display:inline-block;
+margin-right:10px;
+}
+
+li a {
+  display: inline-block;
+>>>>>>> added a POST for parties
   color: white;
   font-family: Helvetica;
   padding: 14px 16px;
@@ -95,8 +124,13 @@ li a {
 }
 
 .googleMaps {
+<<<<<<< HEAD
   height: 100%;
   width: 100%;
+=======
+  height: 80%;
+  width: 80%;
+>>>>>>> added a POST for parties
 }
 
 .playlist-group {

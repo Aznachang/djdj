@@ -16,6 +16,7 @@ var app = express();
 db.Song.sync();
 // db.Playlist.sync();
 db.User.sync();
+db.Party.sync();
 
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
@@ -35,7 +36,7 @@ app.use(session({
 
 app.use('/api/', routes);
 
-// all static files/modules being served 
+// all static files/modules being served
 // app.use() will "mount" specified middleware at the path listed - mount === invoke, require?
 // combine the directories at these two file paths
 
@@ -47,7 +48,7 @@ app.use('/static', express.static(path.join(__dirname, '../public')));
 //<div class="app" style="background-image: url(static/images/people-dancing.png)">
 
 
-//whenever anything 
+//whenever anything
 app.use( function(incomingRequest, res, next) {
   console.log('Now serving ' + incomingRequest.method + ' @ ' + incomingRequest.url);
   next();
@@ -63,7 +64,7 @@ app.get('/', util.checkUser, function(req, res) {
 
 //send favecon when a get req is made to this endpoint
 app.get('/favicon.ico', function(req, res) {
-  res.sendFile(path.join(__dirname, '../public/favicon.ico')); 
+  res.sendFile(path.join(__dirname, '../public/favicon.ico'));
 });
 
 //Need to see why checkUser gives us multiple requests to GET Now serving GET @ /
@@ -94,8 +95,6 @@ app.post('/signup', function(req, res) {
       res.redirect('/api/signup/?username=' + username + '&password=' + hashedPassword);
     });
 });
-
-
 
 
 
