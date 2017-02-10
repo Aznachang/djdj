@@ -67,7 +67,7 @@ class Map extends React.Component {
     //this.jsonpRequest("https://maps.googleapis.com/maps/api/js?key=AIzaSyDQC_iCnXCf_cIH2AF4XPBF72n_rS2fOQM", this.initMap);
 
     return(
-        <div>
+        <div id="map">
           <NavBar />
           <MapView />
           <Button buttonFunction={this.handleClick} buttonName="Create Party" />
