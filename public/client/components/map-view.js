@@ -19,7 +19,7 @@ export default class MapContainer extends React.Component {
             placeholder="Enter a Destination (E.g. Cancun, Mexico)"
           />
         </form>
-        <div id="googleMaps" style={{width:'500px', height: '500px'}}></div>
+        <div id="googleMaps" style={{width:'400px', height: '400px'}}></div>
       </div>
     );
   }
@@ -52,50 +52,102 @@ export default class MapContainer extends React.Component {
 
 
     function initMap() {
-      const sanFrancisco = {lat: 37.775, lng: -122.42};
+       var DJ = {lat: 37.783744, lng: -122.409079}; // Hack Reactor Position
+       var map = new google.maps.Map(document.getElementById('googleMaps'), {
+         zoom: 13,
+         center: DJ // center in on Hack Reactor Position
+       });
+       // create a placement 'PIN' marker
+       var marker = new google.maps.Marker({
+         position: DJ,
+         map: map,
+         icon: {
+         path: google.maps.SymbolPath.CIRCLE,
+         // path: google.com/maps/documentation/javascript/examples/markerclusterer/m,
+         scale: 8
+         },
+         title: 'DJ HOST'
+       });
 
-      map = new google.maps.Map(document.getElementById('googleMaps'), {
-        center: sanFrancisco,
-        zoom: 17,
-        zoomControl: true,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: false,
-        rotateControl: false,
-        fullscreenControl: false
-      });
+      // Information Text for the InfoWindow Popup Upon User Clicking on Marker
+      var contentString = '<div id="content">'+
+       '<div id="siteNotice">'+'</div>'+
+         // HEADER - PARTY GROUP TITLE
+         '<h2 id="firstHeading" class="firstHeading">PARTY UP IN HERE</h2>'+
+         '<div id="bodyContent">'+
+         // DJ + 'UserName' - Location (could make it as specific as we want)
+         '<h4>DJ MARCUS - Powell St.</h4>'+
+         // Stock Message -- ADD 'YES' and 'NO' actionEventListeners
+         '<p>Would You Like to Join the Party?  <button>YES</button><button>NO</button></p>'+
+         '</div>'+
+       '</div>';
 
-      autocomplete = new google.maps.places.Autocomplete((
-          document.getElementById('searchForm')), {
-            types: ['geocode']
-          });
+       // Info about DJ Party Pop-Up on Map
+       var infowindow = new google.maps.InfoWindow({
+         content: contentString
+       });
 
-      places = new google.maps.places.PlacesService(map);
+       // Center the Map to Marker User Clicked On
+       // map.addListener('center_changed', function() {
+       //   // 5 seconds after the center of the map has changed, pan back to the
+       //   // marker.
+       //   window.setTimeout(function() {
+       //     map.panTo(marker.getPosition());
+       //   }, 5000);
+       // });
 
-      autocomplete.addListener('place_changed', onPlaceChanged);
+       //Clicking on marker pops up InfoWindow of 'DJ Music Party'
+       marker.addListener('click', function() {
+         map.setZoom(16);
+         // infowindow.open(map, marker);
+         map.panTo(marker.getPosition());
+         map.setCenter(marker.getPosition());
+         infowindow.open(map, marker);
+       });
+    //   const sanFrancisco = {lat: 37.775, lng: -122.42};
 
-      map.addListener('dragend', zoomFilter);
-    }
+    //   map = new google.maps.Map(document.getElementById('googleMaps'), {
+    //     center: sanFrancisco,
+    //     zoom: 17,
+    //     zoomControl: true,
+    //     mapTypeControl: false,
+    //     scaleControl: false,
+    //     streetViewControl: false,
+    //     rotateControl: false,
+    //     fullscreenControl: false
+    //   });
 
-    function zoomFilter() {
-      if (map.getZoom() > 10) { search(); }
-    }
+    //   autocomplete = new google.maps.places.Autocomplete((
+    //       document.getElementById('searchForm')), {
+    //         types: ['geocode']
+    //       });
 
-    // When the user selects a city, get the place details for the city and
-    // zoom the map in on the city.
-    function onPlaceChanged() {
-      const place = autocomplete.getPlace();
-      context.props.updateQuery(place);
+    //   places = new google.maps.places.PlacesService(map);
 
-      if (place.geometry) {
-        map.panTo(place.geometry.location);
-        console.log(map.getCenter().toUrlValue());
-        map.setZoom(15);
-        search();
-      } else {
-        // searchForm.placeholder = "Enter Your Destination (E.g. Cancun, Mexico)";
-        searchForm.value = '';
-      }
+    //   autocomplete.addListener('place_changed', onPlaceChanged);
+
+    //   map.addListener('dragend', zoomFilter);
+    // }
+
+    // function zoomFilter() {
+    //   if (map.getZoom() > 10) { search(); }
+    // }
+
+    // // When the user selects a city, get the place details for the city and
+    // // zoom the map in on the city.
+    // function onPlaceChanged() {
+    //   const place = autocomplete.getPlace();
+    //   context.props.updateQuery(place);
+
+    //   if (place.geometry) {
+    //     map.panTo(place.geometry.location);
+    //     console.log(map.getCenter().toUrlValue());
+    //     map.setZoom(15);
+    //     search();
+    //   } else {
+    //     // searchForm.placeholder = "Enter Your Destination (E.g. Cancun, Mexico)";
+    //     searchForm.value = '';
+    //   }
     }
 
     // Search for attractions in the selected city, within the viewport of the map.
