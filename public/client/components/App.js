@@ -42,23 +42,14 @@ class App extends React.Component {
       // current song being played
       currentSong: null,
       // array of search results
-      searchResults: [],
-      //distance from HR
-      distanceFrom: null
+      searchResults: []
     };
-
-    // this.getGeolocation = this.getGeolocation.bind(this);
-    // setInterval(this.getGeolocation, 3000);
-
     this.getPlaylist = this.getPlaylist.bind(this);
-  }
-    // calculating the current geolocation and distance of user every 5 seconds
-    // setInterval(this.getGeolocation.bind(this), 5000);
-
+  };
   // Function to send a GET request to youtube's api w/ user's query on submit
-  getYoutubeSong(e) {
+  getYoutubeSong(event) {
     // prevents page from refreshing
-    e.preventDefault();
+    event.preventDefault();
     // saving context of this for axios request
     var context = this;
     // sending a GET request to youtube
@@ -72,19 +63,16 @@ class App extends React.Component {
         q: context.state.value
       }
     })
-    .then( function(youtubeResponse) {
-    // wait for Youtube res to come back
-      console.log('youtube search success!');
+    .then(function(youtubeResponse) {
+      console.log('Search success! This is Youtube response : ', youtubeResponse.data.items);
       // grab the array of videos, which live in data.items
       var searchResult = youtubeResponse.data.items;
-
       context.setState({searchResults: searchResult});
 
-      console.log('This is youtubeResponse : ', youtubeResponse);
 
     })
-    .catch( function(err) {
-      console.log('youtube search fail', err);
+    .catch( function(error) {
+      console.log('Search fail! This is the error', error);
     });
   }
 
@@ -95,14 +83,13 @@ class App extends React.Component {
     console.log('currentSong Index : ', currentSongIndex);
     console.log('songs index - 1 : ', this.state.srcs.length - 1);
     console.log('songs : ', this.state.srcs);
-
     // reset state of current song to null for reasons?
     this.setState({
       currentSong: null
     });
 
     // make sure current song is not the last song
-    if ( currentSongIndex < this.state.srcs.length - 1 ) {
+    if (currentSongIndex < this.state.srcs.length - 1 ) {
       // function to set next song
       var setNextSong = function() {
         this.setState({
@@ -110,7 +97,7 @@ class App extends React.Component {
         });
         console.log('play next song!', currentSongIndex);
       }.bind(this);
-      // plat next song after 2 secs
+      // play next song after 2 secs
       setTimeout(setNextSong, 0);
     }
   }
@@ -161,7 +148,7 @@ class App extends React.Component {
         currentSong: this.state.srcs[index]
       });
     }.bind(this);
-    // plat next song after 2 secs
+    // play next song after 2 secs
     setTimeout(setNextSong, 0);
 
   }
@@ -217,10 +204,8 @@ class App extends React.Component {
   // handle search clicks
   handleSearchClicks (index) {
     //refrences the app instance => keyword "this"
-    var context = this;
-
+    // var context = this;
     var searchResult = this.state.searchResults;
-
     var selectedSongId = searchResult[index].id.videoId;
     // if the ID is undefined, no video exists
     console.log(selectedSongId === undefined);
@@ -260,28 +245,8 @@ class App extends React.Component {
       value: e.target.value
     });
   }
-  
-  // Track user's geolocation
-  // getGeolocation() {
-  //   var context = this;
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     console.log('User latitude : ', position.coords.latitude);
-  //     console.log('User longitude : ', position.coords.longitude);
-  //     var lat = position.coords.latitude;
-  //     var lng = position.coords.longitude;
-  //     console.log('Distance from HR (in km) : ', distance(lat, lng, HRlat, HRlng));
-  //     var newDistance = distance(lat, lng, HRlat, HRlng)
-  //     context.setState({distanceFrom: newDistance})
-  //   });
-  // }
 
   render() {
-    //checking the distance to the party
-    if (this.state.distanceFrom > .3 || this.state.distanceFrom === null) {
-      return (
-        <div> you arent at the party yet</div>
-      )
-    }
     return (
       <div>
         <NavBar />
