@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Button from './map-button.js';
 import NavBar from './map-nav.js';
 import App from './app.js';
+import MapView from './map-view.js';
 
 class Map extends React.Component {
   constructor(props){
@@ -37,6 +38,7 @@ class Map extends React.Component {
     return(
         <div>
           <NavBar />
+          <MapView />
           <Button buttonFunction={this.handleClick} buttonName="Create Party" />
           <Button buttonFunction={this.handleClick} buttonName="Join Party" />
           <Button buttonFunction={this.geoLocation} buttonName="Where Am I?!" />

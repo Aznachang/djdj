@@ -62,11 +62,11 @@
 
 	var _map2 = _interopRequireDefault(_map);
 
-	var _Login = __webpack_require__(271);
+	var _Login = __webpack_require__(272);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _signup = __webpack_require__(272);
+	var _signup = __webpack_require__(273);
 
 	var _signup2 = _interopRequireDefault(_signup);
 
@@ -26896,28 +26896,19 @@
 	      // current song being played
 	      currentSong: null,
 	      // array of search results
-	      searchResults: [],
-	      //distance from HR
-	      distanceFrom: null
+	      searchResults: []
 	    };
-
-	    // this.getGeolocation = this.getGeolocation.bind(this);
-	    // setInterval(this.getGeolocation, 3000);
-
 	    _this.getPlaylist = _this.getPlaylist.bind(_this);
 	    return _this;
 	  }
-	  // calculating the current geolocation and distance of user every 5 seconds
-	  // setInterval(this.getGeolocation.bind(this), 5000);
-
-	  // Function to send a GET request to youtube's api w/ user's query on submit
-
 
 	  _createClass(App, [{
 	    key: 'getYoutubeSong',
-	    value: function getYoutubeSong(e) {
+
+	    // Function to send a GET request to youtube's api w/ user's query on submit
+	    value: function getYoutubeSong(event) {
 	      // prevents page from refreshing
-	      e.preventDefault();
+	      event.preventDefault();
 	      // saving context of this for axios request
 	      var context = this;
 	      // sending a GET request to youtube
@@ -26931,16 +26922,12 @@
 	          q: context.state.value
 	        }
 	      }).then(function (youtubeResponse) {
-	        // wait for Youtube res to come back
-	        console.log('youtube search success!');
+	        console.log('Search success! This is Youtube response : ', youtubeResponse.data.items);
 	        // grab the array of videos, which live in data.items
 	        var searchResult = youtubeResponse.data.items;
-
 	        context.setState({ searchResults: searchResult });
-
-	        console.log('This is youtubeResponse : ', youtubeResponse);
-	      }).catch(function (err) {
-	        console.log('youtube search fail', err);
+	      }).catch(function (error) {
+	        console.log('Search fail! This is the error', error);
 	      });
 	    }
 
@@ -26954,7 +26941,6 @@
 	      console.log('currentSong Index : ', currentSongIndex);
 	      console.log('songs index - 1 : ', this.state.srcs.length - 1);
 	      console.log('songs : ', this.state.srcs);
-
 	      // reset state of current song to null for reasons?
 	      this.setState({
 	        currentSong: null
@@ -26969,7 +26955,7 @@
 	          });
 	          console.log('play next song!', currentSongIndex);
 	        }.bind(this);
-	        // plat next song after 2 secs
+	        // play next song after 2 secs
 	        setTimeout(setNextSong, 0);
 	      }
 	    }
@@ -27019,7 +27005,7 @@
 	          currentSong: this.state.srcs[index]
 	        });
 	      }.bind(this);
-	      // plat next song after 2 secs
+	      // play next song after 2 secs
 	      setTimeout(setNextSong, 0);
 	    }
 	  }, {
@@ -27122,32 +27108,9 @@
 	        value: e.target.value
 	      });
 	    }
-
-	    // Track user's geolocation
-	    // getGeolocation() {
-	    //   var context = this;
-	    //   navigator.geolocation.getCurrentPosition(function(position) {
-	    //     console.log('User latitude : ', position.coords.latitude);
-	    //     console.log('User longitude : ', position.coords.longitude);
-	    //     var lat = position.coords.latitude;
-	    //     var lng = position.coords.longitude;
-	    //     console.log('Distance from HR (in km) : ', distance(lat, lng, HRlat, HRlng));
-	    //     var newDistance = distance(lat, lng, HRlat, HRlng)
-	    //     context.setState({distanceFrom: newDistance})
-	    //   });
-	    // }
-
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      //checking the distance to the party
-	      if (this.state.distanceFrom > .3 || this.state.distanceFrom === null) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          ' you arent at the party yet'
-	        );
-	      }
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -28937,6 +28900,10 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
+	var _mapView = __webpack_require__(271);
+
+	var _mapView2 = _interopRequireDefault(_mapView);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28989,6 +28956,7 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_mapNav2.default, null),
+	        _react2.default.createElement(_mapView2.default, null),
 	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.handleClick, buttonName: 'Create Party' }),
 	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.handleClick, buttonName: 'Join Party' }),
 	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.geoLocation, buttonName: 'Where Am I?!' })
@@ -29213,28 +29181,19 @@
 	      // current song being played
 	      currentSong: null,
 	      // array of search results
-	      searchResults: [],
-	      //distance from HR
-	      distanceFrom: null
+	      searchResults: []
 	    };
-
-	    // this.getGeolocation = this.getGeolocation.bind(this);
-	    // setInterval(this.getGeolocation, 3000);
-
 	    _this.getPlaylist = _this.getPlaylist.bind(_this);
 	    return _this;
 	  }
-	  // calculating the current geolocation and distance of user every 5 seconds
-	  // setInterval(this.getGeolocation.bind(this), 5000);
-
-	  // Function to send a GET request to youtube's api w/ user's query on submit
-
 
 	  _createClass(App, [{
 	    key: 'getYoutubeSong',
-	    value: function getYoutubeSong(e) {
+
+	    // Function to send a GET request to youtube's api w/ user's query on submit
+	    value: function getYoutubeSong(event) {
 	      // prevents page from refreshing
-	      e.preventDefault();
+	      event.preventDefault();
 	      // saving context of this for axios request
 	      var context = this;
 	      // sending a GET request to youtube
@@ -29248,16 +29207,12 @@
 	          q: context.state.value
 	        }
 	      }).then(function (youtubeResponse) {
-	        // wait for Youtube res to come back
-	        console.log('youtube search success!');
+	        console.log('Search success! This is Youtube response : ', youtubeResponse.data.items);
 	        // grab the array of videos, which live in data.items
 	        var searchResult = youtubeResponse.data.items;
-
 	        context.setState({ searchResults: searchResult });
-
-	        console.log('This is youtubeResponse : ', youtubeResponse);
-	      }).catch(function (err) {
-	        console.log('youtube search fail', err);
+	      }).catch(function (error) {
+	        console.log('Search fail! This is the error', error);
 	      });
 	    }
 
@@ -29271,7 +29226,6 @@
 	      console.log('currentSong Index : ', currentSongIndex);
 	      console.log('songs index - 1 : ', this.state.srcs.length - 1);
 	      console.log('songs : ', this.state.srcs);
-
 	      // reset state of current song to null for reasons?
 	      this.setState({
 	        currentSong: null
@@ -29286,7 +29240,7 @@
 	          });
 	          console.log('play next song!', currentSongIndex);
 	        }.bind(this);
-	        // plat next song after 2 secs
+	        // play next song after 2 secs
 	        setTimeout(setNextSong, 0);
 	      }
 	    }
@@ -29336,7 +29290,7 @@
 	          currentSong: this.state.srcs[index]
 	        });
 	      }.bind(this);
-	      // plat next song after 2 secs
+	      // play next song after 2 secs
 	      setTimeout(setNextSong, 0);
 	    }
 	  }, {
@@ -29439,32 +29393,9 @@
 	        value: e.target.value
 	      });
 	    }
-
-	    // Track user's geolocation
-	    // getGeolocation() {
-	    //   var context = this;
-	    //   navigator.geolocation.getCurrentPosition(function(position) {
-	    //     console.log('User latitude : ', position.coords.latitude);
-	    //     console.log('User longitude : ', position.coords.longitude);
-	    //     var lat = position.coords.latitude;
-	    //     var lng = position.coords.longitude;
-	    //     console.log('Distance from HR (in km) : ', distance(lat, lng, HRlat, HRlng));
-	    //     var newDistance = distance(lat, lng, HRlat, HRlng)
-	    //     context.setState({distanceFrom: newDistance})
-	    //   });
-	    // }
-
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      //checking the distance to the party
-	      if (this.state.distanceFrom > .3 || this.state.distanceFrom === null) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          ' you arent at the party yet'
-	        );
-	      }
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -29485,6 +29416,215 @@
 
 /***/ },
 /* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _axios = __webpack_require__(242);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var MapContainer = function (_React$Component) {
+	  _inherits(MapContainer, _React$Component);
+
+	  function MapContainer(props) {
+	    _classCallCheck(this, MapContainer);
+
+	    return _possibleConstructorReturn(this, (MapContainer.__proto__ || Object.getPrototypeOf(MapContainer)).call(this, props));
+	  }
+
+	  _createClass(MapContainer, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'form',
+	          null,
+	          _react2.default.createElement(
+	            'label',
+	            { id: 'searchLabel' },
+	            _react2.default.createElement('img', { src: 'img/magnifying-glass.png' })
+	          ),
+	          _react2.default.createElement('input', {
+	            id: 'searchForm',
+	            type: 'text',
+	            placeholder: 'Enter a Destination (E.g. Cancun, Mexico)'
+	          })
+	        ),
+	        _react2.default.createElement('div', { id: 'googleMaps', style: { width: '500px', height: '500px' } })
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.createMap();
+	    }
+	  }, {
+	    key: 'createMap',
+	    value: function createMap() {
+	      var context = this;
+
+	      /* ########## JSONP call for Google Map data ########## */
+	      (function fetchMap() {
+	        window.initMap = initMap;
+	        console.log('fetching map!');
+	        var ref = window.document.getElementsByTagName('script')[0];
+	        var script = window.document.createElement('script');
+	        script.src = 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCBb0bm-_wNIf3oDMi-5PN_zeOf1bRWstI&libraries=places&callback=initMap';
+	        ref.parentNode.insertBefore(script, ref);
+	        script.onload = function () {
+	          console.log('onload: ', this);
+	          this.remove();
+	        };
+	      })();
+
+	      /* ################### Map Init ################### */
+	      var map = void 0,
+	          places = void 0,
+	          autocomplete = void 0;
+	      var markers = [];
+	      var searchForm = document.getElementById('searchForm');
+
+	      function initMap() {
+	        var sanFrancisco = { lat: 37.775, lng: -122.42 };
+
+	        map = new google.maps.Map(document.getElementById('googleMaps'), {
+	          center: sanFrancisco,
+	          zoom: 17,
+	          zoomControl: true,
+	          mapTypeControl: false,
+	          scaleControl: false,
+	          streetViewControl: false,
+	          rotateControl: false,
+	          fullscreenControl: false
+	        });
+
+	        autocomplete = new google.maps.places.Autocomplete(document.getElementById('searchForm'), {
+	          types: ['geocode']
+	        });
+
+	        places = new google.maps.places.PlacesService(map);
+
+	        autocomplete.addListener('place_changed', onPlaceChanged);
+
+	        map.addListener('dragend', zoomFilter);
+	      }
+
+	      function zoomFilter() {
+	        if (map.getZoom() > 10) {
+	          search();
+	        }
+	      }
+
+	      // When the user selects a city, get the place details for the city and
+	      // zoom the map in on the city.
+	      function onPlaceChanged() {
+	        var place = autocomplete.getPlace();
+	        context.props.updateQuery(place);
+
+	        if (place.geometry) {
+	          map.panTo(place.geometry.location);
+	          console.log(map.getCenter().toUrlValue());
+	          map.setZoom(15);
+	          search();
+	        } else {
+	          // searchForm.placeholder = "Enter Your Destination (E.g. Cancun, Mexico)";
+	          searchForm.value = '';
+	        }
+	      }
+
+	      // Search for attractions in the selected city, within the viewport of the map.
+	      function search() {
+	        var search = {
+	          bounds: map.getBounds(),
+	          types: ['amusement_park', 'aquarium', 'art_gallery', 'bar', 'book_store', 'bowling_alley', 'cafe', 'campground', 'casino', 'library',
+	          //'lodging',
+	          'movie_theater', 'museum', 'night_club', 'park',
+	          //'restaurant',
+	          'spa', 'stadium', 'zoo']
+	        };
+
+	        places.nearbySearch(search, function (results, status) {
+	          if (status === google.maps.places.PlacesServiceStatus.OK) {
+	            clearMarkers();
+	            // Create a marker for each item found
+	            for (var i = 0; i < results.length; i++) {
+	              var iconImage = {
+	                url: results[i].icon,
+	                size: new google.maps.Size(71, 71),
+	                origin: new google.maps.Point(0, 0),
+	                anchor: new google.maps.Point(17, 34),
+	                scaledSize: new google.maps.Size(15, 15)
+	              };
+	              // Use marker animation to drop the icons incrementally on the map.
+	              markers[i] = new google.maps.Marker({
+	                position: results[i].geometry.location,
+	                animation: google.maps.Animation.DROP,
+	                icon: iconImage
+	              });
+	              // If the user clicks a marker, call setPlace to update the object in the Place component.
+	              markers[i].placeResult = results[i];
+	              google.maps.event.addListener(markers[i], 'click', setPlace);
+	              setTimeout(dropMarker(i), i * 10);
+	            }
+	          }
+	        });
+	      }
+
+	      function clearMarkers() {
+	        for (var i = 0; i < markers.length; i++) {
+	          if (markers[i]) {
+	            markers[i].setMap(null);
+	          }
+	        }
+	        markers = [];
+	      }
+
+	      function dropMarker(i) {
+	        return function () {
+	          markers[i].setMap(map);
+	        };
+	      }
+
+	      function setPlace() {
+	        var marker = this;
+	        places.getDetails({ placeId: marker.placeResult.place_id }, function (place, status) {
+	          if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	            return;
+	          }
+	          context.props.updatePlace(place);
+	        });
+	      }
+	    }
+	  }]);
+
+	  return MapContainer;
+	}(_react2.default.Component);
+
+	exports.default = MapContainer;
+
+/***/ },
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29537,7 +29677,7 @@
 	module.exports = Login;
 
 /***/ },
-/* 272 */
+/* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
