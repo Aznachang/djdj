@@ -42,7 +42,7 @@ module.exports = {
 			  })
 			  .catch( function(err) {
 			    console.log('There is error in checkUser', err);
-			    res.redirect('/login');
+			    res.redirect('/map');
 			  });
 			})
 			.catch(function(err) {
@@ -51,12 +51,17 @@ module.exports = {
 		},
 		//signup
 		post: function (req, res) {
-			console.log(req.query.username, 'user?')
-			console.log(req.query.password, "password?")
-			db.User.findOrCreate( { where: { username: req.query.username, password: req.query.password } })
-			.spread (function (user, created) {
-				console.log(created, 'created in post db controller');
-				console.log(user, 'user in post db controller')
+			console.log('username: ', req.query.username)
+			console.log('password: ', req.query.password)
+			console.log('longitude: ', req.query.longitude)
+			console.log('latitude: ', req.query.latitude)
+			db.User.create({
+				username: req.query.username,
+				password: req.query.password,
+				latitude: req.query.latitude,
+				longitude: req.query.longitude
+			})
+			.then(function (user, created) {
 				res.redirect('/login');
 			})
 			.catch(function(err) {

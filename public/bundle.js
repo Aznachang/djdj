@@ -58,15 +58,15 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	var _map = __webpack_require__(234);
+	var _map = __webpack_require__(267);
 
 	var _map2 = _interopRequireDefault(_map);
 
-	var _Login = __webpack_require__(264);
+	var _Login = __webpack_require__(272);
 
 	var _Login2 = _interopRequireDefault(_Login);
 
-	var _signup = __webpack_require__(265);
+	var _signup = __webpack_require__(273);
 
 	var _signup2 = _interopRequireDefault(_signup);
 
@@ -26820,39 +26820,39 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _SongList = __webpack_require__(266);
+	var _SongList = __webpack_require__(234);
 
 	var _SongList2 = _interopRequireDefault(_SongList);
 
-	var _Search = __webpack_require__(269);
+	var _Search = __webpack_require__(237);
 
 	var _Search2 = _interopRequireDefault(_Search);
 
-	var _SearchResults = __webpack_require__(270);
+	var _SearchResults = __webpack_require__(238);
 
 	var _SearchResults2 = _interopRequireDefault(_SearchResults);
 
-	var _SearchSong = __webpack_require__(271);
+	var _SearchSong = __webpack_require__(239);
 
 	var _SearchSong2 = _interopRequireDefault(_SearchSong);
 
-	var _SearchBar = __webpack_require__(272);
+	var _SearchBar = __webpack_require__(240);
 
 	var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
-	var _Audio = __webpack_require__(273);
+	var _Audio = __webpack_require__(241);
 
 	var _Audio2 = _interopRequireDefault(_Audio);
 
-	var _axios = __webpack_require__(239);
+	var _axios = __webpack_require__(242);
 
 	var _axios2 = _interopRequireDefault(_axios);
 
-	var _map = __webpack_require__(234);
+	var _map = __webpack_require__(267);
 
 	var _map2 = _interopRequireDefault(_map);
 
-	var _mapNav = __webpack_require__(236);
+	var _mapNav = __webpack_require__(269);
 
 	var _mapNav2 = _interopRequireDefault(_mapNav);
 
@@ -27114,12 +27114,6 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -27128,151 +27122,30 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _mapButton = __webpack_require__(235);
+	var _Song = __webpack_require__(235);
 
-	var _mapButton2 = _interopRequireDefault(_mapButton);
+	var _Song2 = _interopRequireDefault(_Song);
 
-	var _mapNav = __webpack_require__(236);
+	var _Playlist = __webpack_require__(236);
 
-	var _mapNav2 = _interopRequireDefault(_mapNav);
-
-	var _app = __webpack_require__(237);
-
-	var _app2 = _interopRequireDefault(_app);
-
-	var _mapView = __webpack_require__(238);
-
-	var _mapView2 = _interopRequireDefault(_mapView);
-
-	var _axios = __webpack_require__(239);
-
-	var _axios2 = _interopRequireDefault(_axios);
+	var _Playlist2 = _interopRequireDefault(_Playlist);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var SongList = function SongList(props) {
+		return _react2.default.createElement(
+			'div',
+			{ className: 'playlist-group' },
+			_react2.default.createElement(
+				'h3',
+				{ className: 'playlist-title' },
+				'Playlist'
+			),
+			_react2.default.createElement(_Playlist2.default, { data: props.data, handlePlay: props.handlePlay, handleRemove: props.handleRemove })
+		);
+	};
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Map = function (_React$Component) {
-	  _inherits(Map, _React$Component);
-
-	  function Map(props) {
-	    _classCallCheck(this, Map);
-
-	    var _this = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
-
-	    _this.state = {
-	      markers: [{
-	        position: {
-	          lat: 25,
-	          lng: 121
-	        }
-	      }]
-	    };
-	    _this.createParty = _this.createParty.bind(_this);
-	    _this.handleClick = _this.handleClick.bind(_this);
-	    _this.geoLocation = _this.geoLocation.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(Map, [{
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      console.log(this);
-	    }
-	  }, {
-	    key: 'createParty',
-	    value: function createParty() {
-	      var context = this;
-	      var location = navigator.geolocation.getCurrentPosition(function (position) {
-	        //TODO: set user state && update user location with sockets
-	        //do_something(position.coords.latitude, position.coords.longitude);
-	        console.log('Map latitude : ', position.coords.latitude);
-	        console.log('Map longitude : ', position.coords.longitude);
-
-	        var latitude = position.coords.latitude;
-	        var longitude = position.coords.longitude;
-	        _axios2.default.post('/api/parties', {
-	          latitude: latitude,
-	          longitude: longitude
-	        }).then(function (res) {
-	          console.log('Party response is: ', res);
-	        }).catch(function (error) {
-	          console.log('Not able to POST the party: ', error);
-	        });
-
-	        context.setState({
-	          userLatitude: position.coords.latitude,
-	          userLongitude: position.coords.longitude
-	        });
-	      });
-	      console.log(location);
-	    }
-	  }, {
-	    key: 'geoLocation',
-	    value: function geoLocation() {
-	      var context = this;
-	      navigator.geolocation.getCurrentPosition(function (position) {
-	        //TODO: set user state && update user location with sockets
-	        //do_something(position.coords.latitude, position.coords.longitude);
-	        console.log('Map latitude : ', position.coords.latitude);
-	        console.log('Map longitude : ', position.coords.longitude);
-	        context.setState({
-	          userLatitude: position.coords.latitude,
-	          userLongitude: position.coords.longitude
-	        });
-	      });
-	    }
-
-	    // initMap() {
-	    //   var uluru = {lat: -25.363, lng: 131.044};
-	    //   var map = new google.maps.Map(document.getElementById('map'), {
-	    //     zoom: 4,
-	    //     center: uluru
-	    //   });
-	    //   var marker = new google.maps.Marker({
-	    //     position: uluru,
-	    //     map: map
-	    //   });
-	    // }
-
-	    // jsonpRequest(url, callback) {
-	    //   var jsonpDispatcher = {};
-	    //   var key = Math.random();
-	    //   jsonpDispatcher[key] = function () {
-	    //     callback.apply(this, arguments);
-	    //     delete jsonpDispatcher[key];
-	    //   };
-	    //   var script = document.createElement('script');
-	    //   script.src = url + '&callback=jsonpDispatcher[' + key + ']';
-	    //   document.body.appendChild(script);
-	    // }
-
-	  }, {
-	    key: 'render',
-	    value: function render() {
-
-	      //this.jsonpRequest("https://maps.googleapis.com/maps/api/js?key=AIzaSyDQC_iCnXCf_cIH2AF4XPBF72n_rS2fOQM", this.initMap);
-
-	      return _react2.default.createElement(
-	        'div',
-	        { id: 'map' },
-	        _react2.default.createElement(_mapNav2.default, null),
-	        _react2.default.createElement(_mapView2.default, null),
-	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.createParty, buttonName: 'Create Party' }),
-	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.handleClick, buttonName: 'Join Party' }),
-	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.geoLocation, buttonName: 'Where Am I?!' })
-	      );
-	    }
-	  }]);
-
-	  return Map;
-	}(_react2.default.Component);
-
-	exports.default = Map;
+	module.exports = SongList;
 
 /***/ },
 /* 235 */
@@ -27280,127 +27153,61 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	//import ReactDOM from 'react-dom';
-
-	var Button = function (_React$Component) {
-	  _inherits(Button, _React$Component);
-
-	  function Button(props) {
-	    _classCallCheck(this, Button);
-
-	    return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
-	  }
-
-	  _createClass(Button, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'button',
-	        { onClick: this.props.buttonFunction },
-	        this.props.buttonName
-	      );
-	    }
-	  }]);
-
-	  return Button;
-	}(_react2.default.Component);
-
-	exports.default = Button;
+	var Song = function Song(props) {
+	  return _react2.default.createElement(
+	    'li',
+	    { className: 'list-group-song' },
+	    _react2.default.createElement(
+	      'ul',
+	      { className: 'player-list-button' },
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: function onClick() {
+	              props.handlePlay(props.index);
+	            }, className: 'playSong' },
+	          _react2.default.createElement('img', { className: 'player-button', src: 'static/images/play-button.png' })
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: function onClick() {
+	              props.handleRemove(props.index);
+	            }, className: 'removeSong' },
+	          _react2.default.createElement('img', { className: 'player-button', src: 'static/images/delete-button.png' })
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'span',
+	      { className: 'list-group-item' },
+	      props.datum.snippet.title
+	    ),
+	    _react2.default.createElement('img', { className: 'thumbnail', src: props.datum.snippet.thumbnails.default.url })
+	  );
+	};
+	module.exports = Song;
 
 /***/ },
 /* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRouter = __webpack_require__(178);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	//import ReactDOM from 'react-dom';
-
-	var Navbar = function (_React$Component) {
-	  _inherits(Navbar, _React$Component);
-
-	  function Navbar(props) {
-	    _classCallCheck(this, Navbar);
-
-	    return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this, props));
-	  }
-
-	  _createClass(Navbar, [{
-	    key: 'render',
-	    value: function render() {
-	      var pages = ['map', 'party', 'login', 'logout', 'signup'];
-	      var navLinks = pages.map(function (page, index) {
-	        return _react2.default.createElement(
-	          'li',
-	          { key: index },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/' + page },
-	            page
-	          )
-	        );
-	      });
-	      return _react2.default.createElement(
-	        'ul',
-	        null,
-	        navLinks
-	      );
-	    }
-	  }]);
-
-	  return Navbar;
-	}(_react2.default.Component);
-
-	exports.default = Navbar;
-
-/***/ },
-/* 237 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
@@ -27410,293 +27217,65 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _SongList = __webpack_require__(266);
+	var _Song = __webpack_require__(235);
 
-	var _SongList2 = _interopRequireDefault(_SongList);
-
-	var _Search = __webpack_require__(269);
-
-	var _Search2 = _interopRequireDefault(_Search);
-
-	var _SearchResults = __webpack_require__(270);
-
-	var _SearchResults2 = _interopRequireDefault(_SearchResults);
-
-	var _SearchSong = __webpack_require__(271);
-
-	var _SearchSong2 = _interopRequireDefault(_SearchSong);
-
-	var _SearchBar = __webpack_require__(272);
-
-	var _SearchBar2 = _interopRequireDefault(_SearchBar);
-
-	var _Audio = __webpack_require__(273);
-
-	var _Audio2 = _interopRequireDefault(_Audio);
-
-	var _axios = __webpack_require__(239);
-
-	var _axios2 = _interopRequireDefault(_axios);
-
-	var _map = __webpack_require__(234);
-
-	var _map2 = _interopRequireDefault(_map);
-
-	var _mapNav = __webpack_require__(236);
-
-	var _mapNav2 = _interopRequireDefault(_mapNav);
+	var _Song2 = _interopRequireDefault(_Song);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var Playlist = function Playlist(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'ul',
+	      { className: 'list-group' },
+	      props.data.map(function (datum, i) {
+	        return _react2.default.createElement(_Song2.default, { key: i, datum: datum, index: i, handlePlay: props.handlePlay, handleRemove: props.handleRemove });
+	      })
+	    )
+	  );
+	};
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	module.exports = Playlist;
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
 
-	// Function calculates the distance between two lat/long points for our geolocation feature
-	function distance(lat1, lon1, lat2, lon2) {
-	  var p = 0.017453292519943295; // Math.PI / 180
-	  var c = Math.cos;
-	  var a = 0.5 - c((lat2 - lat1) * p) / 2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+	'use strict';
 
-	  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-	}
-	var HRlat = 37.7836924;
-	var HRlng = -122.4111553;
+	var _react = __webpack_require__(1);
 
-	// The app here is creating a single playlist. We want to have the App instead be the mapview
+	var _react2 = _interopRequireDefault(_react);
 
-	var App = function (_React$Component) {
-	  _inherits(App, _React$Component);
+	var _reactDom = __webpack_require__(32);
 
-	  function App(props) {
-	    _classCallCheck(this, App);
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	var _SearchResults = __webpack_require__(238);
 
-	    _this.state = {
-	      // search query
-	      value: '',
-	      // array of downloadLinks
-	      srcs: [],
-	      // array of video data (image url and title)
-	      data: [],
-	      // current song being played
-	      currentSong: null,
-	      // array of search results
-	      searchResults: [],
-	      // location
-	      location: "Hey Pete"
-	    };
-	    _this.getPlaylist = _this.getPlaylist.bind(_this);
-	    return _this;
-	  }
+	var _SearchResults2 = _interopRequireDefault(_SearchResults);
 
-	  _createClass(App, [{
-	    key: 'getYoutubeSong',
-	    value: function getYoutubeSong(event) {
-	      event.preventDefault(); // prevents page from refreshing
-	      var context = this; // saving context of this for axios request
-	      (0, _axios2.default)({
-	        url: 'https://www.googleapis.com/youtube/v3/search',
-	        method: 'get',
-	        params: {
-	          part: 'snippet',
-	          key: 'AIzaSyCqOGwWGNq5ZncRXMRupT5aOn0yadXvi78',
-	          q: context.state.value //from set state in search?
-	        }
-	      }).then(function (response) {
-	        console.log('Search success! This is Youtube response : ', response.data.items);
-	        var searchResults = response.data.items;
-	        context.setState({ searchResults: searchResults });
-	      }).catch(function (error) {
-	        console.log('Search fail! This is the error', error);
-	      });
-	    }
-	  }, {
-	    key: 'playNextSong',
-	    value: function playNextSong() {
-	      var currentSongIndex = this.state.srcs.indexOf(this.state.currentSong); // get index of current song
-	      console.log('currentSong Index : ', currentSongIndex);
-	      console.log('songs index - 1 : ', this.state.srcs.length - 1);
-	      console.log('songs : ', this.state.srcs);
-	      this.setState({ currentSong: null }); // Reset state of current song to null for reasons?
-	      if (currentSongIndex < this.state.srcs.length - 1) {
-	        // Check if the current song is the last song
-	        var setNextSong = function () {
-	          // Set next song
-	          this.setState({ currentSong: this.state.srcs[currentSongIndex + 1] });
-	          console.log('play next song!', currentSongIndex);
-	        }.bind(this);
-	        setTimeout(setNextSong, 0); // Play next song after 2 seconds
-	      }
-	    }
-	  }, {
-	    key: 'postNewSong',
-	    value: function postNewSong(src, data) {
-	      var context = this;
-	      (0, _axios2.default)({
-	        method: 'POST',
-	        url: '/api/songs',
-	        data: {
-	          src: src,
-	          data: JSON.stringify(data)
-	        }
-	      }).then(function (success) {
-	        context.getPlaylist.call(context);
-	      }).catch(function (error) {
-	        console.log('error with post new song, ', error);
-	      });
-	    }
-	  }, {
-	    key: 'deleteSong',
-	    value: function deleteSong(source) {
-	      console.log('Sending to db, source: ', source);
-	      var context = this;
-	      (0, _axios2.default)({
-	        method: 'DELETE',
-	        url: '/api/songs',
-	        data: { src: source }
-	      }).then(function (success) {
-	        console.log(success, 'delete successful');
-	        context.getPlaylist.call(context);
-	      }).catch(function (error) {
-	        console.log('error with delete: ', error);
-	      });
-	    }
-	  }, {
-	    key: 'playSong',
-	    value: function playSong(index) {
-	      this.setState({ currentSong: null });
-	      var setNextSong = function () {
-	        this.setState({ currentSong: this.state.srcs[index] });
-	      }.bind(this);
-	      setTimeout(setNextSong, 0); // play next song after 2 secs
-	    }
-	  }, {
-	    key: 'getPlaylist',
-	    value: function getPlaylist() {
-	      var context = this;
-	      (0, _axios2.default)({
-	        method: 'GET',
-	        url: '/api/songs'
-	      }).then(function (playlist) {
-	        console.log('success in getPlaylist : ', playlist.data);
-	        var songs = playlist.data; //Songs array from response
-	        var newSrc = [];
-	        var newData = [];
-	        songs.forEach(function (song) {
-	          newData.push(JSON.parse(song.data));
-	          newSrc.push(song.src);
-	        });
-	        context.setState({
-	          srcs: newSrc,
-	          data: newData
-	        });
-	        // If there is no current song set the state to the current download link
-	        if (context.state.currentSong === null) {
-	          console.log('set directDownloadLink');
-	          context.setState({
-	            currentSong: newSrc[0]
-	          });
-	        };
-	        console.log('get request was sent to the db songs endpoint');
-	      }).catch(function (err) {
-	        console.log('There was an error with the GET request to /api/songs, ', err);
-	      });
-	    }
-	  }, {
-	    key: 'handleSearchClicks',
+	var _SearchSong = __webpack_require__(239);
 
+	var _SearchSong2 = _interopRequireDefault(_SearchSong);
 
-	    // Handle search clicks
-	    value: function handleSearchClicks(index) {
-	      //refrences the app instance => keyword "this"
-	      // var context = this;
-	      var searchResult = this.state.searchResults;
-	      var selectedSongId = searchResult[index].id.videoId;
-	      console.log(selectedSongId === undefined); // If the ID is undefined, no video exists
-	      // End the request if the song doesn't exist
+	var _SearchBar = __webpack_require__(240);
 
-	      var selectedSongUrl = 'https://www.youtube.com/watch?v=' + selectedSongId; // Get youtube URL
-	      var directDownloadLink = 'https://www.youtubeinmp3.com/fetch/?video=' + selectedSongUrl; // Create the direct DownloadLink, which requires the youtube URL
+	var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
-	      // if ( !selectedSongId || context.state.srcs.indexOf(directDownloadLink) !== -1) {
-	      //   alert('This song is already on the playlist!')
-	      //   return;
-	      // }
-	      this.postNewSong.call(this, directDownloadLink, searchResult[index]); // Get current srcs and data from state  
-	    }
-	  }, {
-	    key: 'handlePlay',
-	    value: function handlePlay(index) {
-	      this.playSong(index);
-	    }
-	  }, {
-	    key: 'handleRemove',
-	    value: function handleRemove(index) {
-	      var target = this.state.srcs[index];
-	      this.deleteSong.call(this, target);
-	      // If the index being removed is the current song playing set this as next song
-	      if (this.state.currentSong === target) {
-	        this.playNextSong();
-	      };
-	    }
-	  }, {
-	    key: 'handleChange',
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	    // Updating the state 'value' to the user's query
-	    value: function handleChange(e) {
-	      this.setState({ value: e.target.value });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          this.state.location
-	        ),
-	        _react2.default.createElement(_mapNav2.default, null),
-	        _react2.default.createElement('img', { className: 'logo', src: 'static/images/DJ-DJ.png' }),
-	        _react2.default.createElement(_SearchBar2.default, { handleChange: this.handleChange.bind(this), getYoutubeSong: this.getYoutubeSong.bind(this) }),
-	        _react2.default.createElement(_Audio2.default, { currentSong: this.state.currentSong, playNextSong: this.playNextSong.bind(this) }),
-	        _react2.default.createElement(_SongList2.default, { data: this.state.data, srcs: this.state.srcs, handlePlay: this.handlePlay.bind(this), handleRemove: this.handleRemove.bind(this) }),
-	        _react2.default.createElement(_Search2.default, { searchResults: this.state.searchResults, handleSearchClicks: this.handleSearchClicks.bind(this) })
-	      );
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.getLocation();
-	    }
-	  }, {
-	    key: 'getLocation',
-	    value: function getLocation() {
-	      var context = this;
-	      _axios2.default.get('/api/parties').then(function (res) {
-	        var locations = res.data;
-	        var locationArray = [];
-	        locations.forEach(function (location) {
-	          var latitude = JSON.parse(location.latitude);
-	          var longitude = JSON.parse(location.longitude);
-	          locationArray.push([latitude, longitude]);
-	        });
-	        context.setState({ location: locationArray });
-	      }).catch(function (error) {
-	        console.log('Not able to POST the party: ', error);
-	      });
-	    }
-	  }]);
+	var Search = function Search(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'search-group' },
+	    _react2.default.createElement(_SearchResults2.default, { searchResults: props.searchResults, handleSearchClicks: props.handleSearchClicks })
+	  );
+	};
 
-	  return App;
-	}(_react2.default.Component);
-
-	exports.default = App;
+	module.exports = Search;
 
 /***/ },
 /* 238 */
@@ -27704,134 +27283,40 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _axios = __webpack_require__(239);
+	var _reactDom = __webpack_require__(32);
 
-	var _axios2 = _interopRequireDefault(_axios);
+	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactRouter = __webpack_require__(178);
+	var _SearchSong = __webpack_require__(239);
+
+	var _SearchSong2 = _interopRequireDefault(_SearchSong);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var SearchResults = function SearchResults(props) {
+		return _react2.default.createElement(
+			'div',
+			null,
+			_react2.default.createElement(
+				'h3',
+				{ className: 'search-title' },
+				'Search Results'
+			),
+			_react2.default.createElement(
+				'ul',
+				{ className: 'list-group' },
+				props.searchResults.map(function (song, i) {
+					return _react2.default.createElement(_SearchSong2.default, { key: i, index: i, song: song, handleSearchClicks: props.handleSearchClicks });
+				})
+			)
+		);
+	};
 
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var MapContainer = function (_React$Component) {
-	  _inherits(MapContainer, _React$Component);
-
-	  function MapContainer(props) {
-	    _classCallCheck(this, MapContainer);
-
-	    return _possibleConstructorReturn(this, (MapContainer.__proto__ || Object.getPrototypeOf(MapContainer)).call(this, props));
-	  }
-
-	  _createClass(MapContainer, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement('div', { id: 'googleMaps', style: { height: '500px', width: '500px' } })
-	      );
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.createMap();
-	    }
-	  }, {
-	    key: 'createMap',
-	    value: function createMap() {
-	      var context = this;
-
-	      /* ########## JSONP call for Google Map data ########## */
-	      (function fetchMap() {
-	        window.initMap = initMap;
-	        console.log('fetching map!');
-	        var ref = window.document.getElementsByTagName('script')[0];
-	        var script = window.document.createElement('script');
-	        script.src = 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCBb0bm-_wNIf3oDMi-5PN_zeOf1bRWstI&libraries=places&callback=initMap';
-	        ref.parentNode.insertBefore(script, ref);
-	        script.onload = function () {
-	          console.log('onload: ', this);
-	          this.remove();
-	        };
-	      })();
-
-	      /* ################### Map Init ################### */
-	      function initMap() {
-	        var map = new google.maps.Map(document.getElementById('googleMaps'), {
-	          center: { lat: 37.783744, lng: -122.409079 },
-	          zoom: 17,
-	          zoomControl: false,
-	          mapTypeControl: false,
-	          scaleControl: false,
-	          streetViewControl: false,
-	          rotateControl: false,
-	          fullscreenControl: false
-	        });
-
-	        function createMarkers(partyArray) {
-	          var map = new google.maps.Map(document.getElementById('googleMaps'), {
-	            center: { lat: 37.783744, lng: -122.409079 },
-	            zoom: 17,
-	            zoomControl: false,
-	            mapTypeControl: false,
-	            scaleControl: false,
-	            streetViewControl: false,
-	            rotateControl: false,
-	            fullscreenControl: false
-	          });
-
-	          partyArray.forEach(function (party, index) {
-	            console.log(party);
-	            var latitude = Number(party.latitude);
-	            var longitude = Number(party.longitude);
-	            var marker = new google.maps.Marker({
-	              position: { lat: latitude, lng: longitude },
-	              map: map,
-	              icon: {
-	                path: google.maps.SymbolPath.CIRCLE,
-	                scale: 17
-	              },
-	              title: 'Party'
-	            });
-	            marker.addListener('click', function () {
-	              _reactRouter.browserHistory.push('/party');
-	            });
-	          });
-	        };
-
-	        function getParties() {
-	          _axios2.default.get('/api/parties').then(function (res) {
-	            console.log('this is a party get request: ', res);
-	            createMarkers(res.data);
-	          }).catch(function (error) {
-	            console.log('Not able to POST the party: ', error);
-	          });
-	        }
-
-	        getParties();
-	      }
-	    }
-	  }]);
-
-	  return MapContainer;
-	}(_react2.default.Component);
-
-	exports.default = MapContainer;
+	module.exports = SearchResults;
 
 /***/ },
 /* 239 */
@@ -27839,7 +27324,46 @@
 
 	'use strict';
 
-	module.exports = __webpack_require__(240);
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var SearchSong = function SearchSong(props) {
+		return (
+			//need to inherit song info from parent
+			//two ways of making the song model - as a link and as a button  --> used to be line 9 <img className="thumbnail" src="#"/>
+
+			_react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'li',
+					{ className: 'list-group-item song' },
+					_react2.default.createElement(
+						'button',
+						{ className: 'search-add-button', onClick: function onClick() {
+								props.handleSearchClicks(props.index);
+							}
+						},
+						_react2.default.createElement('img', { className: 'player-button', src: 'static/images/add-song-button.png' })
+					),
+					_react2.default.createElement(
+						'span',
+						{ className: 'search-result-title' },
+						props.song.snippet.title
+					)
+				)
+			)
+		);
+	};
+
+	module.exports = SearchSong;
 
 /***/ },
 /* 240 */
@@ -27847,10 +27371,74 @@
 
 	'use strict';
 
-	var utils = __webpack_require__(241);
-	var bind = __webpack_require__(242);
-	var Axios = __webpack_require__(243);
-	var defaults = __webpack_require__(244);
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var SearchBar = function SearchBar(props) {
+		return _react2.default.createElement(
+			'form',
+			{ className: 'form-inline', onSubmit: props.getYoutubeSong },
+			_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Add a song to the playlist!', onChange: props.handleChange }),
+			_react2.default.createElement('input', { type: 'submit', className: 'submit-button', value: 'Search' })
+		);
+	};
+
+	module.exports = SearchBar;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AudioPlayer = function AudioPlayer(props) {
+	  if (props.currentSong !== null) {
+	    return _react2.default.createElement(
+	      'audio',
+	      { preload: 'auto', controls: true, autoPlay: 'true', onEnded: props.playNextSong },
+	      _react2.default.createElement('source', { src: props.currentSong, type: 'audio/mp3' })
+	    );
+	  }
+	  return null;
+	};
+
+	module.exports = AudioPlayer;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	module.exports = __webpack_require__(243);
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var utils = __webpack_require__(244);
+	var bind = __webpack_require__(245);
+	var Axios = __webpack_require__(246);
+	var defaults = __webpack_require__(247);
 
 	/**
 	 * Create an instance of Axios
@@ -27883,15 +27471,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(261);
-	axios.CancelToken = __webpack_require__(262);
-	axios.isCancel = __webpack_require__(258);
+	axios.Cancel = __webpack_require__(264);
+	axios.CancelToken = __webpack_require__(265);
+	axios.isCancel = __webpack_require__(261);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(263);
+	axios.spread = __webpack_require__(266);
 
 	module.exports = axios;
 
@@ -27899,14 +27487,14 @@
 	module.exports.default = axios;
 
 /***/ },
-/* 241 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	var bind = __webpack_require__(242);
+	var bind = __webpack_require__(245);
 
 	/*global toString:true*/
 
@@ -28201,7 +27789,7 @@
 	};
 
 /***/ },
-/* 242 */
+/* 245 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28217,17 +27805,17 @@
 	};
 
 /***/ },
-/* 243 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(244);
-	var utils = __webpack_require__(241);
-	var InterceptorManager = __webpack_require__(255);
-	var dispatchRequest = __webpack_require__(256);
-	var isAbsoluteURL = __webpack_require__(259);
-	var combineURLs = __webpack_require__(260);
+	var defaults = __webpack_require__(247);
+	var utils = __webpack_require__(244);
+	var InterceptorManager = __webpack_require__(258);
+	var dispatchRequest = __webpack_require__(259);
+	var isAbsoluteURL = __webpack_require__(262);
+	var combineURLs = __webpack_require__(263);
 
 	/**
 	 * Create a new instance of Axios
@@ -28307,13 +27895,13 @@
 	module.exports = Axios;
 
 /***/ },
-/* 244 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(241);
-	var normalizeHeaderName = __webpack_require__(245);
+	var utils = __webpack_require__(244);
+	var normalizeHeaderName = __webpack_require__(248);
 
 	var PROTECTION_PREFIX = /^\)\]\}',?\n/;
 	var DEFAULT_CONTENT_TYPE = {
@@ -28330,10 +27918,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(246);
+	    adapter = __webpack_require__(249);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(246);
+	    adapter = __webpack_require__(249);
 	  }
 	  return adapter;
 	}
@@ -28401,12 +27989,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 245 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(241);
+	var utils = __webpack_require__(244);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -28418,18 +28006,18 @@
 	};
 
 /***/ },
-/* 246 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(241);
-	var settle = __webpack_require__(247);
-	var buildURL = __webpack_require__(250);
-	var parseHeaders = __webpack_require__(251);
-	var isURLSameOrigin = __webpack_require__(252);
-	var createError = __webpack_require__(248);
-	var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(253);
+	var utils = __webpack_require__(244);
+	var settle = __webpack_require__(250);
+	var buildURL = __webpack_require__(253);
+	var parseHeaders = __webpack_require__(254);
+	var isURLSameOrigin = __webpack_require__(255);
+	var createError = __webpack_require__(251);
+	var btoa = typeof window !== 'undefined' && window.btoa && window.btoa.bind(window) || __webpack_require__(256);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -28522,7 +28110,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(254);
+	      var cookies = __webpack_require__(257);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : undefined;
@@ -28596,12 +28184,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 247 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(248);
+	var createError = __webpack_require__(251);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -28621,12 +28209,12 @@
 	};
 
 /***/ },
-/* 248 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(249);
+	var enhanceError = __webpack_require__(252);
 
 	/**
 	 * Create an Error with the specified message, config, error code, and response.
@@ -28643,7 +28231,7 @@
 	};
 
 /***/ },
-/* 249 */
+/* 252 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28668,12 +28256,12 @@
 	};
 
 /***/ },
-/* 250 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(241);
+	var utils = __webpack_require__(244);
 
 	function encode(val) {
 	  return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
@@ -28734,12 +28322,12 @@
 	};
 
 /***/ },
-/* 251 */
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(241);
+	var utils = __webpack_require__(244);
 
 	/**
 	 * Parse headers into an object
@@ -28778,12 +28366,12 @@
 	};
 
 /***/ },
-/* 252 */
+/* 255 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(241);
+	var utils = __webpack_require__(244);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -28846,7 +28434,7 @@
 	}();
 
 /***/ },
-/* 253 */
+/* 256 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -28886,12 +28474,12 @@
 	module.exports = btoa;
 
 /***/ },
-/* 254 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(241);
+	var utils = __webpack_require__(244);
 
 	module.exports = utils.isStandardBrowserEnv() ?
 
@@ -28944,12 +28532,12 @@
 	}();
 
 /***/ },
-/* 255 */
+/* 258 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(241);
+	var utils = __webpack_require__(244);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -29001,15 +28589,15 @@
 	module.exports = InterceptorManager;
 
 /***/ },
-/* 256 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(241);
-	var transformData = __webpack_require__(257);
-	var isCancel = __webpack_require__(258);
-	var defaults = __webpack_require__(244);
+	var utils = __webpack_require__(244);
+	var transformData = __webpack_require__(260);
+	var isCancel = __webpack_require__(261);
+	var defaults = __webpack_require__(247);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -29066,12 +28654,12 @@
 	};
 
 /***/ },
-/* 257 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(241);
+	var utils = __webpack_require__(244);
 
 	/**
 	 * Transform the data for a request or a response
@@ -29091,7 +28679,7 @@
 	};
 
 /***/ },
-/* 258 */
+/* 261 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29101,7 +28689,7 @@
 	};
 
 /***/ },
-/* 259 */
+/* 262 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29122,7 +28710,7 @@
 	};
 
 /***/ },
-/* 260 */
+/* 263 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29140,7 +28728,7 @@
 	};
 
 /***/ },
-/* 261 */
+/* 264 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29165,12 +28753,12 @@
 	module.exports = Cancel;
 
 /***/ },
-/* 262 */
+/* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(261);
+	var Cancel = __webpack_require__(264);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -29227,7 +28815,7 @@
 	module.exports = CancelToken;
 
 /***/ },
-/* 263 */
+/* 266 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -29260,7 +28848,732 @@
 	};
 
 /***/ },
-/* 264 */
+/* 267 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _mapButton = __webpack_require__(268);
+
+	var _mapButton2 = _interopRequireDefault(_mapButton);
+
+	var _mapNav = __webpack_require__(269);
+
+	var _mapNav2 = _interopRequireDefault(_mapNav);
+
+	var _app = __webpack_require__(270);
+
+	var _app2 = _interopRequireDefault(_app);
+
+	var _mapView = __webpack_require__(271);
+
+	var _mapView2 = _interopRequireDefault(_mapView);
+
+	var _axios = __webpack_require__(242);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Map = function (_React$Component) {
+	  _inherits(Map, _React$Component);
+
+	  function Map(props) {
+	    _classCallCheck(this, Map);
+
+	    var _this = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
+
+	    _this.state = {
+	      markers: [{
+	        position: {
+	          lat: 25,
+	          lng: 121
+	        }
+	      }]
+	    };
+	    _this.createParty = _this.createParty.bind(_this);
+	    _this.handleClick = _this.handleClick.bind(_this);
+	    _this.geoLocation = _this.geoLocation.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Map, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      console.log(this);
+	    }
+	  }, {
+	    key: 'createParty',
+	    value: function createParty() {
+	      var context = this;
+	      var location = navigator.geolocation.getCurrentPosition(function (position) {
+	        //TODO: set user state && update user location with sockets
+	        //do_something(position.coords.latitude, position.coords.longitude);
+	        console.log('Map latitude : ', position.coords.latitude);
+	        console.log('Map longitude : ', position.coords.longitude);
+
+	        var latitude = position.coords.latitude;
+	        var longitude = position.coords.longitude;
+	        _axios2.default.post('/api/parties', {
+	          latitude: latitude,
+	          longitude: longitude
+	        }).then(function (res) {
+	          console.log('Party response is: ', res);
+	        }).catch(function (error) {
+	          console.log('Not able to POST the party: ', error);
+	        });
+
+	        context.setState({
+	          userLatitude: position.coords.latitude,
+	          userLongitude: position.coords.longitude
+	        });
+	      });
+	      console.log(location);
+	    }
+	  }, {
+	    key: 'geoLocation',
+	    value: function geoLocation() {
+	      var context = this;
+	      navigator.geolocation.getCurrentPosition(function (position) {
+	        //TODO: set user state && update user location with sockets
+	        //do_something(position.coords.latitude, position.coords.longitude);
+	        console.log('Map latitude : ', position.coords.latitude);
+	        console.log('Map longitude : ', position.coords.longitude);
+	        context.setState({
+	          userLatitude: position.coords.latitude,
+	          userLongitude: position.coords.longitude
+	        });
+	      });
+	    }
+
+	    // initMap() {
+	    //   var uluru = {lat: -25.363, lng: 131.044};
+	    //   var map = new google.maps.Map(document.getElementById('map'), {
+	    //     zoom: 4,
+	    //     center: uluru
+	    //   });
+	    //   var marker = new google.maps.Marker({
+	    //     position: uluru,
+	    //     map: map
+	    //   });
+	    // }
+
+	    // jsonpRequest(url, callback) {
+	    //   var jsonpDispatcher = {};
+	    //   var key = Math.random();
+	    //   jsonpDispatcher[key] = function () {
+	    //     callback.apply(this, arguments);
+	    //     delete jsonpDispatcher[key];
+	    //   };
+	    //   var script = document.createElement('script');
+	    //   script.src = url + '&callback=jsonpDispatcher[' + key + ']';
+	    //   document.body.appendChild(script);
+	    // }
+
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      //this.jsonpRequest("https://maps.googleapis.com/maps/api/js?key=AIzaSyDQC_iCnXCf_cIH2AF4XPBF72n_rS2fOQM", this.initMap);
+
+	      return _react2.default.createElement(
+	        'div',
+	        { id: 'map' },
+	        _react2.default.createElement(_mapNav2.default, null),
+	        _react2.default.createElement(_mapView2.default, null),
+	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.createParty, buttonName: 'Create Party' }),
+	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.handleClick, buttonName: 'Join Party' }),
+	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.geoLocation, buttonName: 'Where Am I?!' })
+	      );
+	    }
+	  }]);
+
+	  return Map;
+	}(_react2.default.Component);
+
+	exports.default = Map;
+
+/***/ },
+/* 268 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	//import ReactDOM from 'react-dom';
+
+	var Button = function (_React$Component) {
+	  _inherits(Button, _React$Component);
+
+	  function Button(props) {
+	    _classCallCheck(this, Button);
+
+	    return _possibleConstructorReturn(this, (Button.__proto__ || Object.getPrototypeOf(Button)).call(this, props));
+	  }
+
+	  _createClass(Button, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'button',
+	        { onClick: this.props.buttonFunction },
+	        this.props.buttonName
+	      );
+	    }
+	  }]);
+
+	  return Button;
+	}(_react2.default.Component);
+
+	exports.default = Button;
+
+/***/ },
+/* 269 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(178);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	//import ReactDOM from 'react-dom';
+
+	var Navbar = function (_React$Component) {
+	  _inherits(Navbar, _React$Component);
+
+	  function Navbar(props) {
+	    _classCallCheck(this, Navbar);
+
+	    return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this, props));
+	  }
+
+	  _createClass(Navbar, [{
+	    key: 'render',
+	    value: function render() {
+	      var pages = ['map', 'party', 'login', 'logout', 'signup'];
+	      var navLinks = pages.map(function (page, index) {
+	        return _react2.default.createElement(
+	          'li',
+	          { key: index },
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: '/' + page },
+	            page
+	          )
+	        );
+	      });
+	      return _react2.default.createElement(
+	        'ul',
+	        null,
+	        navLinks
+	      );
+	    }
+	  }]);
+
+	  return Navbar;
+	}(_react2.default.Component);
+
+	exports.default = Navbar;
+
+/***/ },
+/* 270 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _SongList = __webpack_require__(234);
+
+	var _SongList2 = _interopRequireDefault(_SongList);
+
+	var _Search = __webpack_require__(237);
+
+	var _Search2 = _interopRequireDefault(_Search);
+
+	var _SearchResults = __webpack_require__(238);
+
+	var _SearchResults2 = _interopRequireDefault(_SearchResults);
+
+	var _SearchSong = __webpack_require__(239);
+
+	var _SearchSong2 = _interopRequireDefault(_SearchSong);
+
+	var _SearchBar = __webpack_require__(240);
+
+	var _SearchBar2 = _interopRequireDefault(_SearchBar);
+
+	var _Audio = __webpack_require__(241);
+
+	var _Audio2 = _interopRequireDefault(_Audio);
+
+	var _axios = __webpack_require__(242);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _map = __webpack_require__(267);
+
+	var _map2 = _interopRequireDefault(_map);
+
+	var _mapNav = __webpack_require__(269);
+
+	var _mapNav2 = _interopRequireDefault(_mapNav);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// Function calculates the distance between two lat/long points for our geolocation feature
+	function distance(lat1, lon1, lat2, lon2) {
+	  var p = 0.017453292519943295; // Math.PI / 180
+	  var c = Math.cos;
+	  var a = 0.5 - c((lat2 - lat1) * p) / 2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+
+	  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+	}
+	var HRlat = 37.7836924;
+	var HRlng = -122.4111553;
+
+	// The app here is creating a single playlist. We want to have the App instead be the mapview
+
+	var App = function (_React$Component) {
+	  _inherits(App, _React$Component);
+
+	  function App(props) {
+	    _classCallCheck(this, App);
+
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+	    _this.state = {
+	      // search query
+	      value: '',
+	      // array of downloadLinks
+	      srcs: [],
+	      // array of video data (image url and title)
+	      data: [],
+	      // current song being played
+	      currentSong: null,
+	      // array of search results
+	      searchResults: [],
+	      // location
+	      location: "Hey Pete"
+	    };
+	    _this.getPlaylist = _this.getPlaylist.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(App, [{
+	    key: 'getYoutubeSong',
+	    value: function getYoutubeSong(event) {
+	      event.preventDefault(); // prevents page from refreshing
+	      var context = this; // saving context of this for axios request
+	      (0, _axios2.default)({
+	        url: 'https://www.googleapis.com/youtube/v3/search',
+	        method: 'get',
+	        params: {
+	          part: 'snippet',
+	          key: 'AIzaSyCqOGwWGNq5ZncRXMRupT5aOn0yadXvi78',
+	          q: context.state.value //from set state in search?
+	        }
+	      }).then(function (response) {
+	        console.log('Search success! This is Youtube response : ', response.data.items);
+	        var searchResults = response.data.items;
+	        context.setState({ searchResults: searchResults });
+	      }).catch(function (error) {
+	        console.log('Search fail! This is the error', error);
+	      });
+	    }
+	  }, {
+	    key: 'playNextSong',
+	    value: function playNextSong() {
+	      var currentSongIndex = this.state.srcs.indexOf(this.state.currentSong); // get index of current song
+	      console.log('currentSong Index : ', currentSongIndex);
+	      console.log('songs index - 1 : ', this.state.srcs.length - 1);
+	      console.log('songs : ', this.state.srcs);
+	      this.setState({ currentSong: null }); // Reset state of current song to null for reasons?
+	      if (currentSongIndex < this.state.srcs.length - 1) {
+	        // Check if the current song is the last song
+	        var setNextSong = function () {
+	          // Set next song
+	          this.setState({ currentSong: this.state.srcs[currentSongIndex + 1] });
+	          console.log('play next song!', currentSongIndex);
+	        }.bind(this);
+	        setTimeout(setNextSong, 0); // Play next song after 2 seconds
+	      }
+	    }
+	  }, {
+	    key: 'postNewSong',
+	    value: function postNewSong(src, data) {
+	      var context = this;
+	      (0, _axios2.default)({
+	        method: 'POST',
+	        url: '/api/songs',
+	        data: {
+	          src: src,
+	          data: JSON.stringify(data)
+	        }
+	      }).then(function (success) {
+	        context.getPlaylist.call(context);
+	      }).catch(function (error) {
+	        console.log('error with post new song, ', error);
+	      });
+	    }
+	  }, {
+	    key: 'deleteSong',
+	    value: function deleteSong(source) {
+	      console.log('Sending to db, source: ', source);
+	      var context = this;
+	      (0, _axios2.default)({
+	        method: 'DELETE',
+	        url: '/api/songs',
+	        data: { src: source }
+	      }).then(function (success) {
+	        console.log(success, 'delete successful');
+	        context.getPlaylist.call(context);
+	      }).catch(function (error) {
+	        console.log('error with delete: ', error);
+	      });
+	    }
+	  }, {
+	    key: 'playSong',
+	    value: function playSong(index) {
+	      this.setState({ currentSong: null });
+	      var setNextSong = function () {
+	        this.setState({ currentSong: this.state.srcs[index] });
+	      }.bind(this);
+	      setTimeout(setNextSong, 0); // play next song after 2 secs
+	    }
+	  }, {
+	    key: 'getPlaylist',
+	    value: function getPlaylist() {
+	      var context = this;
+	      (0, _axios2.default)({
+	        method: 'GET',
+	        url: '/api/songs'
+	      }).then(function (playlist) {
+	        console.log('success in getPlaylist : ', playlist.data);
+	        var songs = playlist.data; //Songs array from response
+	        var newSrc = [];
+	        var newData = [];
+	        songs.forEach(function (song) {
+	          newData.push(JSON.parse(song.data));
+	          newSrc.push(song.src);
+	        });
+	        context.setState({
+	          srcs: newSrc,
+	          data: newData
+	        });
+	        // If there is no current song set the state to the current download link
+	        if (context.state.currentSong === null) {
+	          console.log('set directDownloadLink');
+	          context.setState({
+	            currentSong: newSrc[0]
+	          });
+	        };
+	        console.log('get request was sent to the db songs endpoint');
+	      }).catch(function (err) {
+	        console.log('There was an error with the GET request to /api/songs, ', err);
+	      });
+	    }
+	  }, {
+	    key: 'handleSearchClicks',
+
+
+	    // Handle search clicks
+	    value: function handleSearchClicks(index) {
+	      //refrences the app instance => keyword "this"
+	      // var context = this;
+	      var searchResult = this.state.searchResults;
+	      var selectedSongId = searchResult[index].id.videoId;
+	      console.log(selectedSongId === undefined); // If the ID is undefined, no video exists
+	      // End the request if the song doesn't exist
+
+	      var selectedSongUrl = 'https://www.youtube.com/watch?v=' + selectedSongId; // Get youtube URL
+	      var directDownloadLink = 'https://www.youtubeinmp3.com/fetch/?video=' + selectedSongUrl; // Create the direct DownloadLink, which requires the youtube URL
+
+	      // if ( !selectedSongId || context.state.srcs.indexOf(directDownloadLink) !== -1) {
+	      //   alert('This song is already on the playlist!')
+	      //   return;
+	      // }
+	      this.postNewSong.call(this, directDownloadLink, searchResult[index]); // Get current srcs and data from state  
+	    }
+	  }, {
+	    key: 'handlePlay',
+	    value: function handlePlay(index) {
+	      this.playSong(index);
+	    }
+	  }, {
+	    key: 'handleRemove',
+	    value: function handleRemove(index) {
+	      var target = this.state.srcs[index];
+	      this.deleteSong.call(this, target);
+	      // If the index being removed is the current song playing set this as next song
+	      if (this.state.currentSong === target) {
+	        this.playNextSong();
+	      };
+	    }
+	  }, {
+	    key: 'handleChange',
+
+	    // Updating the state 'value' to the user's query
+	    value: function handleChange(e) {
+	      this.setState({ value: e.target.value });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          this.state.location
+	        ),
+	        _react2.default.createElement(_mapNav2.default, null),
+	        _react2.default.createElement('img', { className: 'logo', src: 'static/images/DJ-DJ.png' }),
+	        _react2.default.createElement(_SearchBar2.default, { handleChange: this.handleChange.bind(this), getYoutubeSong: this.getYoutubeSong.bind(this) }),
+	        _react2.default.createElement(_Audio2.default, { currentSong: this.state.currentSong, playNextSong: this.playNextSong.bind(this) }),
+	        _react2.default.createElement(_SongList2.default, { data: this.state.data, srcs: this.state.srcs, handlePlay: this.handlePlay.bind(this), handleRemove: this.handleRemove.bind(this) }),
+	        _react2.default.createElement(_Search2.default, { searchResults: this.state.searchResults, handleSearchClicks: this.handleSearchClicks.bind(this) })
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.getLocation();
+	    }
+	  }, {
+	    key: 'getLocation',
+	    value: function getLocation() {
+	      var context = this;
+	      _axios2.default.get('/api/parties').then(function (res) {
+	        var locations = res.data;
+	        var locationArray = [];
+	        locations.forEach(function (location) {
+	          var latitude = JSON.parse(location.latitude);
+	          var longitude = JSON.parse(location.longitude);
+	          locationArray.push([latitude, longitude]);
+	        });
+	        context.setState({ location: locationArray });
+	      }).catch(function (error) {
+	        console.log('Not able to POST the party: ', error);
+	      });
+	    }
+	  }]);
+
+	  return App;
+	}(_react2.default.Component);
+
+	exports.default = App;
+
+/***/ },
+/* 271 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _axios = __webpack_require__(242);
+
+	var _axios2 = _interopRequireDefault(_axios);
+
+	var _reactRouter = __webpack_require__(178);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var MapContainer = function (_React$Component) {
+	  _inherits(MapContainer, _React$Component);
+
+	  function MapContainer(props) {
+	    _classCallCheck(this, MapContainer);
+
+	    return _possibleConstructorReturn(this, (MapContainer.__proto__ || Object.getPrototypeOf(MapContainer)).call(this, props));
+	  }
+
+	  _createClass(MapContainer, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement('div', { id: 'googleMaps', style: { height: '500px', width: '500px' } })
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.createMap();
+	    }
+	  }, {
+	    key: 'createMap',
+	    value: function createMap() {
+	      var context = this;
+
+	      /* ########## JSONP call for Google Map data ########## */
+	      (function fetchMap() {
+	        window.initMap = initMap;
+	        console.log('fetching map!');
+	        var ref = window.document.getElementsByTagName('script')[0];
+	        var script = window.document.createElement('script');
+	        script.src = 'http://maps.googleapis.com/maps/api/js?key=AIzaSyCBb0bm-_wNIf3oDMi-5PN_zeOf1bRWstI&libraries=places&callback=initMap';
+	        ref.parentNode.insertBefore(script, ref);
+	        script.onload = function () {
+	          console.log('onload: ', this);
+	          this.remove();
+	        };
+	      })();
+
+	      /* ################### Map Init ################### */
+	      function initMap() {
+	        var map = new google.maps.Map(document.getElementById('googleMaps'), {
+	          center: { lat: 37.783744, lng: -122.409079 },
+	          zoom: 17,
+	          zoomControl: false,
+	          mapTypeControl: false,
+	          scaleControl: false,
+	          streetViewControl: false,
+	          rotateControl: false,
+	          fullscreenControl: false
+	        });
+
+	        function createMarkers(partyArray) {
+	          var map = new google.maps.Map(document.getElementById('googleMaps'), {
+	            center: { lat: 37.783744, lng: -122.409079 },
+	            zoom: 17,
+	            zoomControl: false,
+	            mapTypeControl: false,
+	            scaleControl: false,
+	            streetViewControl: false,
+	            rotateControl: false,
+	            fullscreenControl: false
+	          });
+
+	          partyArray.forEach(function (party, index) {
+	            console.log(party);
+	            var latitude = Number(party.latitude);
+	            var longitude = Number(party.longitude);
+	            var marker = new google.maps.Marker({
+	              position: { lat: latitude, lng: longitude },
+	              map: map,
+	              icon: {
+	                path: google.maps.SymbolPath.CIRCLE,
+	                scale: 17
+	              },
+	              title: 'Party'
+	            });
+	            marker.addListener('click', function () {
+	              _reactRouter.browserHistory.push('/party');
+	            });
+	          });
+	        };
+
+	        function getParties() {
+	          _axios2.default.get('/api/parties').then(function (res) {
+	            console.log('this is a party get request: ', res);
+	            createMarkers(res.data);
+	          }).catch(function (error) {
+	            console.log('Not able to POST the party: ', error);
+	          });
+	        }
+
+	        getParties();
+	      }
+	    }
+	  }]);
+
+	  return MapContainer;
+	}(_react2.default.Component);
+
+	exports.default = MapContainer;
+
+/***/ },
+/* 272 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29313,344 +29626,17 @@
 	module.exports = Login;
 
 /***/ },
-/* 265 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Signup = function Signup() {
-	  return _react2.default.createElement(
-	    'form',
-	    { name: 'signup', method: 'POST', action: '/signup' },
-	    _react2.default.createElement(
-	      'label',
-	      { placeholder: 'username' },
-	      'username :',
-	      _react2.default.createElement('input', { type: 'text', name: 'username' }),
-	      _react2.default.createElement('br', null)
-	    ),
-	    _react2.default.createElement(
-	      'label',
-	      { placeholder: 'password' },
-	      'password :',
-	      _react2.default.createElement('input', { type: 'text', name: 'password' }),
-	      _react2.default.createElement('br', null)
-	    ),
-	    _react2.default.createElement('input', { type: 'submit', value: 'Submit' }),
-	    _react2.default.createElement(
-	      'button',
-	      null,
-	      _react2.default.createElement(
-	        'a',
-	        { href: '/login' },
-	        ' Login '
-	      )
-	    )
-	  );
-	};
-
-	module.exports = Signup;
-
-/***/ },
-/* 266 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _Song = __webpack_require__(267);
-
-	var _Song2 = _interopRequireDefault(_Song);
-
-	var _Playlist = __webpack_require__(268);
-
-	var _Playlist2 = _interopRequireDefault(_Playlist);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var SongList = function SongList(props) {
-		return _react2.default.createElement(
-			'div',
-			{ className: 'playlist-group' },
-			_react2.default.createElement(
-				'h3',
-				{ className: 'playlist-title' },
-				'Playlist'
-			),
-			_react2.default.createElement(_Playlist2.default, { data: props.data, handlePlay: props.handlePlay, handleRemove: props.handleRemove })
-		);
-	};
-
-	module.exports = SongList;
-
-/***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Song = function Song(props) {
-	  return _react2.default.createElement(
-	    'li',
-	    { className: 'list-group-song' },
-	    _react2.default.createElement(
-	      'ul',
-	      { className: 'player-list-button' },
-	      _react2.default.createElement(
-	        'li',
-	        null,
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              props.handlePlay(props.index);
-	            }, className: 'playSong' },
-	          _react2.default.createElement('img', { className: 'player-button', src: 'static/images/play-button.png' })
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'li',
-	        null,
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: function onClick() {
-	              props.handleRemove(props.index);
-	            }, className: 'removeSong' },
-	          _react2.default.createElement('img', { className: 'player-button', src: 'static/images/delete-button.png' })
-	        )
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'span',
-	      { className: 'list-group-item' },
-	      props.datum.snippet.title
-	    ),
-	    _react2.default.createElement('img', { className: 'thumbnail', src: props.datum.snippet.thumbnails.default.url })
-	  );
-	};
-	module.exports = Song;
-
-/***/ },
-/* 268 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _Song = __webpack_require__(267);
-
-	var _Song2 = _interopRequireDefault(_Song);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Playlist = function Playlist(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'ul',
-	      { className: 'list-group' },
-	      props.data.map(function (datum, i) {
-	        return _react2.default.createElement(_Song2.default, { key: i, datum: datum, index: i, handlePlay: props.handlePlay, handleRemove: props.handleRemove });
-	      })
-	    )
-	  );
-	};
-
-	module.exports = Playlist;
-
-/***/ },
-/* 269 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _SearchResults = __webpack_require__(270);
-
-	var _SearchResults2 = _interopRequireDefault(_SearchResults);
-
-	var _SearchSong = __webpack_require__(271);
-
-	var _SearchSong2 = _interopRequireDefault(_SearchSong);
-
-	var _SearchBar = __webpack_require__(272);
-
-	var _SearchBar2 = _interopRequireDefault(_SearchBar);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Search = function Search(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    { className: 'search-group' },
-	    _react2.default.createElement(_SearchResults2.default, { searchResults: props.searchResults, handleSearchClicks: props.handleSearchClicks })
-	  );
-	};
-
-	module.exports = Search;
-
-/***/ },
-/* 270 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	var _SearchSong = __webpack_require__(271);
-
-	var _SearchSong2 = _interopRequireDefault(_SearchSong);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var SearchResults = function SearchResults(props) {
-		return _react2.default.createElement(
-			'div',
-			null,
-			_react2.default.createElement(
-				'h3',
-				{ className: 'search-title' },
-				'Search Results'
-			),
-			_react2.default.createElement(
-				'ul',
-				{ className: 'list-group' },
-				props.searchResults.map(function (song, i) {
-					return _react2.default.createElement(_SearchSong2.default, { key: i, index: i, song: song, handleSearchClicks: props.handleSearchClicks });
-				})
-			)
-		);
-	};
-
-	module.exports = SearchResults;
-
-/***/ },
-/* 271 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var SearchSong = function SearchSong(props) {
-		return (
-			//need to inherit song info from parent
-			//two ways of making the song model - as a link and as a button  --> used to be line 9 <img className="thumbnail" src="#"/>
-
-			_react2.default.createElement(
-				'div',
-				null,
-				_react2.default.createElement(
-					'li',
-					{ className: 'list-group-item song' },
-					_react2.default.createElement(
-						'button',
-						{ className: 'search-add-button', onClick: function onClick() {
-								props.handleSearchClicks(props.index);
-							}
-						},
-						_react2.default.createElement('img', { className: 'player-button', src: 'static/images/add-song-button.png' })
-					),
-					_react2.default.createElement(
-						'span',
-						{ className: 'search-result-title' },
-						props.song.snippet.title
-					)
-				)
-			)
-		);
-	};
-
-	module.exports = SearchSong;
-
-/***/ },
-/* 272 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _reactDom = __webpack_require__(32);
-
-	var _reactDom2 = _interopRequireDefault(_reactDom);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var SearchBar = function SearchBar(props) {
-		return _react2.default.createElement(
-			'form',
-			{ className: 'form-inline', onSubmit: props.getYoutubeSong },
-			_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Add a song to the playlist!', onChange: props.handleChange }),
-			_react2.default.createElement('input', { type: 'submit', className: 'submit-button', value: 'Search' })
-		);
-	};
-
-	module.exports = SearchBar;
-
-/***/ },
 /* 273 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -29659,20 +29645,89 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
+	var _mapView = __webpack_require__(271);
+
+	var _mapView2 = _interopRequireDefault(_mapView);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var AudioPlayer = function AudioPlayer(props) {
-	  if (props.currentSong !== null) {
-	    return _react2.default.createElement(
-	      'audio',
-	      { preload: 'auto', controls: true, autoPlay: 'true', onEnded: props.playNextSong },
-	      _react2.default.createElement('source', { src: props.currentSong, type: 'audio/mp3' })
-	    );
-	  }
-	  return null;
-	};
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-	module.exports = AudioPlayer;
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Signup = function (_React$Component) {
+	  _inherits(Signup, _React$Component);
+
+	  function Signup(props) {
+	    _classCallCheck(this, Signup);
+
+	    var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
+
+	    _this.state = {
+	      latitude: 'calculating latitude...',
+	      longitude: 'calculating longitude...'
+	    };
+	    _this.createUser = _this.createUser.bind(_this);
+	    //this.handleClick = this.handleClick.bind(this);
+	    //this.geoLocation = this.geoLocation.bind(this);
+	    return _this;
+	  }
+
+	  _createClass(Signup, [{
+	    key: 'createUser',
+	    value: function createUser() {
+	      var context = this;
+	      navigator.geolocation.getCurrentPosition(function (position) {
+	        //TODO: set user state && update user location with sockets
+	        //do_something(position.coords.latitude, position.coords.longitude);
+	        context.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
+	      });
+	      console.log(location);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_mapView2.default, null),
+	        _react2.default.createElement(
+	          'form',
+	          { name: 'signup', method: 'POST', action: '/signup' },
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'username', name: 'username' }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { type: 'text', placeholder: 'password', name: 'password' }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { type: 'text', placeholder: this.state.latitude, name: 'latitude', value: this.state.latitude, readOnly: true }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { type: 'text', placeholder: this.state.longitude, name: 'longitude', value: this.state.longitude, readOnly: true }),
+	          _react2.default.createElement('br', null),
+	          _react2.default.createElement('input', { type: 'submit', value: 'Submit' }),
+	          _react2.default.createElement(
+	            'button',
+	            null,
+	            _react2.default.createElement(
+	              'a',
+	              { href: '/login' },
+	              ' Login '
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.createUser();
+	    }
+	  }]);
+
+	  return Signup;
+	}(_react2.default.Component);
+
+	exports.default = Signup;
 
 /***/ }
 /******/ ]);

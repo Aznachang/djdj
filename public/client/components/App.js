@@ -193,7 +193,7 @@ class App extends React.Component {
   };
   // Updating the state 'value' to the user's query
   handleChange(e) {
-    this.setState({value: e.target.value});
+    this.setState({value: e.target.value  });
   }
 
   render() {
