@@ -28,8 +28,6 @@ const HRlng = -122.4111553;
 // The app here is creating a single playlist. We want to have the App instead be the mapview
 
 class App extends React.Component {
-
-  //add mapview and export below to a playlist view
   constructor(props) {
     super(props);
     this.state = {
@@ -42,63 +40,46 @@ class App extends React.Component {
       // current song being played
       currentSong: null,
       // array of search results
-      searchResults: []
+      searchResults: [],
+      // location
+      location: "Hey Pete"
     };
     this.getPlaylist = this.getPlaylist.bind(this);
   };
-  // Function to send a GET request to youtube's api w/ user's query on submit
   getYoutubeSong(event) {
-    // prevents page from refreshing
-    event.preventDefault();
-    // saving context of this for axios request
-    var context = this;
-    // sending a GET request to youtube
+    event.preventDefault(); // prevents page from refreshing
+    var context = this; // saving context of this for axios request
     axios({
       url: 'https://www.googleapis.com/youtube/v3/search',
       method: 'get',
       params: {
         part: 'snippet',
-        // remember to hide the key to a variable!
         key: 'AIzaSyCqOGwWGNq5ZncRXMRupT5aOn0yadXvi78',
-        q: context.state.value
+        q: context.state.value //from set state in search?
       }
     })
-    .then(function(youtubeResponse) {
-      console.log('Search success! This is Youtube response : ', youtubeResponse.data.items);
-      // grab the array of videos, which live in data.items
-      var searchResult = youtubeResponse.data.items;
-      context.setState({searchResults: searchResult});
-
-
+    .then(function(response) {
+      console.log('Search success! This is Youtube response : ', response.data.items);
+      var searchResults = response.data.items;
+      context.setState({searchResults: searchResults});
     })
     .catch( function(error) {
       console.log('Search fail! This is the error', error);
     });
-  }
+  };
 
-  // function to play next song
   playNextSong() {
-    // get index of current song
-    var currentSongIndex = this.state.srcs.indexOf(this.state.currentSong);
+    var currentSongIndex = this.state.srcs.indexOf(this.state.currentSong); // get index of current song
     console.log('currentSong Index : ', currentSongIndex);
     console.log('songs index - 1 : ', this.state.srcs.length - 1);
     console.log('songs : ', this.state.srcs);
-    // reset state of current song to null for reasons?
-    this.setState({
-      currentSong: null
-    });
-
-    // make sure current song is not the last song
-    if (currentSongIndex < this.state.srcs.length - 1 ) {
-      // function to set next song
-      var setNextSong = function() {
-        this.setState({
-          currentSong: this.state.srcs[currentSongIndex + 1]
-        });
+    this.setState({currentSong: null}); // Reset state of current song to null for reasons?
+    if (currentSongIndex < this.state.srcs.length - 1 ) { // Check if the current song is the last song
+      var setNextSong = function() { // Set next song
+        this.setState({currentSong: this.state.srcs[currentSongIndex + 1]});
         console.log('play next song!', currentSongIndex);
       }.bind(this);
-      // play next song after 2 secs
-      setTimeout(setNextSong, 0);
+      setTimeout(setNextSong, 0); // Play next song after 2 seconds
     }
   }
 
@@ -113,45 +94,38 @@ class App extends React.Component {
       }
     })
     .then(function(success) {
-      console.log('song post sent')
       context.getPlaylist.call(context);
     })
-    .catch(function(err) {
-      console.log('error with post new song, ', err)
+    .catch(function(error) {
+      console.log('error with post new song, ', error)
     })
   }
 
-  deleteSong (src) {
-    console.log('Sending to db, src :', src);
+  deleteSong (source) {
+    console.log('Sending to db, source: ', source);
     var context = this;
     axios({
       method: 'DELETE',
       url: '/api/songs',
-      data: {src: src}
+      data: {src: source}
     })
     .then(function(success) {
       console.log(success, 'delete successful');
       context.getPlaylist.call(context);
     })
-    .catch(function(err) {
-      console.log('error with delete: ', err);
+    .catch(function(error) {
+      console.log('error with delete: ', error);
     })
   }
 
   playSong(index) {
-    this.setState({
-      currentSong: null
-    });
-
+    this.setState({currentSong: null});
     var setNextSong = function() {
-      this.setState({
-        currentSong: this.state.srcs[index]
-      });
+      this.setState({currentSong: this.state.srcs[index]});
     }.bind(this);
-    // play next song after 2 secs
-    setTimeout(setNextSong, 0);
-
+    setTimeout(setNextSong, 0); // play next song after 2 secs
   }
+
 
   getPlaylist () {
     var context = this;
@@ -159,96 +133,73 @@ class App extends React.Component {
       method: 'GET',
       url: '/api/songs'
     })
-    .then(function(success) {
-      console.log('success in getPlaylist : ', success.data);
-      //songs array from response
-      var songs = success.data;
+    .then(function(playlist) {
+      console.log('success in getPlaylist : ', playlist.data);
+      var songs = playlist.data; //Songs array from response
       var newSrc= [];
       var newData = [];
-
       songs.forEach(function(song) {
         newData.push(JSON.parse(song.data));
         newSrc.push(song.src);
       })
-
-      // var newSrcs = context.state.srcs;
-      // var newData = context.state.data;
-
-      // push download link and data to the current src/data array
-      // newSrcs.push(directDownloadLink);
-      // newData.push(searchResult[index]);
-      // console.log('searchResult : ', searchResult[index]);
-
-      // set the state to the newSrc/newData
       context.setState({
         srcs: newSrc,
         data: newData
       });
-
-      // if there is no current song,
+      // If there is no current song set the state to the current download link
       if ( context.state.currentSong === null ) {
         console.log('set directDownloadLink');
-        // set the state to the current download link
         context.setState({
           currentSong: newSrc[0]
         });
       };
-      // console.log('new song : ', directDownloadLink);
       console.log('get request was sent to the db songs endpoint')
     })
     .catch(function (err) {
       console.log('There was an error with the GET request to /api/songs, ', err);
     })
-  }
+  };
 
-  // handle search clicks
+  // Handle search clicks
   handleSearchClicks (index) {
     //refrences the app instance => keyword "this"
     // var context = this;
     var searchResult = this.state.searchResults;
     var selectedSongId = searchResult[index].id.videoId;
-    // if the ID is undefined, no video exists
-    console.log(selectedSongId === undefined);
-    // end the request if the song doesn't exist
-    // get youtube URL
-    var selectedSongUrl = 'https://www.youtube.com/watch?v=' + selectedSongId;
-    // create the direct DownloadLink, which requires the youtube URL
-    var directDownloadLink = 'https://www.youtubeinmp3.com/fetch/?video=' + selectedSongUrl;
+    console.log(selectedSongId === undefined); // If the ID is undefined, no video exists
+    // End the request if the song doesn't exist
+    
+    var selectedSongUrl = 'https://www.youtube.com/watch?v=' + selectedSongId; // Get youtube URL
+    var directDownloadLink = 'https://www.youtubeinmp3.com/fetch/?video=' + selectedSongUrl; // Create the direct DownloadLink, which requires the youtube URL
 
     // if ( !selectedSongId || context.state.srcs.indexOf(directDownloadLink) !== -1) {
     //   alert('This song is already on the playlist!')
     //   return;
     // }
-    // get current srcs and data from state
-
-    this.postNewSong.call(this, directDownloadLink, searchResult[index]);
-    
-  }
+    this.postNewSong.call(this, directDownloadLink, searchResult[index]); // Get current srcs and data from state  
+  };
 
   handlePlay(index) {
     this.playSong(index);
-  }
+  };
 
   handleRemove(index) {
     var target = this.state.srcs[index];
     this.deleteSong.call(this, target);
-
-    // if the index being removed is the current song playing
+    // If the index being removed is the current song playing set this as next song
     if (this.state.currentSong === target) {
       this.playNextSong();
-    }
-
-  }
-  // updating state's value to the user's query
+    };
+  };
+  // Updating the state 'value' to the user's query
   handleChange(e) {
-    this.setState({
-      value: e.target.value
-    });
+    this.setState({value: e.target.value});
   }
 
   render() {
     return (
       <div>
+        <h1>{this.state.location}</h1>
         <NavBar />
         <img className="logo" src="static/images/DJ-DJ.png" />
         <SearchBar handleChange={this.handleChange.bind(this)} getYoutubeSong={this.getYoutubeSong.bind(this)}/>
@@ -258,6 +209,28 @@ class App extends React.Component {
     </div>
     )
   }
+
+  componentDidMount() {
+    this.getLocation()  
+  };
+
+  getLocation () {
+    var context = this;
+    axios.get('/api/parties')
+    .then(function(res){
+      var locations = res.data;
+      var locationArray = [];
+      locations.forEach(function(location) {
+        var latitude = JSON.parse(location.latitude);
+        var longitude = JSON.parse(location.longitude);
+        locationArray.push([latitude, longitude]);
+      });
+      context.setState({location: locationArray});
+    })
+    .catch(function(error){
+      console.log('Not able to POST the party: ', error);
+    });
+  }; 
 }
 
 export default App;

@@ -73,6 +73,7 @@ app.get('/favicon.ico', function(req, res) {
 //Look at auth to see why we are getting issues when we use util.CheckUser
 
 app.get('*', function(req, res) {
+  console.log('I aint here');
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
