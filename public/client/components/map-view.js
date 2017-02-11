@@ -42,61 +42,16 @@ export default class MapContainer extends React.Component {
 
 
     function initMap() {
-      var HackReactor = {lat: 37.783744, lng: -122.409079}; // Hack Reactor Position
-      var map = new google.maps.Map(document.getElementById('googleMaps'), {
-        center: HackReactor,
-        zoom: 17,
-        zoomControl: false,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: false,
-        rotateControl: false,
-        fullscreenControl: false
-       });
-
-      var marker = new google.maps.Marker({
-         position: {lat: 37.784855, lng: -122.410190},
-         map: map,
-         icon: {
-          path: google.maps.SymbolPath.CIRCLE,
-          scale: 17
-         },
-         title: 'Party'
-       });
-
-      var contentString =   '<div id="content">'+
-                              '<div id="siteNotice">'+'</div>'+
-                            // HEADER - PARTY GROUP TITLE
-                              '<h2 id="firstHeading" class="firstHeading">PARTY UP IN HERE</h2>'+
-                              '<div id="bodyContent">'+
-                            // DJ + 'UserName' - Location (could make it as specific as we want)
-                              '<h4>DJ MARCUS - Powell St.</h4>'+
-                            // Stock Message -- ADD 'YES' and 'NO' actionEventListeners
-                              '<p>Would You Like to Join the Party?  <button>YES</button><button>NO</button></p>'+
-                              '</div>'+
-                            '</div>';
-
-        var infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
-
-        // marker.addListener('click', function() {
-        //   infowindow.open(map, marker);
-        // });
-
-      // Information Text for the InfoWindow Popup Upon User Clicking on Marker
-
-       // Info about DJ Party Pop-Up on Map
-
-       //Clicking on marker pops up InfoWindow of 'DJ Music Party'
-       marker.addListener('click', function() {
-         map.setZoom(16);
-         // infowindow.open(map, marker);
-         map.panTo(marker.getPosition());
-         map.setCenter(marker.getPosition());
-         infowindow.open(map, marker);
-       });
-    }
+       var map = new google.maps.Map(document.getElementById('googleMaps'), {
+          center: {lat: 37.783744, lng: -122.409079},
+          zoom: 17,
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          rotateControl: false,
+          fullscreenControl: false
+      });
 
     function createMarkers (partyArray) {
       var map = new google.maps.Map(document.getElementById('googleMaps'), {
@@ -171,4 +126,5 @@ export default class MapContainer extends React.Component {
       });
     }
   }
+    }
 }
