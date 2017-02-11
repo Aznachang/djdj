@@ -29555,59 +29555,6 @@
 	      var searchForm = document.getElementById('searchForm');
 
 	      function initMap() {
-	        var HackReactor = { lat: 37.783744, lng: -122.409079 }; // Hack Reactor Position
-	        var map = new google.maps.Map(document.getElementById('googleMaps'), {
-	          center: HackReactor,
-	          zoom: 17,
-	          zoomControl: false,
-	          mapTypeControl: false,
-	          scaleControl: false,
-	          streetViewControl: false,
-	          rotateControl: false,
-	          fullscreenControl: false
-	        });
-
-	        var marker = new google.maps.Marker({
-	          position: { lat: 37.784855, lng: -122.410190 },
-	          map: map,
-	          icon: {
-	            path: google.maps.SymbolPath.CIRCLE,
-	            scale: 17
-	          },
-	          title: 'Party'
-	        });
-
-	        var contentString = '<div id="content">' + '<div id="siteNotice">' + '</div>' +
-	        // HEADER - PARTY GROUP TITLE
-	        '<h2 id="firstHeading" class="firstHeading">PARTY UP IN HERE</h2>' + '<div id="bodyContent">' +
-	        // DJ + 'UserName' - Location (could make it as specific as we want)
-	        '<h4>DJ MARCUS - Powell St.</h4>' +
-	        // Stock Message -- ADD 'YES' and 'NO' actionEventListeners
-	        '<p>Would You Like to Join the Party?  <button>YES</button><button>NO</button></p>' + '</div>' + '</div>';
-
-	        var infowindow = new google.maps.InfoWindow({
-	          content: contentString
-	        });
-
-	        // marker.addListener('click', function() {
-	        //   infowindow.open(map, marker);
-	        // });
-
-	        // Information Text for the InfoWindow Popup Upon User Clicking on Marker
-
-	        // Info about DJ Party Pop-Up on Map
-
-	        //Clicking on marker pops up InfoWindow of 'DJ Music Party'
-	        marker.addListener('click', function () {
-	          map.setZoom(16);
-	          // infowindow.open(map, marker);
-	          map.panTo(marker.getPosition());
-	          map.setCenter(marker.getPosition());
-	          infowindow.open(map, marker);
-	        });
-	      }
-
-	      function createMarkers(partyArray) {
 	        var map = new google.maps.Map(document.getElementById('googleMaps'), {
 	          center: { lat: 37.783744, lng: -122.409079 },
 	          zoom: 17,
@@ -29619,61 +29566,74 @@
 	          fullscreenControl: false
 	        });
 
-	        partyArray.forEach(function (party, index) {
-	          console.log(party);
-	          var latitude = Number(party.latitude);
-	          var longitude = Number(party.longitude);
-	          var marker = new google.maps.Marker({
-	            position: { lat: latitude, lng: longitude },
-	            map: map,
-	            icon: {
-	              path: google.maps.SymbolPath.CIRCLE,
-	              scale: 17
-	            },
-	            title: 'Party'
+	        function createMarkers(partyArray) {
+	          var map = new google.maps.Map(document.getElementById('googleMaps'), {
+	            center: { lat: 37.783744, lng: -122.409079 },
+	            zoom: 17,
+	            zoomControl: false,
+	            mapTypeControl: false,
+	            scaleControl: false,
+	            streetViewControl: false,
+	            rotateControl: false,
+	            fullscreenControl: false
 	          });
-	        });
-	      }
 
-	      function getParties() {
-	        _axios2.default.get('/api/parties').then(function (res) {
-	          console.log('this is a party get request: ', res, _typeof(res.data[0].latitude));
-
-	          // var latitude = Number(res.data[0].latitude);
-	          // var longitude = Number(res.data[0].longitude);
-
-
-	          createMarkers(res.data);
-	        }).catch(function (error) {
-	          console.log('Not able to POST the party: ', error);
-	        });
-	      }
-
-	      getParties();
-
-	      function clearMarkers() {
-	        for (var i = 0; i < markers.length; i++) {
-	          if (markers[i]) {
-	            markers[i].setMap(null);
-	          }
+	          partyArray.forEach(function (party, index) {
+	            console.log(party);
+	            var latitude = Number(party.latitude);
+	            var longitude = Number(party.longitude);
+	            var marker = new google.maps.Marker({
+	              position: { lat: latitude, lng: longitude },
+	              map: map,
+	              icon: {
+	                path: google.maps.SymbolPath.CIRCLE,
+	                scale: 17
+	              },
+	              title: 'Party'
+	            });
+	          });
 	        }
-	        markers = [];
-	      }
 
-	      function dropMarker(i) {
-	        return function () {
-	          markers[i].setMap(map);
-	        };
-	      }
+	        function getParties() {
+	          _axios2.default.get('/api/parties').then(function (res) {
+	            console.log('this is a party get request: ', res, _typeof(res.data[0].latitude));
 
-	      function setPlace() {
-	        var marker = this;
-	        places.getDetails({ placeId: marker.placeResult.place_id }, function (place, status) {
-	          if (status !== google.maps.places.PlacesServiceStatus.OK) {
-	            return;
+	            // var latitude = Number(res.data[0].latitude);
+	            // var longitude = Number(res.data[0].longitude);
+
+
+	            createMarkers(res.data);
+	          }).catch(function (error) {
+	            console.log('Not able to POST the party: ', error);
+	          });
+	        }
+
+	        getParties();
+
+	        function clearMarkers() {
+	          for (var i = 0; i < markers.length; i++) {
+	            if (markers[i]) {
+	              markers[i].setMap(null);
+	            }
 	          }
-	          context.props.updatePlace(place);
-	        });
+	          markers = [];
+	        }
+
+	        function dropMarker(i) {
+	          return function () {
+	            markers[i].setMap(map);
+	          };
+	        }
+
+	        function setPlace() {
+	          var marker = this;
+	          places.getDetails({ placeId: marker.placeResult.place_id }, function (place, status) {
+	            if (status !== google.maps.places.PlacesServiceStatus.OK) {
+	              return;
+	            }
+	            context.props.updatePlace(place);
+	          });
+	        }
 	      }
 	    }
 	  }]);
