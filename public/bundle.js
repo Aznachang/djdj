@@ -29485,6 +29485,8 @@
 	  value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -29566,7 +29568,7 @@
 	        });
 
 	        var marker = new google.maps.Marker({
-	          position: HackReactor,
+	          position: { lat: 37.784855, lng: -122.410190 },
 	          map: map,
 	          icon: {
 	            path: google.maps.SymbolPath.CIRCLE,
@@ -29604,6 +29606,50 @@
 	          infowindow.open(map, marker);
 	        });
 	      }
+
+	      function createMarkers(partyArray) {
+	        var map = new google.maps.Map(document.getElementById('googleMaps'), {
+	          center: { lat: 37.783744, lng: -122.409079 },
+	          zoom: 17,
+	          zoomControl: false,
+	          mapTypeControl: false,
+	          scaleControl: false,
+	          streetViewControl: false,
+	          rotateControl: false,
+	          fullscreenControl: false
+	        });
+
+	        partyArray.forEach(function (party, index) {
+	          console.log(party);
+	          var latitude = Number(party.latitude);
+	          var longitude = Number(party.longitude);
+	          var marker = new google.maps.Marker({
+	            position: { lat: latitude, lng: longitude },
+	            map: map,
+	            icon: {
+	              path: google.maps.SymbolPath.CIRCLE,
+	              scale: 17
+	            },
+	            title: 'Party'
+	          });
+	        });
+	      }
+
+	      function getParties() {
+	        _axios2.default.get('/api/parties').then(function (res) {
+	          console.log('this is a party get request: ', res, _typeof(res.data[0].latitude));
+
+	          // var latitude = Number(res.data[0].latitude);
+	          // var longitude = Number(res.data[0].longitude);
+
+
+	          createMarkers(res.data);
+	        }).catch(function (error) {
+	          console.log('Not able to POST the party: ', error);
+	        });
+	      }
+
+	      getParties();
 
 	      function clearMarkers() {
 	        for (var i = 0; i < markers.length; i++) {

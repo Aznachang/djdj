@@ -69,7 +69,10 @@ module.exports = {
 	}, //end of users
 	parties: {
 		get: function(req, res) {
-
+			db.Party.findAll({}).then(function(parties) {
+				console.log('party in the controller')
+				res.json(parties);		
+			})
 		},
 		post: function(req, res) {
 			console.log('POST request for A PARTY: ', req.body);
