@@ -42,7 +42,8 @@ var SongPlayList = orm.define('songplaylist', {
 var User = orm.define('user', {
 	username: {type: Sequelize.STRING, unique: true},
 	password: Sequelize.STRING,
-	location: Sequelize.STRING
+	latitude: Sequelize.STRING,
+	longitude: Sequelize.STRING
 },
 {
 	timestamps: false
