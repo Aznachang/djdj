@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { browserHistory } from 'react-router';
 
 export default class MapContainer extends React.Component {
   constructor(props) {
@@ -65,14 +66,17 @@ export default class MapContainer extends React.Component {
         var latitude = Number(party.latitude);
         var longitude = Number(party.longitude);
         var marker = new google.maps.Marker({
-         position: {lat: latitude, lng: longitude},
-         map: map,
-         icon: {
-          path: google.maps.SymbolPath.CIRCLE,
-          scale: 17
-         },
-         title: 'Party'
-       });
+          position: {lat: latitude, lng: longitude},
+          map: map,
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 17
+          },
+          title: 'Party'
+        });
+        marker.addListener('click', function() {
+          browserHistory.push('/party');
+        });
       });
     };
 
