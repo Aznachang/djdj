@@ -55,7 +55,7 @@ export default class MapContainer extends React.Component {
        });
 
       var marker = new google.maps.Marker({
-         position: HackReactor,
+         position: {lat: 37.784855, lng: -122.410190},
          map: map,
          icon: {
           path: google.maps.SymbolPath.CIRCLE,
@@ -98,6 +98,52 @@ export default class MapContainer extends React.Component {
        });
     }
 
+    function createMarkers (partyArray) {
+      var map = new google.maps.Map(document.getElementById('googleMaps'), {
+          center: {lat: 37.783744, lng: -122.409079},
+          zoom: 17,
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          rotateControl: false,
+          fullscreenControl: false
+      });
+
+      partyArray.forEach(function(party, index) {
+        console.log(party)
+        var latitude = Number(party.latitude);
+        var longitude = Number(party.longitude);
+        var marker = new google.maps.Marker({
+         position: {lat: latitude, lng: longitude},
+         map: map,
+         icon: {
+          path: google.maps.SymbolPath.CIRCLE,
+          scale: 17
+         },
+         title: 'Party'
+       });
+      })
+    }
+
+    function getParties () {
+      axios.get('/api/parties')
+      .then(function(res){
+        console.log('this is a party get request: ', res, typeof res.data[0].latitude);
+
+        // var latitude = Number(res.data[0].latitude);
+        // var longitude = Number(res.data[0].longitude);
+
+        
+        createMarkers(res.data);
+        
+      })
+      .catch(function(error){
+        console.log('Not able to POST the party: ', error);
+      });
+    }
+
+    getParties();
 
     function clearMarkers() {
       for (var i = 0; i < markers.length; i++) {
