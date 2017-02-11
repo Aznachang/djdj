@@ -29485,8 +29485,6 @@
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -29548,12 +29546,6 @@
 	      })();
 
 	      /* ################### Map Init ################### */
-	      var map = void 0,
-	          places = void 0,
-	          autocomplete = void 0;
-	      var markers = [];
-	      var searchForm = document.getElementById('searchForm');
-
 	      function initMap() {
 	        var map = new google.maps.Map(document.getElementById('googleMaps'), {
 	          center: { lat: 37.783744, lng: -122.409079 },
@@ -29592,16 +29584,11 @@
 	              title: 'Party'
 	            });
 	          });
-	        }
+	        };
 
 	        function getParties() {
 	          _axios2.default.get('/api/parties').then(function (res) {
-	            console.log('this is a party get request: ', res, _typeof(res.data[0].latitude));
-
-	            // var latitude = Number(res.data[0].latitude);
-	            // var longitude = Number(res.data[0].longitude);
-
-
+	            console.log('this is a party get request: ', res);
 	            createMarkers(res.data);
 	          }).catch(function (error) {
 	            console.log('Not able to POST the party: ', error);
@@ -29609,31 +29596,6 @@
 	        }
 
 	        getParties();
-
-	        function clearMarkers() {
-	          for (var i = 0; i < markers.length; i++) {
-	            if (markers[i]) {
-	              markers[i].setMap(null);
-	            }
-	          }
-	          markers = [];
-	        }
-
-	        function dropMarker(i) {
-	          return function () {
-	            markers[i].setMap(map);
-	          };
-	        }
-
-	        function setPlace() {
-	          var marker = this;
-	          places.getDetails({ placeId: marker.placeResult.place_id }, function (place, status) {
-	            if (status !== google.maps.places.PlacesServiceStatus.OK) {
-	              return;
-	            }
-	            context.props.updatePlace(place);
-	          });
-	        }
 	      }
 	    }
 	  }]);
