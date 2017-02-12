@@ -19,24 +19,12 @@ if (!process.env.DATABASE_URL) {
 // Song
 var Song = orm.define('song', {
 	src: Sequelize.STRING,
-	data: Sequelize.STRING(1000)
+	data: Sequelize.STRING(1000),
+	partyId: Sequelize.INTEGER
 },
 {
 	timestamps: false
 });
-
-// Playlist
-var Playlist = orm.define('playlist', {
-	name: Sequelize.STRING
-});
-// Playlist.belongsTo(User);
-
-// SongPlayList
-var SongPlayList = orm.define('songplaylist', {
-
-});
-// SongPlayList.belongsTo(Song);
-// SongPlaylist.belongsTo(Playlist);
 
 // USER
 var User = orm.define('user', {
@@ -54,12 +42,12 @@ var Party = orm.define('party', {
 	latitude: Sequelize.STRING,
 	longitude: Sequelize.STRING
 });
-// Party.belongsTo(User);
-// Party.belongsTo(Playlist);
+// // Parent.hasOne(Child)
+// Party.hasOne(Song, {foreignKey: 'partyId'});
+// // Child.belngsTo(Parent)
+// Song.belongsTo(Party, {foreignKey: 'partyId'}); // add to partyId to Playlist
 
 module.exports.con = orm;
 module.exports.Song = Song;
 module.exports.User = User;
-module.exports.Playlist = Playlist;
-module.exports.SongPlayList = SongPlayList;
 module.exports.Party = Party;

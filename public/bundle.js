@@ -26946,11 +26946,14 @@
 	    key: 'postNewSong',
 	    value: function postNewSong(src, data) {
 	      var context = this;
+	      var partyId = Number(window.location.search.split('=')[1]);
+	      console.log('partyId upon Adding a Song: ', partyId);
 	      (0, _axios2.default)({
 	        method: 'POST',
 	        url: '/api/songs',
 	        data: {
 	          src: src,
+	          partyId: partyId,
 	          data: JSON.stringify(data)
 	        }
 	      }).then(function (success) {
@@ -27036,7 +27039,7 @@
 	      //   alert('This song is already on the playlist!')
 	      //   return;
 	      // }
-	      this.postNewSong.call(this, directDownloadLink, searchResult[index]); // Get current srcs and data from state  
+	      this.postNewSong.call(this, directDownloadLink, searchResult[index]); // Get current srcs and data from state
 	    }
 	  }, {
 	    key: 'handlePlay',
@@ -29275,11 +29278,14 @@
 	    key: 'postNewSong',
 	    value: function postNewSong(src, data) {
 	      var context = this;
+	      var partyId = Number(window.location.search.split('=')[1]);
+	      console.log('partyId upon Adding a Song: ', partyId);
 	      (0, _axios2.default)({
 	        method: 'POST',
 	        url: '/api/songs',
 	        data: {
 	          src: src,
+	          partyId: partyId,
 	          data: JSON.stringify(data)
 	        }
 	      }).then(function (success) {
@@ -29365,7 +29371,7 @@
 	      //   alert('This song is already on the playlist!')
 	      //   return;
 	      // }
-	      this.postNewSong.call(this, directDownloadLink, searchResult[index]); // Get current srcs and data from state  
+	      this.postNewSong.call(this, directDownloadLink, searchResult[index]); // Get current srcs and data from state
 	    }
 	  }, {
 	    key: 'handlePlay',
@@ -29536,6 +29542,7 @@
 
 	          partyArray.forEach(function (party, index) {
 	            console.log(party);
+	            var id = party.id;
 	            var latitude = Number(party.latitude);
 	            var longitude = Number(party.longitude);
 	            var marker = new google.maps.Marker({
@@ -29548,7 +29555,16 @@
 	              title: 'Party'
 	            });
 	            marker.addListener('click', function () {
-	              _reactRouter.browserHistory.push('/party');
+	              _reactRouter.browserHistory.push('/party/?id=' + party.id);
+	              // browserHistory.push('/party');
+	              // retrieve party object playlist --> songs
+	              // axios.get('/api/:partyId/:playlist/songs')
+	              // .then(function(res){
+	              //   console.log('Party object is: ', res.data);
+	              // })
+	              // .catch(function(error){
+	              //   console.log('Not able to get songs: ', error);
+	              // })
 	            });
 	          });
 	        };
