@@ -1,4 +1,5 @@
 var db = require('../index.js');
+var sequelize = require('sequelize');
 var Promise = require('bluebird');
 var bcrypt = Promise.promisifyAll(require('bcrypt'), { multiArgs: true} );
 
@@ -11,7 +12,7 @@ module.exports = {
 			});
 		},
 		post: function (req, res) {
-			db.Song.findOrCreate( {where: { src: req.body.src, data: req.body.data, partyId: req.body.partyId}})
+			db.Song.findOrCreate( {where: { src: req.body.src, data: req.body.data, partyid: req.body.partyid}})
 			.spread(function(song, created) {
 				res.send(song);
 			})
@@ -87,7 +88,18 @@ module.exports = {
 	party: {
 		get: function(req, res) {
 			console.log('get request for a PARTYs songs: ', req.body);
-
+			// sequelize.query("SELECT songs.src, songs.data FROM `songs` INNER JOIN `parties` ON songs.partyid=parties.id").spread(function(results, metadata) {
+			// 		console.log(results);
+			// 		console.log(metadata);
+			// 	})
+			db.Songs.findAll({
+				where: {
+					partyid: req.body.partyid
+				}
+			})
+			.then(function(songs){
+				res.json(songs);
+			});
 		}
 	},
 	playlists: {

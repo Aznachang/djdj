@@ -21,7 +21,7 @@ class Signup extends React.Component {
       //do_something(position.coords.latitude, position.coords.longitude);
       context.setState({latitude: position.coords.latitude, longitude: position.coords.longitude})
     });
-    console.log(location);
+    console.log('inside createuser: ', location);
   };
 
   render() {
@@ -36,11 +36,11 @@ class Signup extends React.Component {
           <input type="submit"  value="Submit"></input>
           <button><a href="/login">Login</a></button>
         </form>
-      </div>  
+      </div>
   )};
 
   componentDidMount() {
-    this.createUser()  
+    this.createUser()
   };
 
 }

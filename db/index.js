@@ -20,7 +20,7 @@ if (!process.env.DATABASE_URL) {
 var Song = orm.define('song', {
 	src: Sequelize.STRING,
 	data: Sequelize.STRING(1000),
-	partyId: Sequelize.INTEGER
+	partyid: Sequelize.INTEGER
 },
 {
 	timestamps: false
@@ -44,7 +44,7 @@ var Party = orm.define('party', {
 });
 // // Parent.hasOne(Child)
 // Party.hasOne(Song, {foreignKey: 'partyId'});
-// // Child.belngsTo(Parent)
+// // // Child.belngsTo(Parent)
 // Song.belongsTo(Party, {foreignKey: 'partyId'}); // add to partyId to Playlist
 
 module.exports.con = orm;
