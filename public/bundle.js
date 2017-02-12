@@ -27069,13 +27069,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          this.state.location
-	        ),
 	        _react2.default.createElement(_mapNav2.default, null),
-	        _react2.default.createElement('img', { className: 'logo', src: 'static/images/DJ-DJ.png' }),
 	        _react2.default.createElement(_SearchBar2.default, { handleChange: this.handleChange.bind(this), getYoutubeSong: this.getYoutubeSong.bind(this) }),
 	        _react2.default.createElement(_Audio2.default, { currentSong: this.state.currentSong, playNextSong: this.playNextSong.bind(this) }),
 	        _react2.default.createElement(_SongList2.default, { data: this.state.data, srcs: this.state.srcs, handlePlay: this.handlePlay.bind(this), handleRemove: this.handleRemove.bind(this) }),
@@ -27387,8 +27381,9 @@
 	var SearchBar = function SearchBar(props) {
 		return _react2.default.createElement(
 			'form',
-			{ className: 'form-inline', onSubmit: props.getYoutubeSong },
+			{ onSubmit: props.getYoutubeSong },
 			_react2.default.createElement('input', { type: 'text', className: 'form-control', placeholder: 'Add a song to the playlist!', onChange: props.handleChange }),
+			_react2.default.createElement('br', null),
 			_react2.default.createElement('input', { type: 'submit', className: 'submit-button', value: 'Search' })
 		);
 	};
@@ -28906,14 +28901,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
 
-	    _this.state = {
-	      markers: [{
-	        position: {
-	          lat: 25,
-	          lng: 121
-	        }
-	      }]
-	    };
+	    _this.state = {};
 	    _this.createParty = _this.createParty.bind(_this);
 	    _this.handleClick = _this.handleClick.bind(_this);
 	    _this.geoLocation = _this.geoLocation.bind(_this);
@@ -28968,51 +28956,23 @@
 	        });
 	      });
 	    }
-
-	    // initMap() {
-	    //   var uluru = {lat: -25.363, lng: 131.044};
-	    //   var map = new google.maps.Map(document.getElementById('map'), {
-	    //     zoom: 4,
-	    //     center: uluru
-	    //   });
-	    //   var marker = new google.maps.Marker({
-	    //     position: uluru,
-	    //     map: map
-	    //   });
-	    // }
-
-	    // jsonpRequest(url, callback) {
-	    //   var jsonpDispatcher = {};
-	    //   var key = Math.random();
-	    //   jsonpDispatcher[key] = function () {
-	    //     callback.apply(this, arguments);
-	    //     delete jsonpDispatcher[key];
-	    //   };
-	    //   var script = document.createElement('script');
-	    //   script.src = url + '&callback=jsonpDispatcher[' + key + ']';
-	    //   document.body.appendChild(script);
-	    // }
-
 	  }, {
 	    key: 'render',
 	    value: function render() {
-
-	      //this.jsonpRequest("https://maps.googleapis.com/maps/api/js?key=AIzaSyDQC_iCnXCf_cIH2AF4XPBF72n_rS2fOQM", this.initMap);
-
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'map' },
 	        _react2.default.createElement(_mapNav2.default, null),
 	        _react2.default.createElement(_mapView2.default, null),
-	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.createParty, buttonName: 'Create Party' }),
-	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.handleClick, buttonName: 'Join Party' }),
-	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.geoLocation, buttonName: 'Where Am I?!' })
+	        _react2.default.createElement(_mapButton2.default, { buttonFunction: this.createParty, buttonName: 'Create Party' })
 	      );
 	    }
 	  }]);
 
 	  return Map;
 	}(_react2.default.Component);
+
+	;
 
 	exports.default = Map;
 
@@ -29401,13 +29361,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          this.state.location
-	        ),
 	        _react2.default.createElement(_mapNav2.default, null),
-	        _react2.default.createElement('img', { className: 'logo', src: 'static/images/DJ-DJ.png' }),
 	        _react2.default.createElement(_SearchBar2.default, { handleChange: this.handleChange.bind(this), getYoutubeSong: this.getYoutubeSong.bind(this) }),
 	        _react2.default.createElement(_Audio2.default, { currentSong: this.state.currentSong, playNextSong: this.playNextSong.bind(this) }),
 	        _react2.default.createElement(_SongList2.default, { data: this.state.data, srcs: this.state.srcs, handlePlay: this.handlePlay.bind(this), handleRemove: this.handleRemove.bind(this) }),
@@ -29488,7 +29442,7 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement('div', { id: 'googleMaps', style: { height: '500px', width: '500px' } })
+	        _react2.default.createElement('div', { id: 'googleMaps', style: { 'height': '500px', 'width': '500px', 'border-radius': '5px' } })
 	      );
 	    }
 	  }, {
@@ -29610,29 +29564,18 @@
 	  return _react2.default.createElement(
 	    'form',
 	    { name: 'login', method: 'GET', action: '/api/login' },
-	    _react2.default.createElement(
-	      'label',
-	      null,
-	      'username :',
-	      _react2.default.createElement('input', { type: 'text', name: 'username' }),
-	      _react2.default.createElement('br', null)
-	    ),
-	    _react2.default.createElement(
-	      'label',
-	      null,
-	      'password :',
-	      _react2.default.createElement('input', { type: 'password', name: 'password' }),
-	      _react2.default.createElement('br', null)
-	    ),
+	    _react2.default.createElement('input', { type: 'text', placeholder: 'username', name: 'username' }),
+	    _react2.default.createElement('br', null),
+	    _react2.default.createElement('input', { type: 'password', placeholder: 'password', name: 'password' }),
+	    _react2.default.createElement('br', null),
 	    _react2.default.createElement('input', { type: 'submit', value: 'Submit' }),
 	    _react2.default.createElement(
 	      'button',
 	      null,
-	      ' ',
 	      _react2.default.createElement(
 	        'a',
 	        { href: '/signup' },
-	        ' Sign-Up '
+	        'Sign-Up'
 	      )
 	    )
 	  );
@@ -29714,7 +29657,7 @@
 	          { name: 'signup', method: 'POST', action: '/signup' },
 	          _react2.default.createElement('input', { type: 'text', placeholder: 'username', name: 'username' }),
 	          _react2.default.createElement('br', null),
-	          _react2.default.createElement('input', { type: 'text', placeholder: 'password', name: 'password' }),
+	          _react2.default.createElement('input', { type: 'password', placeholder: 'password', name: 'password' }),
 	          _react2.default.createElement('br', null),
 	          _react2.default.createElement('input', { type: 'text', placeholder: this.state.latitude, name: 'latitude', value: this.state.latitude, readOnly: true }),
 	          _react2.default.createElement('br', null),
@@ -29727,7 +29670,7 @@
 	            _react2.default.createElement(
 	              'a',
 	              { href: '/login' },
-	              ' Login '
+	              'Login'
 	            )
 	          )
 	        )

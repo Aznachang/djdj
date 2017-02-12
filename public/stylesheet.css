@@ -1,9 +1,3 @@
-/*swatches*/
-/*pink - rgb(245, 97, 140);
-dark grey - #515151
-light grey - ##DCDCDC
-black - #010101*/
-
 #app {
   padding-top: 20px;
   position: absolute;
@@ -11,17 +5,10 @@ black - #010101*/
   height: 100%;
 }
 
-/*styling for the login page*/
-/*.app {
-  background-image: url("images/people-dancing.png");
-  padding-top: 20px;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}*/
-
 body {
-  background-color: beige;
+  background-image: url("./images/silent-disco-headphones.jpg");
+  background-size: cover;
+  background-color: darkgrey;
 }
 
 button {
@@ -111,21 +98,12 @@ li a {
 }
 
 .playlist-group {
-  position: relative;
-  float: left;
-  width: 350px;
+  width: 25%;
 
-}
-
-.playlist-group div {
-  margin-left:-40px;
 }
 
 .search-group {
-  position: relative;
-  float: right;
-  width: 230px;
-  padding-left: 10px;
+  width: 25%;
 }
 
 /*SongList Styles*/
@@ -135,10 +113,6 @@ li a {
   overflow-y: scroll;
   height: 200px;
   border-radius: 7px;
-}
-
-.search-group ul div {
-  margin-left: -40px
 }
 
 /*Song Styles*/
@@ -214,10 +188,9 @@ li a {
 }
 
 .form-control {
-  width: 520px;
+  width: 50%;
   font-size: 18px;
   line-height: 24px;
-  float: left;
   border-radius: 7px;
 }
 

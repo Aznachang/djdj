@@ -202,9 +202,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>{this.state.location}</h1>
         <NavBar />
-        <img className="logo" src="static/images/DJ-DJ.png" />
         <SearchBar handleChange={this.handleChange.bind(this)} getYoutubeSong={this.getYoutubeSong.bind(this)}/>
         <AudioPlayer currentSong={this.state.currentSong} playNextSong={this.playNextSong.bind(this)} />
         <SongList data={this.state.data} srcs={this.state.srcs} handlePlay={this.handlePlay.bind(this)} handleRemove={this.handleRemove.bind(this)}/>

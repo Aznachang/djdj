@@ -10,10 +10,9 @@ export default class MapContainer extends React.Component {
   render() {
     return (
       <div>
-        <div id="googleMaps" style={{height : '500px', width : '500px'}}></div>
+        <div id="googleMaps" style={{'height': '500px', 'width': '500px', 'border-radius': '5px'}}></div>
       </div>
-    );
-  };
+  )};
 
   componentDidMount() {
     this.createMap();

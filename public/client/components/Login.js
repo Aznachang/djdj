@@ -5,18 +5,10 @@ import ReactDOM from 'react-dom';
 
 var Login = () => (
   <form name="login" method="GET" action="/api/login" >
-    <label>
-      username :
-      <input type="text" name="username" />
-      <br/>
-    </label>
-    <label>
-      password :
-      <input type="password" name="password" />
-      <br/>
-    </label>
+    <input type="text" placeholder="username" name="username" /><br/>
+    <input type="password" placeholder="password" name="password" /><br/>
     <input type="submit"  value="Submit"></input>
-    <button> <a href="/signup"> Sign-Up </a></button>
+    <button><a href="/signup">Sign-Up</a></button>
   </form>
 )
 
