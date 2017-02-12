@@ -10,7 +10,7 @@ export default class MapContainer extends React.Component {
   render() {
     return (
       <div>
-        <div id="googleMaps" style={{'height': '500px', 'width': '500px', 'border-radius': '5px'}}></div>
+        <div id="googleMaps" style={{'height': '500px', 'width': '500px', 'borderRadius': '5px'}}></div>
       </div>
   )};
 
@@ -39,7 +39,7 @@ export default class MapContainer extends React.Component {
     function initMap() {
       var map = new google.maps.Map(document.getElementById('googleMaps'), {
         center: {lat: 37.783744, lng: -122.409079},
-        zoom: 17,
+        zoom: 5,
         zoomControl: false,
         mapTypeControl: false,
         scaleControl: false,
@@ -49,42 +49,44 @@ export default class MapContainer extends React.Component {
       });
 
     function createMarkers (partyArray) {
-      var map = new google.maps.Map(document.getElementById('googleMaps'), {
-        center: {lat: 37.783744, lng: -122.409079},
-        zoom: 17,
-        zoomControl: false,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: false,
-        rotateControl: false,
-        fullscreenControl: false
-      });
-
-      partyArray.forEach(function(party, index) {
-        console.log(party)
-        var id = party.id;
-        var latitude = Number(party.latitude);
-        var longitude = Number(party.longitude);
-        var marker = new google.maps.Marker({
-          position: {lat: latitude, lng: longitude},
-          map: map,
-          icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            scale: 17
-          },
-          title: 'Party'
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var map = new google.maps.Map(document.getElementById('googleMaps'), {
+          center: {lat: position.coords.latitude, lng: position.coords.longitude},
+          zoom: 17,
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          rotateControl: false,
+          fullscreenControl: false
         });
-        marker.addListener('click', function() {
-          browserHistory.push('/party/?id=' + party.id);
-          // browserHistory.push('/party');
-          // retrieve party object playlist --> songs
-          // axios.get('/api/:partyId/:playlist/songs')
-          // .then(function(res){
-          //   console.log('Party object is: ', res.data);
-          // })
-          // .catch(function(error){
-          //   console.log('Not able to get songs: ', error);
-          // })
+
+        partyArray.forEach(function(party, index) {
+          console.log(party)
+          var id = party.id;
+          var latitude = Number(party.latitude);
+          var longitude = Number(party.longitude);
+          var marker = new google.maps.Marker({
+            position: {lat: latitude, lng: longitude},
+            map: map,
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 17
+            },
+            title: 'Party'
+          });
+          marker.addListener('click', function() {
+            browserHistory.push('/party/?id=' + party.id);
+            // browserHistory.push('/party');
+            // retrieve party object playlist --> songs
+            // axios.get('/api/:partyId/:playlist/songs')
+            // .then(function(res){
+            //   console.log('Party object is: ', res.data);
+            // })
+            // .catch(function(error){
+            //   console.log('Not able to get songs: ', error);
+            // })
+          });
         });
       });
     };
