@@ -92,7 +92,7 @@ class App extends React.Component {
       url: '/api/songs',
       data: {
         src: src,
-        partyId: partyId,
+        partyid: partyId,
         data: JSON.stringify(data)
       }
     })
@@ -199,6 +199,24 @@ class App extends React.Component {
     this.setState({value: e.target.value  });
   }
 
+  getSongs() {
+    var context = this;
+    var partyid = Number(window.location.search.split('=')[1]);
+    console.log('inside getSongs');
+    axios.get('/api/party/' + partyid)
+    .then(function(res){
+      console.log('Res.Data is: ', res.data);
+      var songs = res.data.map(function(song){
+        return song.src;
+      });
+      console.log('Array of songs are: ', songs);
+      context.setState({srcs: songs})
+    })
+    .catch(function(error){
+      console.log('Not able to GET the Songs in Playlist instance: ', error);
+    });
+  }
+
   render() {
     return (
       <div>
@@ -212,7 +230,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getLocation()
+    // console.log('inside componentDidMount');
+    // this.getLocation();
+    this.getSongs()
   };
 
   getLocation () {

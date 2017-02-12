@@ -26953,7 +26953,7 @@
 	        url: '/api/songs',
 	        data: {
 	          src: src,
-	          partyId: partyId,
+	          partyid: partyId,
 	          data: JSON.stringify(data)
 	        }
 	      }).then(function (success) {
@@ -27064,6 +27064,23 @@
 	      this.setState({ value: e.target.value });
 	    }
 	  }, {
+	    key: 'getSongs',
+	    value: function getSongs() {
+	      var context = this;
+	      var partyid = Number(window.location.search.split('=')[1]);
+	      console.log('inside getSongs');
+	      _axios2.default.get('/api/party/' + partyid).then(function (res) {
+	        console.log('Res.Data is: ', res.data);
+	        var songs = res.data.map(function (song) {
+	          return song.src;
+	        });
+	        console.log('Array of songs are: ', songs);
+	        context.setState({ srcs: songs });
+	      }).catch(function (error) {
+	        console.log('Not able to GET the Songs in Playlist instance: ', error);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -27079,7 +27096,9 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.getLocation();
+	      // console.log('inside componentDidMount');
+	      // this.getLocation();
+	      this.getSongs();
 	    }
 	  }, {
 	    key: 'getLocation',
@@ -29245,7 +29264,7 @@
 	        url: '/api/songs',
 	        data: {
 	          src: src,
-	          partyId: partyId,
+	          partyid: partyId,
 	          data: JSON.stringify(data)
 	        }
 	      }).then(function (success) {
@@ -29356,6 +29375,23 @@
 	      this.setState({ value: e.target.value });
 	    }
 	  }, {
+	    key: 'getSongs',
+	    value: function getSongs() {
+	      var context = this;
+	      var partyid = Number(window.location.search.split('=')[1]);
+	      console.log('inside getSongs');
+	      _axios2.default.get('/api/party/' + partyid).then(function (res) {
+	        console.log('Res.Data is: ', res.data);
+	        var songs = res.data.map(function (song) {
+	          return song.src;
+	        });
+	        console.log('Array of songs are: ', songs);
+	        context.setState({ srcs: songs });
+	      }).catch(function (error) {
+	        console.log('Not able to GET the Songs in Playlist instance: ', error);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -29371,7 +29407,9 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.getLocation();
+	      // console.log('inside componentDidMount');
+	      // this.getLocation();
+	      this.getSongs();
 	    }
 	  }, {
 	    key: 'getLocation',
@@ -29643,7 +29681,7 @@
 	        //do_something(position.coords.latitude, position.coords.longitude);
 	        context.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
 	      });
-	      console.log(location);
+	      console.log('inside createuser: ', location);
 	    }
 	  }, {
 	    key: 'render',
