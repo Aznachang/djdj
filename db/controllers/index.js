@@ -11,7 +11,7 @@ module.exports = {
 			});
 		},
 		post: function (req, res) {
-			db.Song.findOrCreate( {where: { src: req.body.src, data: req.body.data }})
+			db.Song.findOrCreate( {where: { src: req.body.src, data: req.body.data, partyId: req.body.partyId}})
 			.spread(function(song, created) {
 				res.send(song);
 			})
@@ -76,12 +76,24 @@ module.exports = {
 		get: function(req, res) {
 			db.Party.findAll({}).then(function(parties) {
 				console.log('party in the controller')
-				res.json(parties);		
+				res.json(parties);
 			})
 		},
 		post: function(req, res) {
 			console.log('POST request for A PARTY: ', req.body);
 			db.Party.create({latitude: req.body.latitude, longitude: req.body.longitude});
+		}
+	},
+	party: {
+		get: function(req, res) {
+			console.log('get request for a PARTYs songs: ', req.body);
+
+		}
+	},
+	playlists: {
+		post: function(req, res) {
+			console.log('POST request for a playlist to PARTY ', req.body);
+			db.Playlist.create({name: req.body.name, partyId: req.body.id});
 		}
 	}
 }

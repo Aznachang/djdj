@@ -13,7 +13,6 @@ var util = require('./util');
 db.Song.sync();
 db.User.sync();
 db.Party.sync();
-// db.Playlist.sync();
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())

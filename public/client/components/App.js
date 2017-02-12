@@ -85,11 +85,14 @@ class App extends React.Component {
 
   postNewSong (src, data) {
     var context = this;
+    var partyId = Number(window.location.search.split('=')[1]);
+    console.log('partyId upon Adding a Song: ', partyId);
     axios({
       method: 'POST',
       url: '/api/songs',
       data: {
         src: src,
+        partyId: partyId,
         data: JSON.stringify(data)
       }
     })
@@ -168,7 +171,7 @@ class App extends React.Component {
     var selectedSongId = searchResult[index].id.videoId;
     console.log(selectedSongId === undefined); // If the ID is undefined, no video exists
     // End the request if the song doesn't exist
-    
+
     var selectedSongUrl = 'https://www.youtube.com/watch?v=' + selectedSongId; // Get youtube URL
     var directDownloadLink = 'https://www.youtubeinmp3.com/fetch/?video=' + selectedSongUrl; // Create the direct DownloadLink, which requires the youtube URL
 
@@ -176,7 +179,7 @@ class App extends React.Component {
     //   alert('This song is already on the playlist!')
     //   return;
     // }
-    this.postNewSong.call(this, directDownloadLink, searchResult[index]); // Get current srcs and data from state  
+    this.postNewSong.call(this, directDownloadLink, searchResult[index]); // Get current srcs and data from state
   };
 
   handlePlay(index) {
@@ -211,7 +214,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.getLocation()  
+    this.getLocation()
   };
 
   getLocation () {
@@ -230,7 +233,7 @@ class App extends React.Component {
     .catch(function(error){
       console.log('Not able to POST the party: ', error);
     });
-  }; 
+  };
 }
 
 export default App;

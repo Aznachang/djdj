@@ -15,4 +15,9 @@ router.delete('/songs', controller.songs.delete);
 router.get('/parties', controller.parties.get);
 router.post('/parties', controller.parties.post);
 
+router.get('/:partyId/:songs', controller.party.get);
+
+// route for party that has playlist of songs
+// router.get('/:partyId/:playlist/songs', controller.partyObj.get);
+
 module.exports = router;
