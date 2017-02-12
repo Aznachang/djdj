@@ -8,11 +8,11 @@ class Signup extends React.Component {
     this.state = {
       latitude: 'calculating latitude...',
       longitude: 'calculating longitude...'
-    }
+    };
     this.createUser = this.createUser.bind(this);
     //this.handleClick = this.handleClick.bind(this);
     //this.geoLocation = this.geoLocation.bind(this);
-  }
+  };
 
   createUser() {
     var context = this;
@@ -30,17 +30,19 @@ class Signup extends React.Component {
         <MapView />
         <form name="signup" method="POST" action="/signup">
           <input type="text" placeholder="username" name="username" /><br/>
-          <input type="text" placeholder="password" name="password" /><br/>
+          <input type="password" placeholder="password" name="password" /><br/>
           <input type="text" placeholder={this.state.latitude} name="latitude" value={this.state.latitude} readOnly /><br/>
           <input type="text" placeholder={this.state.longitude} name="longitude" value={this.state.longitude} readOnly /><br/>
           <input type="submit"  value="Submit"></input>
-          <button><a href="/login"> Login </a></button>
+          <button><a href="/login">Login</a></button>
         </form>
       </div>  
-  )}
+  )};
+
   componentDidMount() {
     this.createUser()  
   };
+
 }
 
 
