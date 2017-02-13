@@ -7,7 +7,6 @@ import Playlist from './Playlist.js'
 
 var SongList = (props) => (
 	<div className="playlist-group">
-		<h3>Playlist</h3>
 			 <Playlist data={props.data} handlePlay={props.handlePlay} handleRemove={props.handleRemove} />
 	</div>
 )

@@ -27096,11 +27096,6 @@
 		return _react2.default.createElement(
 			'div',
 			{ className: 'playlist-group' },
-			_react2.default.createElement(
-				'h3',
-				null,
-				'Playlist'
-			),
 			_react2.default.createElement(_Playlist2.default, { data: props.data, handlePlay: props.handlePlay, handleRemove: props.handleRemove })
 		);
 	};
@@ -27140,28 +27135,25 @@
 	          'button',
 	          { onClick: function onClick() {
 	              props.handlePlay(props.index);
-	            }, className: 'playSong' },
-	          _react2.default.createElement('img', { className: 'player-button', src: 'static/images/play-button.png' })
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'li',
-	        null,
+	            } },
+	          'Play'
+	        ),
 	        _react2.default.createElement(
 	          'button',
 	          { onClick: function onClick() {
 	              props.handleRemove(props.index);
-	            }, className: 'removeSong' },
-	          _react2.default.createElement('img', { className: 'player-button', src: 'static/images/delete-button.png' })
+	            } },
+	          'Remove'
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          { onClick: function onClick() {
+	              props.handlePlay(props.index);
+	            } },
+	          props.datum.snippet.title
 	        )
 	      )
-	    ),
-	    _react2.default.createElement(
-	      'span',
-	      { className: 'list-group-item' },
-	      props.datum.snippet.title
-	    ),
-	    _react2.default.createElement('img', { className: 'thumbnail', src: props.datum.snippet.thumbnails.default.url })
+	    )
 	  );
 	};
 
@@ -27234,8 +27226,8 @@
 	var Search = function Search(props) {
 	  return _react2.default.createElement(
 	    'div',
-	    { className: 'search-group' },
-	    _react2.default.createElement(_SearchResults2.default, { searchResults: props.searchResults, handleSearchClicks: props.handleSearchClicks })
+	    { className: 'playlist-group' },
+	    _react2.default.createElement(_SearchResults2.default, { className: 'list-group', searchResults: props.searchResults, handleSearchClicks: props.handleSearchClicks })
 	  );
 	};
 
@@ -27264,7 +27256,7 @@
 	var SearchResults = function SearchResults(props) {
 		return _react2.default.createElement(
 			'div',
-			null,
+			{ className: 'playlist-group' },
 			_react2.default.createElement(
 				'h3',
 				{ className: 'search-title' },
@@ -27310,17 +27302,17 @@
 				null,
 				_react2.default.createElement(
 					'li',
-					{ className: 'list-group-item song' },
+					null,
 					_react2.default.createElement(
 						'button',
-						{ className: 'search-add-button', onClick: function onClick() {
+						{ onClick: function onClick() {
 								props.handleSearchClicks(props.index);
 							} },
-						_react2.default.createElement('img', { className: 'player-button', src: 'static/images/add-song-button.png' })
+						'Add'
 					),
 					_react2.default.createElement(
-						'span',
-						{ className: 'search-result-title' },
+						'p',
+						null,
 						props.song.snippet.title
 					)
 				)

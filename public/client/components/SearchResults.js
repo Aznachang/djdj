@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import SearchSong from './SearchSong.js';
 
 var SearchResults = (props) => (
-	<div>
+	<div className ='playlist-group'>
 		<h3 className="search-title">Search Results</h3>
 		<ul className='list-group'>
 			{props.searchResults.map(function(song, i) {
