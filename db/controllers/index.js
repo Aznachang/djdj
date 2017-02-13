@@ -82,7 +82,12 @@ module.exports = {
 		},
 		post: function(req, res) {
 			console.log('POST request for A PARTY: ', req.body);
-			db.Party.create({latitude: req.body.latitude, longitude: req.body.longitude});
+			db.Party.create({latitude: req.body.latitude, longitude: req.body.longitude})
+			.then(function(john) {
+			  res.json(john.get({
+			    plain: true
+			  }));
+			});
 		}
 	},
 	party: {
