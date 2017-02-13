@@ -5,6 +5,13 @@
   height: 100%;
 }
 
+p {
+  color: white;
+  font-family: Helvetica;
+  display: inline-block;
+  text-align: center;
+}
+
 body {
   background-image: url("./images/silent-disco-headphones.jpg");
   background-size: cover;
@@ -98,7 +105,7 @@ li a {
 }
 
 .playlist-group {
-  width: 25%;
+  width: 100%;
 
 }
 
@@ -112,6 +119,8 @@ li a {
   list-style: none;
   overflow-y: scroll;
   height: 200px;
+  margin: auto;
+  width: 65%;
   border-radius: 7px;
 }
 
@@ -130,7 +139,7 @@ li a {
 }
 
 .player-list-button {
-  margin-left: -40px;
+  /*margin-left: -40px;*/
   border:none;
   list-style: none
 }
@@ -139,13 +148,14 @@ li a {
   color: #DCDCDC;
   font-size: 14px;
   line-height: 3.4em;
-  width: 100%;
+  width: 70%;
   float: left;
   font-family: Helvetica;
   border-bottom: 0.5px solid #393a3d;
   margin-left: -40px;
+/*  margin: auto;*/
   padding: 10px;
-
+  height: 50%;
 }
 
 .list-group-item {
@@ -225,7 +235,7 @@ li a {
 
 audio {
   padding-top: 20px;
-  width:600px !important;
+  width: 65% !important;
 }
 
 audio::-internal-media-controls-download-button {

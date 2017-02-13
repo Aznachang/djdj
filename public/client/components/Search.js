@@ -5,8 +5,8 @@ import SearchSong from './SearchSong.js';
 import SearchBar from './SearchBar.js';
 
 var Search = (props) => (
-  <div className="search-group">
-    <SearchResults searchResults={props.searchResults} handleSearchClicks={props.handleSearchClicks}/>
+  <div className="playlist-group">
+    <SearchResults className = "list-group" searchResults={props.searchResults} handleSearchClicks={props.handleSearchClicks}/>
   </div>
 )
 
