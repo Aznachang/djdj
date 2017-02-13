@@ -28945,25 +28945,15 @@
 
 	    _this.state = {};
 	    _this.createParty = _this.createParty.bind(_this);
-	    _this.handleClick = _this.handleClick.bind(_this);
 	    _this.geoLocation = _this.geoLocation.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(Map, [{
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      console.log(this);
-	    }
-	  }, {
 	    key: 'createParty',
 	    value: function createParty() {
 	      var context = this;
 	      var location = navigator.geolocation.getCurrentPosition(function (position) {
-	        //TODO: set user state && update user location with sockets
-	        //do_something(position.coords.latitude, position.coords.longitude);
-	        console.log('Map latitude : ', position.coords.latitude);
-	        console.log('Map longitude : ', position.coords.longitude);
 
 	        var latitude = position.coords.latitude;
 	        var longitude = position.coords.longitude;
@@ -28971,7 +28961,6 @@
 	          latitude: latitude,
 	          longitude: longitude
 	        }).then(function (party) {
-	          //console.log('Party response is: ', res.data);
 	          _reactRouter.browserHistory.push('/party/?id=' + party.data.id);
 	        }).catch(function (error) {
 	          console.log('Not able to POST the party: ', error);
@@ -28982,17 +28971,12 @@
 	          userLongitude: position.coords.longitude
 	        });
 	      });
-	      console.log(location);
 	    }
 	  }, {
 	    key: 'geoLocation',
 	    value: function geoLocation() {
 	      var context = this;
 	      navigator.geolocation.getCurrentPosition(function (position) {
-	        //TODO: set user state && update user location with sockets
-	        //do_something(position.coords.latitude, position.coords.longitude);
-	        console.log('Map latitude : ', position.coords.latitude);
-	        console.log('Map longitude : ', position.coords.longitude);
 	        context.setState({
 	          userLatitude: position.coords.latitude,
 	          userLongitude: position.coords.longitude
@@ -29574,7 +29558,6 @@
 	            });
 
 	            partyArray.forEach(function (party, index) {
-	              console.log(party);
 	              var id = party.id;
 	              var latitude = Number(party.latitude);
 	              var longitude = Number(party.longitude);
@@ -29589,15 +29572,6 @@
 	              });
 	              marker.addListener('click', function () {
 	                _reactRouter.browserHistory.push('/party/?id=' + party.id);
-	                // browserHistory.push('/party');
-	                // retrieve party object playlist --> songs
-	                // axios.get('/api/:partyId/:playlist/songs')
-	                // .then(function(res){
-	                //   console.log('Party object is: ', res.data);
-	                // })
-	                // .catch(function(error){
-	                //   console.log('Not able to get songs: ', error);
-	                // })
 	              });
 	            });
 	          });
@@ -29605,7 +29579,6 @@
 
 	        function getParties() {
 	          _axios2.default.get('/api/parties').then(function (res) {
-	            console.log('this is a party get request: ', res);
 	            createMarkers(res.data);
 	          }).catch(function (error) {
 	            console.log('Not able to POST the party: ', error);

@@ -62,7 +62,6 @@ export default class MapContainer extends React.Component {
         });
 
         partyArray.forEach(function(party, index) {
-          console.log(party)
           var id = party.id;
           var latitude = Number(party.latitude);
           var longitude = Number(party.longitude);
@@ -77,15 +76,6 @@ export default class MapContainer extends React.Component {
           });
           marker.addListener('click', function() {
             browserHistory.push('/party/?id=' + party.id);
-            // browserHistory.push('/party');
-            // retrieve party object playlist --> songs
-            // axios.get('/api/:partyId/:playlist/songs')
-            // .then(function(res){
-            //   console.log('Party object is: ', res.data);
-            // })
-            // .catch(function(error){
-            //   console.log('Not able to get songs: ', error);
-            // })
           });
         });
       });
@@ -94,7 +84,6 @@ export default class MapContainer extends React.Component {
     function getParties () {
       axios.get('/api/parties')
       .then(function(res){
-        console.log('this is a party get request: ', res);
         createMarkers(res.data);
       })
       .catch(function(error){
