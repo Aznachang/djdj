@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
+// Imported Components
 import MapView from './map-view.js';
 
 class Signup extends React.Component {
@@ -10,18 +12,13 @@ class Signup extends React.Component {
       longitude: 'calculating longitude...'
     };
     this.createUser = this.createUser.bind(this);
-    //this.handleClick = this.handleClick.bind(this);
-    //this.geoLocation = this.geoLocation.bind(this);
   };
 
   createUser() {
     var context = this;
     navigator.geolocation.getCurrentPosition(function(position) {
-      //TODO: set user state && update user location with sockets
-      //do_something(position.coords.latitude, position.coords.longitude);
       context.setState({latitude: position.coords.latitude, longitude: position.coords.longitude})
     });
-    console.log('inside createuser: ', location);
   };
 
   render() {
@@ -42,9 +39,7 @@ class Signup extends React.Component {
   componentDidMount() {
     this.createUser()
   };
-
-}
-
+};
 
 export default Signup;
 
