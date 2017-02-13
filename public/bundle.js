@@ -77,7 +77,7 @@
 	(0, _reactDom.render)(_react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: _reactRouter.browserHistory },
-	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _App2.default }),
+	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: _map2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/map', component: _map2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/party', component: _App2.default }),
 	    _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _Login2.default }),
@@ -26899,7 +26899,7 @@
 	      // location
 	      location: "Hey Pete"
 	    };
-	    _this.getPlaylist = _this.getPlaylist.bind(_this);
+	    _this.getSongs = _this.getSongs.bind(_this);
 	    return _this;
 	  }
 
@@ -26957,7 +26957,7 @@
 	          data: JSON.stringify(data)
 	        }
 	      }).then(function (success) {
-	        context.getPlaylist.call(context);
+	        context.getSongs.call(context);
 	      }).catch(function (error) {
 	        console.log('error with post new song, ', error);
 	      });
@@ -26973,7 +26973,7 @@
 	        data: { src: source }
 	      }).then(function (success) {
 	        console.log(success, 'delete successful');
-	        context.getPlaylist.call(context);
+	        context.getSongs.call(context);
 	      }).catch(function (error) {
 	        console.log('error with delete: ', error);
 	      });
@@ -26987,14 +26987,47 @@
 	      }.bind(this);
 	      setTimeout(setNextSong, 0); // play next song after 2 secs
 	    }
+
+	    // getPlaylist () {
+	    //   var context = this;
+	    //   axios({
+	    //     method: 'GET',
+	    //     url: '/api/songs'
+	    //   })
+	    //   .then(function(playlist) {
+	    //     console.log('success in getPlaylist : ', playlist.data);
+	    //     var songs = playlist.data; //Songs array from response
+	    //     var newSrc= [];
+	    //     var newData = [];
+	    //     songs.forEach(function(song) {
+	    //       newData.push(JSON.parse(song.data));
+	    //       newSrc.push(song.src);
+	    //     })
+	    //     context.setState({
+	    //       srcs: newSrc,
+	    //       data: newData
+	    //     });
+	    //     // If there is no current song set the state to the current download link
+	    //     if ( context.state.currentSong === null ) {
+	    //       console.log('set directDownloadLink');
+	    //       context.setState({
+	    //         currentSong: newSrc[0]
+	    //       });
+	    //     };
+	    //     console.log('get request was sent to the db songs endpoint')
+	    //   })
+	    //   .catch(function (err) {
+	    //     console.log('There was an error with the GET request to /api/songs, ', err);
+	    //   })
+	    // };
+
 	  }, {
-	    key: 'getPlaylist',
-	    value: function getPlaylist() {
+	    key: 'getSongs',
+	    value: function getSongs() {
 	      var context = this;
-	      (0, _axios2.default)({
-	        method: 'GET',
-	        url: '/api/songs'
-	      }).then(function (playlist) {
+	      var partyid = Number(window.location.search.split('=')[1]);
+	      console.log('inside getSongs');
+	      _axios2.default.get('/api/party/' + partyid).then(function (playlist) {
 	        console.log('success in getPlaylist : ', playlist.data);
 	        var songs = playlist.data; //Songs array from response
 	        var newSrc = [];
@@ -27062,23 +27095,6 @@
 	    // Updating the state 'value' to the user's query
 	    value: function handleChange(e) {
 	      this.setState({ value: e.target.value });
-	    }
-	  }, {
-	    key: 'getSongs',
-	    value: function getSongs() {
-	      var context = this;
-	      var partyid = Number(window.location.search.split('=')[1]);
-	      console.log('inside getSongs');
-	      _axios2.default.get('/api/party/' + partyid).then(function (res) {
-	        console.log('Res.Data is: ', res.data);
-	        var songs = res.data.map(function (song) {
-	          return song.src;
-	        });
-	        console.log('Array of songs are: ', songs);
-	        context.setState({ srcs: songs });
-	      }).catch(function (error) {
-	        console.log('Not able to GET the Songs in Playlist instance: ', error);
-	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -29210,7 +29226,7 @@
 	      // location
 	      location: "Hey Pete"
 	    };
-	    _this.getPlaylist = _this.getPlaylist.bind(_this);
+	    _this.getSongs = _this.getSongs.bind(_this);
 	    return _this;
 	  }
 
@@ -29268,7 +29284,7 @@
 	          data: JSON.stringify(data)
 	        }
 	      }).then(function (success) {
-	        context.getPlaylist.call(context);
+	        context.getSongs.call(context);
 	      }).catch(function (error) {
 	        console.log('error with post new song, ', error);
 	      });
@@ -29284,7 +29300,7 @@
 	        data: { src: source }
 	      }).then(function (success) {
 	        console.log(success, 'delete successful');
-	        context.getPlaylist.call(context);
+	        context.getSongs.call(context);
 	      }).catch(function (error) {
 	        console.log('error with delete: ', error);
 	      });
@@ -29298,14 +29314,47 @@
 	      }.bind(this);
 	      setTimeout(setNextSong, 0); // play next song after 2 secs
 	    }
+
+	    // getPlaylist () {
+	    //   var context = this;
+	    //   axios({
+	    //     method: 'GET',
+	    //     url: '/api/songs'
+	    //   })
+	    //   .then(function(playlist) {
+	    //     console.log('success in getPlaylist : ', playlist.data);
+	    //     var songs = playlist.data; //Songs array from response
+	    //     var newSrc= [];
+	    //     var newData = [];
+	    //     songs.forEach(function(song) {
+	    //       newData.push(JSON.parse(song.data));
+	    //       newSrc.push(song.src);
+	    //     })
+	    //     context.setState({
+	    //       srcs: newSrc,
+	    //       data: newData
+	    //     });
+	    //     // If there is no current song set the state to the current download link
+	    //     if ( context.state.currentSong === null ) {
+	    //       console.log('set directDownloadLink');
+	    //       context.setState({
+	    //         currentSong: newSrc[0]
+	    //       });
+	    //     };
+	    //     console.log('get request was sent to the db songs endpoint')
+	    //   })
+	    //   .catch(function (err) {
+	    //     console.log('There was an error with the GET request to /api/songs, ', err);
+	    //   })
+	    // };
+
 	  }, {
-	    key: 'getPlaylist',
-	    value: function getPlaylist() {
+	    key: 'getSongs',
+	    value: function getSongs() {
 	      var context = this;
-	      (0, _axios2.default)({
-	        method: 'GET',
-	        url: '/api/songs'
-	      }).then(function (playlist) {
+	      var partyid = Number(window.location.search.split('=')[1]);
+	      console.log('inside getSongs');
+	      _axios2.default.get('/api/party/' + partyid).then(function (playlist) {
 	        console.log('success in getPlaylist : ', playlist.data);
 	        var songs = playlist.data; //Songs array from response
 	        var newSrc = [];
@@ -29373,23 +29422,6 @@
 	    // Updating the state 'value' to the user's query
 	    value: function handleChange(e) {
 	      this.setState({ value: e.target.value });
-	    }
-	  }, {
-	    key: 'getSongs',
-	    value: function getSongs() {
-	      var context = this;
-	      var partyid = Number(window.location.search.split('=')[1]);
-	      console.log('inside getSongs');
-	      _axios2.default.get('/api/party/' + partyid).then(function (res) {
-	        console.log('Res.Data is: ', res.data);
-	        var songs = res.data.map(function (song) {
-	          return song.src;
-	        });
-	        console.log('Array of songs are: ', songs);
-	        context.setState({ srcs: songs });
-	      }).catch(function (error) {
-	        console.log('Not able to GET the Songs in Playlist instance: ', error);
-	      });
 	    }
 	  }, {
 	    key: 'render',

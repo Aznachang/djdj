@@ -10,7 +10,7 @@ import Signup from './client/components/signup.js';
 
 render(
     <Router history={browserHistory}>
-        <Route path="/" component={App}/>
+        <Route path="/" component={Map}/>
         <Route path="/map" component={Map}/>
         <Route path="/party" component={App}/>
         <Route path="/login" component={Login}/>
