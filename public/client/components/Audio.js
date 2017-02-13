@@ -12,6 +12,4 @@ var AudioPlayer = (props) => {
   return null;
 }
 
-
-
 module.exports = AudioPlayer;
