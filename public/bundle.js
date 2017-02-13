@@ -27170,12 +27170,15 @@
 			{ className: 'playlist-group' },
 			_react2.default.createElement(
 				'h3',
-				{ className: 'playlist-title' },
+				null,
 				'Playlist'
 			),
 			_react2.default.createElement(_Playlist2.default, { data: props.data, handlePlay: props.handlePlay, handleRemove: props.handleRemove })
 		);
 	};
+
+	// Imported Components
+
 
 	module.exports = SongList;
 
@@ -27233,6 +27236,7 @@
 	    _react2.default.createElement('img', { className: 'thumbnail', src: props.datum.snippet.thumbnails.default.url })
 	  );
 	};
+
 	module.exports = Song;
 
 /***/ },
@@ -27348,6 +27352,9 @@
 		);
 	};
 
+	// Imported Components
+
+
 	module.exports = SearchResults;
 
 /***/ },
@@ -27368,9 +27375,8 @@
 
 	var SearchSong = function SearchSong(props) {
 		return (
-			//need to inherit song info from parent
-			//two ways of making the song model - as a link and as a button  --> used to be line 9 <img className="thumbnail" src="#"/>
-
+			// Need to inherit song info from parent
+			// Two ways of making the song model - as a link and as a button  --> used to be line 9 <img className="thumbnail" src="#"/>
 			_react2.default.createElement(
 				'div',
 				null,
@@ -27381,8 +27387,7 @@
 						'button',
 						{ className: 'search-add-button', onClick: function onClick() {
 								props.handleSearchClicks(props.index);
-							}
-						},
+							} },
 						_react2.default.createElement('img', { className: 'player-button', src: 'static/images/add-song-button.png' })
 					),
 					_react2.default.createElement(
@@ -29691,6 +29696,9 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	// Imported Components
+
+
 	var Signup = function (_React$Component) {
 	  _inherits(Signup, _React$Component);
 
@@ -29704,8 +29712,6 @@
 	      longitude: 'calculating longitude...'
 	    };
 	    _this.createUser = _this.createUser.bind(_this);
-	    //this.handleClick = this.handleClick.bind(this);
-	    //this.geoLocation = this.geoLocation.bind(this);
 	    return _this;
 	  }
 
@@ -29714,11 +29720,8 @@
 	    value: function createUser() {
 	      var context = this;
 	      navigator.geolocation.getCurrentPosition(function (position) {
-	        //TODO: set user state && update user location with sockets
-	        //do_something(position.coords.latitude, position.coords.longitude);
 	        context.setState({ latitude: position.coords.latitude, longitude: position.coords.longitude });
 	      });
-	      console.log('inside createuser: ', location);
 	    }
 	  }, {
 	    key: 'render',
@@ -29760,6 +29763,8 @@
 
 	  return Signup;
 	}(_react2.default.Component);
+
+	;
 
 	exports.default = Signup;
 
