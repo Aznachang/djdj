@@ -44,7 +44,7 @@ class App extends React.Component {
       // location
       location: "Hey Pete"
     };
-    this.getPlaylist = this.getPlaylist.bind(this);
+    this.getSongs = this.getSongs.bind(this);
   };
   getYoutubeSong(event) {
     event.preventDefault(); // prevents page from refreshing
@@ -97,7 +97,7 @@ class App extends React.Component {
       }
     })
     .then(function(success) {
-      context.getPlaylist.call(context);
+      context.getSongs.call(context);
     })
     .catch(function(error) {
       console.log('error with post new song, ', error)
@@ -114,7 +114,7 @@ class App extends React.Component {
     })
     .then(function(success) {
       console.log(success, 'delete successful');
-      context.getPlaylist.call(context);
+      context.getSongs.call(context);
     })
     .catch(function(error) {
       console.log('error with delete: ', error);
@@ -130,38 +130,73 @@ class App extends React.Component {
   }
 
 
-  getPlaylist () {
+  // getPlaylist () {
+  //   var context = this;
+  //   axios({
+  //     method: 'GET',
+  //     url: '/api/songs'
+  //   })
+  //   .then(function(playlist) {
+  //     console.log('success in getPlaylist : ', playlist.data);
+  //     var songs = playlist.data; //Songs array from response
+  //     var newSrc= [];
+  //     var newData = [];
+  //     songs.forEach(function(song) {
+  //       newData.push(JSON.parse(song.data));
+  //       newSrc.push(song.src);
+  //     })
+  //     context.setState({
+  //       srcs: newSrc,
+  //       data: newData
+  //     });
+  //     // If there is no current song set the state to the current download link
+  //     if ( context.state.currentSong === null ) {
+  //       console.log('set directDownloadLink');
+  //       context.setState({
+  //         currentSong: newSrc[0]
+  //       });
+  //     };
+  //     console.log('get request was sent to the db songs endpoint')
+  //   })
+  //   .catch(function (err) {
+  //     console.log('There was an error with the GET request to /api/songs, ', err);
+  //   })
+  // };
+
+  getSongs() {
     var context = this;
-    axios({
-      method: 'GET',
-      url: '/api/songs'
-    })
-    .then(function(playlist) {
-      console.log('success in getPlaylist : ', playlist.data);
-      var songs = playlist.data; //Songs array from response
-      var newSrc= [];
-      var newData = [];
-      songs.forEach(function(song) {
-        newData.push(JSON.parse(song.data));
-        newSrc.push(song.src);
-      })
-      context.setState({
-        srcs: newSrc,
-        data: newData
-      });
-      // If there is no current song set the state to the current download link
-      if ( context.state.currentSong === null ) {
-        console.log('set directDownloadLink');
+    var partyid = Number(window.location.search.split('=')[1]);
+    console.log('inside getSongs');
+    axios.get('/api/party/' + partyid)
+      .then(function(playlist) {
+        console.log('success in getPlaylist : ', playlist.data);
+        var songs = playlist.data; //Songs array from response
+        var newSrc= [];
+        var newData = [];
+        songs.forEach(function(song) {
+          newData.push(JSON.parse(song.data));
+          newSrc.push(song.src);
+        })
         context.setState({
-          currentSong: newSrc[0]
+          srcs: newSrc,
+          data: newData
         });
-      };
-      console.log('get request was sent to the db songs endpoint')
-    })
-    .catch(function (err) {
-      console.log('There was an error with the GET request to /api/songs, ', err);
-    })
-  };
+        // If there is no current song set the state to the current download link
+        if ( context.state.currentSong === null ) {
+          console.log('set directDownloadLink');
+          context.setState({
+            currentSong: newSrc[0]
+          });
+        };
+        console.log('get request was sent to the db songs endpoint')
+      })
+      .catch(function (err) {
+        console.log('There was an error with the GET request to /api/songs, ', err);
+      })
+    };
+
+
+
 
   // Handle search clicks
   handleSearchClicks (index) {
@@ -199,23 +234,6 @@ class App extends React.Component {
     this.setState({value: e.target.value  });
   }
 
-  getSongs() {
-    var context = this;
-    var partyid = Number(window.location.search.split('=')[1]);
-    console.log('inside getSongs');
-    axios.get('/api/party/' + partyid)
-    .then(function(res){
-      console.log('Res.Data is: ', res.data);
-      var songs = res.data.map(function(song){
-        return song.src;
-      });
-      console.log('Array of songs are: ', songs);
-      context.setState({srcs: songs})
-    })
-    .catch(function(error){
-      console.log('Not able to GET the Songs in Playlist instance: ', error);
-    });
-  }
 
   render() {
     return (
