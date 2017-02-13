@@ -10,23 +10,6 @@ import axios from 'axios'
 import Map from './map.js'
 import NavBar from './map-nav.js'
 
-
-// Function calculates the distance between two lat/long points for our geolocation feature
-function distance(lat1, lon1, lat2, lon2) {
-  var p = 0.017453292519943295;    // Math.PI / 180
-  var c = Math.cos;
-  var a = 0.5 - c((lat2 - lat1) * p)/2 +
-          c(lat1 * p) * c(lat2 * p) *
-          (1 - c((lon2 - lon1) * p))/2;
-
-  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
-}
-const HRlat = 37.7836924;
-const HRlng = -122.4111553;
-
-
-// The app here is creating a single playlist. We want to have the App instead be the mapview
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -129,40 +112,6 @@ class App extends React.Component {
     setTimeout(setNextSong, 0); // play next song after 2 secs
   }
 
-
-  // getPlaylist () {
-  //   var context = this;
-  //   axios({
-  //     method: 'GET',
-  //     url: '/api/songs'
-  //   })
-  //   .then(function(playlist) {
-  //     console.log('success in getPlaylist : ', playlist.data);
-  //     var songs = playlist.data; //Songs array from response
-  //     var newSrc= [];
-  //     var newData = [];
-  //     songs.forEach(function(song) {
-  //       newData.push(JSON.parse(song.data));
-  //       newSrc.push(song.src);
-  //     })
-  //     context.setState({
-  //       srcs: newSrc,
-  //       data: newData
-  //     });
-  //     // If there is no current song set the state to the current download link
-  //     if ( context.state.currentSong === null ) {
-  //       console.log('set directDownloadLink');
-  //       context.setState({
-  //         currentSong: newSrc[0]
-  //       });
-  //     };
-  //     console.log('get request was sent to the db songs endpoint')
-  //   })
-  //   .catch(function (err) {
-  //     console.log('There was an error with the GET request to /api/songs, ', err);
-  //   })
-  // };
-
   getSongs() {
     var context = this;
     var partyid = Number(window.location.search.split('=')[1]);
@@ -195,13 +144,8 @@ class App extends React.Component {
       })
     };
 
-
-
-
   // Handle search clicks
   handleSearchClicks (index) {
-    //refrences the app instance => keyword "this"
-    // var context = this;
     var searchResult = this.state.searchResults;
     var selectedSongId = searchResult[index].id.videoId;
     console.log(selectedSongId === undefined); // If the ID is undefined, no video exists
@@ -210,10 +154,6 @@ class App extends React.Component {
     var selectedSongUrl = 'https://www.youtube.com/watch?v=' + selectedSongId; // Get youtube URL
     var directDownloadLink = 'https://www.youtubeinmp3.com/fetch/?video=' + selectedSongUrl; // Create the direct DownloadLink, which requires the youtube URL
 
-    // if ( !selectedSongId || context.state.srcs.indexOf(directDownloadLink) !== -1) {
-    //   alert('This song is already on the playlist!')
-    //   return;
-    // }
     this.postNewSong.call(this, directDownloadLink, searchResult[index]); // Get current srcs and data from state
   };
 
@@ -234,7 +174,6 @@ class App extends React.Component {
     this.setState({value: e.target.value  });
   }
 
-
   render() {
     return (
       <div>
@@ -248,28 +187,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // console.log('inside componentDidMount');
-    // this.getLocation();
     this.getSongs()
   };
 
-  getLocation () {
-    var context = this;
-    axios.get('/api/parties')
-    .then(function(res){
-      var locations = res.data;
-      var locationArray = [];
-      locations.forEach(function(location) {
-        var latitude = JSON.parse(location.latitude);
-        var longitude = JSON.parse(location.longitude);
-        locationArray.push([latitude, longitude]);
-      });
-      context.setState({location: locationArray});
-    })
-    .catch(function(error){
-      console.log('Not able to POST the party: ', error);
-    });
-  };
 }
 
 export default App;

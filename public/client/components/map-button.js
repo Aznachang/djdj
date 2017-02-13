@@ -2,7 +2,7 @@ import React from 'react';
 //import ReactDOM from 'react-dom';
 
 class Button extends React.Component {
-  
+
   constructor(props) {
     super(props)
   }
@@ -12,7 +12,6 @@ class Button extends React.Component {
       <button onClick={this.props.buttonFunction}>{this.props.buttonName}</button>
     )
   }
-
-} 
+}
 
 export default Button;
