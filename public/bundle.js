@@ -28896,6 +28896,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(178);
+
 	var _reactDom = __webpack_require__(32);
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
@@ -28963,8 +28965,9 @@
 	        _axios2.default.post('/api/parties', {
 	          latitude: latitude,
 	          longitude: longitude
-	        }).then(function (res) {
-	          console.log('Party response is: ', res);
+	        }).then(function (party) {
+	          //console.log('Party response is: ', res.data);
+	          _reactRouter.browserHistory.push('/party/?id=' + party.data.id);
 	        }).catch(function (error) {
 	          console.log('Not able to POST the party: ', error);
 	        });
@@ -29102,7 +29105,7 @@
 	  _createClass(Navbar, [{
 	    key: 'render',
 	    value: function render() {
-	      var pages = ['map', 'party', 'login', 'logout', 'signup'];
+	      var pages = ['map', 'logout'];
 	      var navLinks = pages.map(function (page, index) {
 	        return _react2.default.createElement(
 	          'li',
@@ -29556,7 +29559,7 @@
 	          navigator.geolocation.getCurrentPosition(function (position) {
 	            var map = new google.maps.Map(document.getElementById('googleMaps'), {
 	              center: { lat: position.coords.latitude, lng: position.coords.longitude },
-	              zoom: 17,
+	              zoom: 19,
 	              zoomControl: false,
 	              mapTypeControl: false,
 	              scaleControl: false,

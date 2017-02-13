@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from 'react-router';
 import ReactDOM from 'react-dom';
 import Button from './map-button.js';
 import NavBar from './map-nav.js';
@@ -33,8 +34,9 @@ class Map extends React.Component {
         latitude: latitude,
         longitude: longitude
       })
-      .then(function(res){
-        console.log('Party response is: ', res);
+      .then(function(party){
+        //console.log('Party response is: ', res.data);
+        browserHistory.push('/party/?id=' + party.data.id);
       })
       .catch(function(error){
         console.log('Not able to POST the party: ', error);

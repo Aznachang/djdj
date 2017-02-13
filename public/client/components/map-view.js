@@ -52,7 +52,7 @@ export default class MapContainer extends React.Component {
       navigator.geolocation.getCurrentPosition(function(position) {
         var map = new google.maps.Map(document.getElementById('googleMaps'), {
           center: {lat: position.coords.latitude, lng: position.coords.longitude},
-          zoom: 17,
+          zoom: 19,
           zoomControl: false,
           mapTypeControl: false,
           scaleControl: false,
